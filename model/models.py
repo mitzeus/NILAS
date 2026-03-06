@@ -79,7 +79,14 @@ class Conversation_Model:
             f.write(json_history)
 
     def import_word_library(self, flashcards: pd.DataFrame):
-        self.flashcards = flashcards
+        # Takes dataframe with columns: [freq	level	affix	word]
+
+        flashcards_string = """"""
+
+        for _, row in flashcards.iterrows():
+            flashcards_string += f"{row["word"]}\n"
+
+        self.flashcards = flashcards_string
 
     def determine_level(self) -> str:
         # TODO: implement method to determine user level based on flashcards CEFR level and amount of words in flashcard library
@@ -92,6 +99,11 @@ class Conversation_Model:
         preferred_language: str = None,
         level: str = None,
     ) -> str:
+        if self.flashcards == None:
+            print(
+                "WARNING: No word library has been imported. No flashcard limitations are set."
+            )
+
         preprocessed_prompt = process_prompt(
             prompt=prompt,
             flashcards=self.flashcards,
