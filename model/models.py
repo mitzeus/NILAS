@@ -143,14 +143,14 @@ class Conversation_Model:
             self.history += [
                 {
                     "role": "assistant",
-                    "content": [{"type": "input_text", "text": response.output_text}],
+                    "content": [{"type": "output_text", "text": response.output_text}],
                 }
             ]
         else:
             self.history = [
                 {
                     "role": "assistant",
-                    "content": [{"type": "input_text", "text": response.output_text}],
+                    "content": [{"type": "output_text", "text": response.output_text}],
                 }
             ]
 
@@ -161,5 +161,140 @@ class Conversation_Model:
 
 
 class Corrector:
+    """
+    The corrector is a module that implements improvement and evaluation steps.
+    It handles checking measurements of the output with respect to lexical con-
+    straints and naturalness, then sends feedback back to the model for iterative
+    improvement.
+    """
+
     def __init__(self):
+        """
+        ## Args:
+            None
+
+        ## Returns:
+            None
+        """
+        # Define subcomponents of corrector
+        self.lexical = self.Lexical(self)
+        self.naturalness = self.Naturalness(self)
+
+        # Attributes
+        self.conversation = None
+        self.flashcards = None
+
+    def fit(conversation_history: list[dict], flashcards=None):
+        """
+        Fits LLM conversation history to corrector model, enabling usage of improvement and evaluation methods.
+
+        ## Args:
+            `conversation_history (list[dict])`: Conversation history from an API model.
+
+            `flashcards (str)`: String of words separated by `\\n`
+
+        ## Returns:
+            None
+        """
+        # TODO input history into self.conversation and flashcards in self.flashcards which each other function will use internally
         pass
+
+    class Lexical:
+        """
+        All methods related to lexical constraint processing.
+        """
+
+        def __init__(self, parent):
+            self.parent = parent
+
+            # TODO define system prompt for LLM classification
+
+        def llm_classification(self, model: object, args: dict):
+            """
+            Classifies each word in a string as new or old given `self.flashcards`.
+
+            ## Args:
+                `model (object)`: Object for model to use
+                `args (dict)`: arguments that will be passed to model
+
+            ## Returns:
+                `pd.DataFrame`
+
+            """
+            # TODO implement LLM checking lexical constraints
+            pass
+
+        def raw_checking(self):
+            """
+            Processes model output using traditional NLP methods
+            and compares the used vocabulary with the allowed vocabulary
+            lists. Each word is then marked according to if it is an existing or new
+            word and checks both if all new words are marked correctly and if the
+            output followed CI constraint
+
+            ## Args:
+                None
+
+            ## Returns:
+                `pd.DataFrame`
+            """
+            # TODO implement checking using traditional methods
+            pass
+
+    class Naturalness:
+        """
+        All methods related to Naturalness processing.
+        """
+
+        def __init__(self, parent):
+            self.parent = parent
+
+        def perplexity(self):
+            """
+            Computes perplexity given a word sequence.
+
+            ## Args:
+                None
+
+            ## Returns:
+                `float`
+            """
+            # TODO implement perplexity
+            pass
+
+        def llmaaj(self, model: object, args: dict):
+            """
+            Lets other LLMs judge and rate areas of the model
+            output and propose improvements. Several different LLMs would allow
+            for more advanced reasoning and result in a more nuanced final rating
+            and critics.
+
+            ## Args:
+                `model (object)`: Object for model to use
+                `args (dict)`: arguments that will be passed to model
+
+
+            ## Returns:
+                `pd.DataFrame`: Ratings of each category
+
+                `str`: Prompt for improving model output
+            """
+            # TODO Implement LLM as a Judge
+            pass
+
+        def human_compare(self, human_corpus: str):
+            """
+            Calculates distributions of key measurements of
+            both the model output and a human-written corpus and com-
+            pares how similar the distributions are using KL-Divergence
+
+            ## Args:
+                `human_corpus (str)`: Human-written corpus/text that the method will compare the generated output to
+
+
+            ## Returns:
+                `pd.DataFrame`: DataFrame of Distribution distances based on category
+
+            """
+            # TODO Implement Text Distribution Comparison using human corpus
+            pass
