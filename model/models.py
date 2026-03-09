@@ -181,10 +181,10 @@ class Corrector:
         self.naturalness = self.Naturalness(self)
 
         # Attributes
-        self.conversation = None
+        self.initial_response = None
         self.flashcards = None
 
-    def fit(conversation_history: list[dict], flashcards=None):
+    def fit(self, conversation_history: list[dict], flashcards: list[str] = None):
         """
         Fits LLM conversation history to corrector model, enabling usage of improvement and evaluation methods.
 
@@ -196,8 +196,8 @@ class Corrector:
         ## Returns:
             None
         """
-        # TODO input history into self.conversation and flashcards in self.flashcards which each other function will use internally
-        pass
+        self.initial_response = conversation_history[-1]["content"][0]["text"]
+        self.flashcards = flashcards
 
     class Lexical:
         """
@@ -207,22 +207,78 @@ class Corrector:
         def __init__(self, parent):
             self.parent = parent
 
-            # TODO define system prompt for LLM classification
-
-        def llm_classification(self, model: object, args: dict):
+        def llm_classification(
+            self, model_client: object, model_name: str, system_message: str
+        ) -> str:
             """
-            Classifies each word in a string as new or old given `self.flashcards`.
+            Classifies each word in a string as new or old given `self.flashcards` using a separate LLM model.
 
             ## Args:
-                `model (object)`: Object for model to use
-                `args (dict)`: arguments that will be passed to model
+                `model_client (object)`: Object for model client to use
+                `model_name (str)`: Model name to use in the client
+                `system_message (str)`: System Message used for model instructions
 
             ## Returns:
-                `pd.DataFrame`
+                `pd.DataFrame`: Dataframe with columns "word" and "is_new" for each word in the string
 
             """
             # TODO implement LLM checking lexical constraints
-            pass
+
+            response = self.parent.initial_response.split("/?VOCABULARY?/")
+            response = response[0]
+
+            full_prompt = f"""
+            The sentence is:
+            "{response}"
+
+            Flashcard List:
+            {self.parent.flashcards}
+
+
+            """
+
+            rated_response = model_client.responses.create(
+                model=model_name,
+                input=[
+                    {
+                        "role": "system",
+                        "content": [{"type": "input_text", "text": system_message}],
+                    },
+                    {
+                        "role": "user",
+                        "content": [{"type": "input_text", "text": full_prompt}],
+                    },
+                ],
+                temperature=0.5,
+                max_output_tokens=10000,
+                store=False,
+            )
+
+            print(rated_response.output_text)
+
+            # assumes this version:
+            # Varje,0
+            # dag,0
+            # vaknar,0
+
+            word_status_pairs = rated_response.output_text.split("\n")
+
+            df = pd.DataFrame(columns=["word", "is_new"])
+            words = []
+            is_news = []
+
+            for word_status_pair in word_status_pairs:
+                word_status_pair_splitted = word_status_pair.split(
+                    ","
+                )  # split word and status
+
+                words.append(word_status_pair_splitted[0])
+                is_news.append(int(word_status_pair_splitted[1]))
+
+            df["word"] = words
+            df["is_new"] = is_news
+
+            return df
 
         def raw_checking(self):
             """

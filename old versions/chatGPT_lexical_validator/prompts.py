@@ -26,7 +26,7 @@ SYSTEM_PROMPT_STRING = """
     IF the word is NOT included in the flashcard list (given the rules):
       - Mark it with a score of 0
 
-  3) Create a list of all the words in the sentence with their corresponding score with a " - " in between. If words are part of the same expression, put them together instead.
+  3) Create a list of all the words in the sentence with their corresponding score with a "," in between (similar to a csv comma separated format). If words are part of the same expression, put them together instead.
   4) Return the list of words with their scores.
 
   ---
