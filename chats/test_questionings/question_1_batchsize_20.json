@@ -22,7 +22,7 @@
         "content": [
             {
                 "type": "output_text",
-                "text": "**En** och **ett** \u00e4r tv\u00e5 ord f\u00f6r \u201ca/an\u201d. **En** \u00e4r f\u00f6r **en**-ord. **Ett** \u00e4r f\u00f6r **ett**-ord.\n\nDu kan s\u00e4ga: \u201cen m\u00e4nniska\u201d och \u201cett barn\u201d. Du kan inte s\u00e4ga \u201cett m\u00e4nniska\u201d eller \u201cen barn\u201d.\n\nExempel:\n- en m\u00e4nniska  \n- ett barn  \n- en fr\u00e5ga  \n- ett land  \n- en dag  \n- ett \u00e5r  \n\n/?VOCABULARY?/\n- **en-ord**\n- **ett-ord**\n- **ord**"
+                "text": "Skillnaden \u00e4r: **en** \u00e4r f\u00f6r *en-ord* och **ett** \u00e4r f\u00f6r *ett-ord*.\n\nI svenska har m\u00e5nga ord tv\u00e5 \u201ctyper\u201d. Man s\u00e4ger **en** + ord, eller **ett** + ord. Det p\u00e5verkar ocks\u00e5 andra ord: **den** (f\u00f6r *en-ord*) och **det** (f\u00f6r *ett-ord*).\n\nExempel:\n- **en** dag \u2192 **den** dag  \n- **en** m\u00e4nniska \u2192 **den** m\u00e4nniska  \n- **ett** barn \u2192 **det** barn  \n- **ett** land \u2192 **det** land  \n\nMan kan ofta inte se det \u201clogiskt\u201d; man m\u00e5ste veta vilket ord som \u00e4r **en** och vilket som \u00e4r **ett**.\n\n/?VOCABULARY?/\n- **skillnad**\n- **f\u00f6r**\n- **ord**\n- **typ**\n- **p\u00e5verka**\n- **andra**\n- **ofta**\n- **inte**\n- **se**\n- **logiskt**\n- **m\u00e5ste**\n- **veta**\n- **vilken**"
             }
         ]
     }

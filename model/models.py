@@ -254,8 +254,6 @@ class Corrector:
                 store=False,
             )
 
-            print(rated_response.output_text)
-
             # assumes this version:
             # Varje,0
             # dag,0
