@@ -1,11 +1,11 @@
 ID,Raw freq,WPM,CEFR levels,Source,Grammar,Swedish items for translation,Word classes,Examples
-87,2966316.0,26019.68,A1,SweWaC,,och (vardagl. å; förk. o.),conj,
+87,2966316.0,26019.68,A1,SweWaC,,och,conj,
 113,518253.0,4545.97,A1,SweWaC,,men,conj,
 118,428910.0,3762.28,A1,SweWaC,,som,conj,
 126,357846.0,3138.92,A1,SweWaC,,eller,conj,
 165,162897.0,1428.89,A1,SweWaC,,än,conj,
 249,66887.0,586.71,A1,SweWaC,,utan,conj,
-88,2624032.0,23017.26,A1,SweWaC,att,vara (vardagl. va),verb,e.g. var så god!
+88,2624032.0,23017.26,A1,SweWaC,att,vara,verb,e.g. var så god!
 90,1822142.0,15983.31,A1,SweWaC,att,ha,verb,
 100,1267606.0,11119.08,A1,SweWaC,att,kunna,verb,
 101,1186905.0,10411.19,A1,SweWaC,,skola,verb,"(vanligast ska/skall, skulle)"
@@ -16,7 +16,7 @@ ID,Raw freq,WPM,CEFR levels,Source,Grammar,Swedish items for translation,Word cl
 129,342568.0,3004.91,A1,SweWaC,att,vilja,verb,
 131,335401.0,2942.04,A1,SweWaC,att,göra,verb,e.g. göra om/upp
 136,281064.0,2465.41,A1,SweWaC,att,finna,verb,
-137,279580.0,2452.4,A1,SweWaC,att,ta (el. taga),verb,e.g. ta av/bort/med/upp/ut
+137,279580.0,2452.4,A1,SweWaC,att,ta,verb,e.g. ta av/bort/med/upp/ut
 139,256885.0,2253.32,A1,SweWaC,att,se,verb,"e.g. se efter/upp/ut, se sig om"
 140,252510.0,2214.95,A1,SweWaC,,måste,verb,
 144,228135.0,2001.14,A1,SweWaC,att,gå,verb,e.g. gå bort/fram/in/iväg/ner/omkring/runt/till/upp/ut/över
@@ -24,7 +24,7 @@ ID,Raw freq,WPM,CEFR levels,Source,Grammar,Swedish items for translation,Word cl
 149,212944.0,1867.88,A1,SweWaC,att,äga,verb,e.g. äga rum
 151,206541.0,1811.72,A1,SweWaC,att,betyda,verb,
 156,198742.0,1743.31,A1,SweWaC,,böra,verb,"(vanligast bör, borde)"
-177,137774.0,1208.51,A1,SweWaC,att,ge (formellt giva),verb,"e.g. ge upp/ut, ge sig, ge sig av"
+177,137774.0,1208.51,A1,SweWaC,att,ge,verb,"e.g. ge upp/ut, ge sig, ge sig av"
 182,130114.0,1141.32,A1,SweWaC,att,skriva,verb,e.g. skriva in/under/upp/ut
 186,127123.0,1115.09,A1,SweWaC,att,te sig,verb,
 89,2197163.0,19272.89,A1,SweWaC,,i,prep,
@@ -46,28 +46,28 @@ ID,Raw freq,WPM,CEFR levels,Source,Grammar,Swedish items for translation,Word cl
 102,1070563.0,9390.67,A1,SweWaC,,jag,pronoun,
 112,538500.0,4723.57,A1,SweWaC,,vi,pronoun,
 114,506895.0,4446.34,A1,SweWaC,,man,pronoun,
-119,395479.0,3469.03,A1,SweWaC,,sig (vardagl. sej),pronoun,
+119,395479.0,3469.03,A1,SweWaC,,sig,pronoun,
 120,385430.0,3380.88,A1,SweWaC,,han,pronoun,
-121,381431.0,3345.8,A1,SweWaC,,de (vardagl. dom),pronoun,
+121,381431.0,3345.8,A1,SweWaC,,de,pronoun,
 125,366781.0,3217.3,A1,SweWaC,,sin,pronoun,
 130,339212.0,2975.47,A1,SweWaC,,all,pronoun,
 133,299166.0,2624.2,A1,SweWaC,,annan,pronoun,
 134,294294.0,2581.46,A1,SweWaC,,du,pronoun,
-135,292496.0,2565.69,A1,SweWaC,,"någon (vardagl. nån, förk. ngn)",pronoun,
+135,292496.0,2565.69,A1,SweWaC,,någon,pronoun,
 93,1654320.0,14511.22,A1,SweWaC,,en,det,
 107,786184.0,6896.18,A1,SweWaC,,den,det,
 108,719843.0,6314.26,A1,SweWaC,,ett,det,
-115,505860.0,4437.26,A1,SweWaC,,de (vardagl. dom),det,
+115,505860.0,4437.26,A1,SweWaC,,de,det,
 124,367250.0,3221.41,A1,SweWaC,,det,det,
 99,1284991.0,11271.57,A1,SweWaC,,att,subj,
 132,299879.0,2630.45,A1,SweWaC,,om,subj,
 236,74330.0,652.0,A1,SweWaC,,eftersom,subj,
-103,1034410.0,9073.55,A1,SweWaC,,"inte (formellt: icke, ej)",adverb,
+103,1034410.0,9073.55,A1,SweWaC,,inte,adverb,
 117,456578.0,4004.97,A1,SweWaC,,så,adverb,
 128,354791.0,3112.13,A1,SweWaC,,mycket,adverb,
 138,272112.0,2386.89,A1,SweWaC,,när,adverb,
 143,231774.0,2033.06,A1,SweWaC,,nu,adverb,
-152,204908.0,1797.39,A1,SweWaC,,också (vardagl. oxå),adverb,
+152,204908.0,1797.39,A1,SweWaC,,också,adverb,
 153,204142.0,1790.68,A1,SweWaC,,där,adverb,
 154,203943.0,1788.93,A1,SweWaC,,då,adverb,
 157,192701.0,1690.32,A1,SweWaC,,hur,adverb,

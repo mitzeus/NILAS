@@ -13,7 +13,7 @@
         "content": [
             {
                 "type": "input_text",
-                "text": "User Question:\n            What's the difference between 'en' and 'ett' in swedish?\n\n            User Flashcards (Known Words):\n            och (vardagl. \u00e5; f\u00f6rk. o.)\nmen\nsom\neller\n\u00e4n\nutan\nvara (vardagl. va)\nha\nkunna\nskola\nunna\nf\u00e5\nbli\nkomma\nvilja\ng\u00f6ra\nfinna\nta (el. taga)\nse\nm\u00e5ste\ng\u00e5\ns\u00e4ga\n\u00e4ga\nbetyda\nb\u00f6ra\nge (formellt giva)\nskriva\nte sig\ni\np\u00e5\n\u00e5\nav\nf\u00f6r\nmed\ntill\nom\nfr\u00e5n\nunder\nmot\nvid\nefter\ndess\ndet\nsom\njag\nvi\nman\nsig (vardagl. sej)\nhan\nde (vardagl. dom)\nsin\nall\nannan\ndu\nn\u00e5gon (vardagl. n\u00e5n, f\u00f6rk. ngn)\nen\nden\nett\nde (vardagl. dom)\ndet\natt\nom\neftersom\ninte (formellt: icke, ej)\ns\u00e5\nmycket\nn\u00e4r\nnu\nocks\u00e5 (vardagl. ox\u00e5)\nd\u00e4r\nd\u00e5\nhur\nbara\nliten\nanalog\nstor\nny\nbra\nmycket\nhel\nsvensk\n\u00e5r\ndel\ntid\ndag\nm\u00e4nniska\nland\nfr\u00e5ga\nel\nkommentar\ns\u00e4tt\ng\u00e5ng\nbarn\nring\nliv\nv\u00e4rld\nfolk\nregering\nupp\nja"
+                "text": "User Question:\n            What's the difference between 'en' and 'ett' in swedish?\n\n            User Flashcards (Known Words):\n            och\nmen\nsom\neller\n\u00e4n\nutan\nvara\nha\nkunna\nskola\nunna\nf\u00e5\nbli\nkomma\nvilja\ng\u00f6ra\nfinna\nta\nse\nm\u00e5ste\ng\u00e5\ns\u00e4ga\n\u00e4ga\nbetyda\nb\u00f6ra\nge\nskriva\nte sig\ni\np\u00e5\n\u00e5\nav\nf\u00f6r\nmed\ntill\nom\nfr\u00e5n\nunder\nmot\nvid"
             }
         ]
     },
@@ -22,7 +22,7 @@
         "content": [
             {
                 "type": "output_text",
-                "text": "**En** och **ett** \u00e4r tv\u00e5 ord f\u00f6r \u201ca/an\u201d. **En** \u00e4r f\u00f6r **en**-ord. **Ett** \u00e4r f\u00f6r **ett**-ord.\n\nDet **betyda**: ett ord **vara** antingen **en**-ord eller **ett**-ord. Du **m\u00e5ste** **se** vilket det **vara**.\n\nExempel:\n- **en** **m\u00e4nniska**\n- **en** **fr\u00e5ga**\n- **en** **del**\n- **en** **tid**\n- **en** **dag**\n- **ett** **barn**\n- **ett** **\u00e5r**\n- **ett** **land**\n- **ett** **liv**\n- **ett** **s\u00e4tt**\n\n/?VOCABULARY?/\n- **ord**\n- **tv\u00e5**\n- **f\u00f6r**\n- **antingen**\n- **vilket**\n- **exempel**"
+                "text": "**En** och **ett** \u00e4r tv\u00e5 ord f\u00f6r \u201ca/an\u201d. De visar vilket **genus** ett ord har.\n\nI svenska har m\u00e5nga ord tv\u00e5 **genus**: **en-ord** och **ett-ord**.  \nDu s\u00e4ger **en** f\u00f6re ett **en-ord**, och **ett** f\u00f6re ett **ett-ord**.\n\nExempel:  \nJag **har** **en** **bil**.  \nJag **har** **ett** **hus**.  \nJag **ser** **en** **bok**.  \nJag **ser** **ett** **barn**.  \nJag **vill ha** **en** **stol**, **men** jag **vill ha** **ett** **bord**.\n\nDu kan ofta bara l\u00e4ra vilket ord \u00e4r **en** eller **ett** f\u00f6r varje sak.\n\n/\u200b?VOCABULARY?\u200b/  \n- **en**  \n- **ett**  \n- **ord**  \n- **tv\u00e5**  \n- **f\u00f6r**  \n- **visa**  \n- **vilket**  \n- **genus**  \n- **svenska**  \n- **m\u00e5nga**  \n- **en-ord**  \n- **ett-ord**  \n- **s\u00e4ga**  \n- **f\u00f6re**  \n- **bil**  \n- **hus**  \n- **bok**  \n- **barn**  \n- **stol**  \n- **bord**  \n- **sak**  \n- **ofta**  \n- **bara**  \n- **l\u00e4ra**  \n- **varje**"
             }
         ]
     }

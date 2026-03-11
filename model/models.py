@@ -1,5 +1,7 @@
 import pandas as pd
 import json
+import spacy
+import re
 
 
 class Prompt_Preprocessor:
@@ -160,6 +162,35 @@ class Conversation_Model:
         return response.output_text
 
 
+class Conversation:
+    def __init__(
+        self,
+        id: str,
+        question_id: str,
+        nr_vocab: int,
+        question: str,
+        response: str,
+        word_limits: str = None,
+    ):
+        self.id = id
+        self.question_id = question_id
+        self.nr_vocab = nr_vocab
+        self.question = question
+        self.response = response
+        self.word_limits = word_limits
+
+        self.lexical = self.Lexical(self)
+        self.naturalness = self.Naturalness(self)
+
+    class Lexical:
+        def __init__(self, parent):
+            self.parent = parent
+
+    class Naturalness:
+        def __init__(self, parent):
+            self.parent = parent
+
+
 class Corrector:
     """
     The corrector is a module that implements improvement and evaluation steps.
@@ -181,22 +212,22 @@ class Corrector:
         self.naturalness = self.Naturalness(self)
 
         # Attributes
-        self.initial_response = None
+        self.conversation_data = None
         self.flashcards = None
 
-    def fit(self, conversation_history: list[dict], flashcards: list[str] = None):
+    def fit(self, conversation_data: list[dict], flashcards: list[str] = None):
         """
         Fits LLM conversation history to corrector model, enabling usage of improvement and evaluation methods.
 
         ## Args:
-            `conversation_history (list[dict])`: Conversation history from an API model.
+            `conversation_data (list[dict])`: Conversation history from an API model.
 
             `flashcards (str)`: String of words separated by `\\n`
 
         ## Returns:
             None
         """
-        self.initial_response = conversation_history[-1]["content"][0]["text"]
+        self.conversation_data = conversation_data
         self.flashcards = flashcards
 
     class Lexical:
@@ -213,70 +244,80 @@ class Corrector:
             """
             Classifies each word in a string as new or old given `self.flashcards` using a separate LLM model.
 
+            All results DataFrames are appended to Conversation object: `conversation.lexical.llm_classification`.
+
             ## Args:
                 `model_client (object)`: Object for model client to use
                 `model_name (str)`: Model name to use in the client
                 `system_message (str)`: System Message used for model instructions
 
             ## Returns:
-                `pd.DataFrame`: Dataframe with columns "word" and "is_new" for each word in the string
+                `list[pd.DataFrame]`: List of Dataframe with columns "word" and "is_new" for each word in the string
 
             """
-            # TODO implement LLM checking lexical constraints
+            conversations = self.parent.conversation_data
 
-            response = self.parent.initial_response.split("/?VOCABULARY?/")
-            response = response[0]
+            list_of_dfs = []
 
-            full_prompt = f"""
-            The sentence is:
-            "{response}"
+            for conversation in conversations:
 
-            Flashcard List:
-            {self.parent.flashcards}
+                response = conversation.response.split("/?VOCABULARY?/")
+                response = response[0]
 
+                full_prompt = f"""
+                The sentence is:
+                "{response}"
 
-            """
+                Flashcard List:
+                {self.parent.flashcards}
+                """
 
-            rated_response = model_client.responses.create(
-                model=model_name,
-                input=[
-                    {
-                        "role": "system",
-                        "content": [{"type": "input_text", "text": system_message}],
-                    },
-                    {
-                        "role": "user",
-                        "content": [{"type": "input_text", "text": full_prompt}],
-                    },
-                ],
-                temperature=0.5,
-                max_output_tokens=10000,
-                store=False,
-            )
+                rated_response = model_client.responses.create(
+                    model=model_name,
+                    input=[
+                        {
+                            "role": "system",
+                            "content": [{"type": "input_text", "text": system_message}],
+                        },
+                        {
+                            "role": "user",
+                            "content": [{"type": "input_text", "text": full_prompt}],
+                        },
+                    ],
+                    temperature=0.5,
+                    max_output_tokens=10000,
+                    store=False,
+                )
 
-            # assumes this version:
-            # Varje,0
-            # dag,0
-            # vaknar,0
+                print(rated_response.output_text)
 
-            word_status_pairs = rated_response.output_text.split("\n")
+                # assumes this version:
+                # Varje,0
+                # dag,0
+                # vaknar,0
 
-            df = pd.DataFrame(columns=["word", "is_new"])
-            words = []
-            is_news = []
+                word_status_pairs = rated_response.output_text.split("\n")
 
-            for word_status_pair in word_status_pairs:
-                word_status_pair_splitted = word_status_pair.split(
-                    ","
-                )  # split word and status
+                df = pd.DataFrame(columns=["word", "is_new"])
+                words = []
+                is_news = []
 
-                words.append(word_status_pair_splitted[0])
-                is_news.append(int(word_status_pair_splitted[1]))
+                for word_status_pair in word_status_pairs:
+                    word_status_pair_splitted = word_status_pair.split(
+                        ","
+                    )  # split word and status
 
-            df["word"] = words
-            df["is_new"] = is_news
+                    words.append(word_status_pair_splitted[0])
+                    is_news.append(int(word_status_pair_splitted[1]))
 
-            return df
+                df["word"] = words
+                df["is_new"] = is_news
+
+                conversation.lexical.llm_classification = df
+
+                list_of_dfs.append(df)
+
+            return list_of_dfs
 
         def raw_checking(self):
             """
@@ -293,7 +334,62 @@ class Corrector:
                 `pd.DataFrame`
             """
             # TODO implement checking using traditional methods
-            pass
+
+            # Lemmatization and NLP proecessing from scratch
+            # SpaCy is a popular library for lemmatization
+
+            # There is also a version using spaCy to train yourself, but as we have POS tags, that's what will be used
+            # SpaCy also has support for Spanish, Swedish and Korean
+
+            # Available Models
+            # Korean: ko_core_news_lg (large),  ko_core_news_sm (small)
+            # Spanish: es_dep_news_trf (large), es_core_news_sm (small)
+            # Swedish: sv_core_news_lg (large), sv_core_news_sm (small)
+
+            conversations = self.parent.conversation_data
+
+            list_of_dfs = []
+
+            for conversation in conversations:
+
+                # Extract only text
+                text = conversation.response.split("/?VOCABULARY?/")
+                text = text[0]
+
+                # preprocess
+                text = text.lower()
+                text = re.sub(r"[^\w\s]|\n", "", text)  # removes special letters
+
+                nlp = spacy.load("sv_core_news_lg")  # for Swedish
+
+                word_list = []
+                lemma_list = []
+                score_list = []
+
+                doc = nlp(text)
+                # print(doc.text)
+                for token in doc:
+                    # print(token.text, "->", token.lemma_)
+                    lemma = token.lemma_
+
+                    if token.lemma_ in self.parent.flashcards:
+                        score_list.append(0)
+                    else:
+                        score_list.append(1)
+
+                    word_list.append(token.text)
+                    lemma_list.append(lemma)
+
+                df = pd.DataFrame(columns=["word", "lemma", "score"])
+                df["word"] = word_list
+                df["lemma"] = lemma_list
+                df["score"] = score_list
+
+                conversation.lexical.raw_checking = df
+
+                list_of_dfs.append(df)
+
+            return list_of_dfs
 
     class Naturalness:
         """

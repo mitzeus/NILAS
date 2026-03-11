@@ -13,7 +13,7 @@
         "content": [
             {
                 "type": "input_text",
-                "text": "User Question:\n            What's the difference between 'en' and 'ett' in swedish?\n\n            User Flashcards (Known Words):\n            och\nmen\nsom\neller\n\u00e4n\nutan\nvara\nha\nkunna\nskola\nunna\nf\u00e5\nbli\nkomma\nvilja\ng\u00f6ra\nfinna\nta\nse\nm\u00e5ste\ng\u00e5\ns\u00e4ga\n\u00e4ga\nbetyda\nb\u00f6ra\nge\nskriva\nte sig\ni\np\u00e5\n\u00e5\nav\nf\u00f6r\nmed\ntill\nom\nfr\u00e5n\nunder\nmot\nvid\nefter\ndess\ndet\nsom\njag\nvi\nman\nsig\nhan\nde\nsin\nall\nannan\ndu\nn\u00e5gon\nen\nden\nett\nde\ndet"
+                "text": "User Question:\n            What's the difference between 'en' and 'ett' in swedish?\n\n            User Flashcards (Known Words):\n            och\nmen\nsom\neller\n\u00e4n\nutan\nvara\nha\nkunna\nskola\nunna\nf\u00e5\nbli\nkomma\nvilja\ng\u00f6ra\nfinna\nta\nse\nm\u00e5ste\ng\u00e5\ns\u00e4ga\n\u00e4ga\nbetyda\nb\u00f6ra\nge\nskriva\nte sig\ni\np\u00e5\n\u00e5\nav\nf\u00f6r\nmed\ntill\nom\nfr\u00e5n\nunder\nmot\nvid\nefter\ndess\ndet\nsom\njag\nvi\nman\nsig\nhan\nde\nsin\nall\nannan\ndu\nn\u00e5gon\nen\nden\nett\nde\ndet\natt\nom\neftersom\ninte\ns\u00e5\nmycket\nn\u00e4r\nnu\nocks\u00e5\nd\u00e4r\nd\u00e5\nhur\nbara\nliten\nanalog\nstor\nny\nbra\nmycket\nhel"
             }
         ]
     },
@@ -22,7 +22,7 @@
         "content": [
             {
                 "type": "output_text",
-                "text": "**en** och **ett** \u00e4r tv\u00e5 ord f\u00f6r \u201ca/an\u201d. De h\u00f6r ihop med tv\u00e5 **genus** i svenska.\n\nI svenska har **substantiv** tv\u00e5 **genus**: **en-ord** och **ett-ord**.  \nDu anv\u00e4nder **en** med **en-ord**, och **ett** med **ett-ord**.\n\nExempel:  \nJag **har** **en** **bok**.  \nJag **har** **ett** **hus**.\n\nDu kan ofta se det i \u201cden/det\u201d:  \n**den** + en-ord  \n**det** + ett-ord\n\nExempel:  \n**den** **bok**  \n**det** **hus**\n\nDet finns ingen enkel regel som alltid visar om ett ord \u00e4r en-ord eller ett-ord, s\u00e5 man brukar l\u00e4ra sig ordet tillsammans med **en** eller **ett**.\n\n/?VOCABULARY?/\n- **genus**\n- **substantiv**\n- **en-ord**\n- **ett-ord**\n- **bok**\n- **hus**"
+                "text": "I svenska \u00e4r **en** och **ett** tv\u00e5 former av \u201ca/an\u201d. Man s\u00e4ger **en** med **en**-ord, och **ett** med **ett**-ord.\n\nDet betyder: ett ord har **en**, eller ett ord har **ett**. Du m\u00e5ste veta vilket ord det \u00e4r.\n\nExempel:\n- **en** + **stor** sak: **en** **stor** **analog** sak  \n- **ett** + **stor** sak: **ett** **stor** **analog** sak  \n- **en** sak, **den** sak  \n- **ett** sak, **det** sak\n\n/?VOCABULARY?/\n- **svenska**\n- **tv\u00e5**\n- **former**\n- **ord**\n- **sak**\n- **med**\n- **m\u00e5ste**\n- **veta**\n- **vilket**"
             }
         ]
     }
