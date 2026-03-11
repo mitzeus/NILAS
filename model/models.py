@@ -284,12 +284,12 @@ class Corrector:
                             "content": [{"type": "input_text", "text": full_prompt}],
                         },
                     ],
-                    temperature=0.5,
+                    temperature=0.1,
                     max_output_tokens=10000,
                     store=False,
                 )
 
-                print(rated_response.output_text)
+                # print(rated_response.output_text)
 
                 # assumes this version:
                 # Varje,0
@@ -306,6 +306,9 @@ class Corrector:
                     word_status_pair_splitted = word_status_pair.split(
                         ","
                     )  # split word and status
+
+                    if len(word_status_pair_splitted) != 2:
+                        continue
 
                     words.append(word_status_pair_splitted[0])
                     is_news.append(int(word_status_pair_splitted[1]))

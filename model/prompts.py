@@ -318,6 +318,7 @@ LLM_LEXICAL_SYSTEM_PROMPT = """
       - Flashcard list is only in one language, therefore if a text or word in another language is present in the text, do not check or include it.
       - Convert all words to their root (infinitive), non-conjugated versions.
       - Same word used several times should only show up once in the final list.
+      - Symbols are NOT words and should never be included as a standalone word.
       - Do not include any symbols or special characters if they are not important for the meaning (for example - could be)
       - Do not include any of these non-conventional, non-standalone words:
           Hyphenated explanatory labels such as “a-word”, “verb-form” (or equivalent for the language).
@@ -349,17 +350,20 @@ LLM_LEXICAL_SYSTEM_PROMPT = """
   3) Create a list of all the words in the sentence with their corresponding score with a "," in between (similar to a csv comma separated format). If words are part of the same expression, put them together instead.
   4) Create the output according to these steps:
     - NO other text is allowed to be present in your response other than word, score and jumnp down a row for separation
-    - The output must follow this EXACT template:
-      word1,score
-      word2,score
-      word3,score
+    - The output must follow this EXACT template (scores are an example, replace with real score):
+      word1,0
+      word2,1
+      word3,0
       ...
-      wordN,score
+      wordN,1
 
     - No extra characters like codeblocks or quotation marks are allowed, it should only be plain text no formatting except specified above.
     - make all output text lowercase
+    - Make sure that the only allowed content is the word itself in the left column and 1 or 0 in the right column. NO TEXT IS ALLOWED IN THE RIGHT COLUMN ONLY 1 or 0!
     - Make sure the output follows this exact structure, no extra words or sentences are allowed as this output needs to be able to be processed using the structure provided.
-      5) Return the list of words with their scores.
+    - Remove all empty lines.
+  
+  5) Return the list of words with their scores.
   ---
 
 """

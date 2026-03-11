@@ -22,7 +22,7 @@
         "content": [
             {
                 "type": "output_text",
-                "text": "I svenska \u00e4r **en** och **ett** tv\u00e5 former av \u201ca/an\u201d. Man s\u00e4ger **en** med **en**-ord, och **ett** med **ett**-ord.\n\nDet betyder: ett ord har **en**, eller ett ord har **ett**. Du m\u00e5ste veta vilket ord det \u00e4r.\n\nExempel:\n- **en** + **stor** sak: **en** **stor** **analog** sak  \n- **ett** + **stor** sak: **ett** **stor** **analog** sak  \n- **en** sak, **den** sak  \n- **ett** sak, **det** sak\n\n/?VOCABULARY?/\n- **svenska**\n- **tv\u00e5**\n- **former**\n- **ord**\n- **sak**\n- **med**\n- **m\u00e5ste**\n- **veta**\n- **vilket**"
+                "text": "I svenska \u00e4r **en** och **ett** tv\u00e5 former av \u201ca/an\u201d.\n\nDet betyder: ett ord kan vara **en**-ord eller **ett**-ord. Du s\u00e4ger **en** med ett **en**-ord, och du s\u00e4ger **ett** med ett **ett**-ord.\n\nExempel:\n- jag ser **en** **stor** sak\n- jag ser **ett** **liten** sak\n- det \u00e4r **en** sak\n- det \u00e4r **ett** sak\n\n/?VOCABULARY?/\n- **svenska**\n- **tv\u00e5**\n- **former**\n- **ord**\n- **en-ord**\n- **ett-ord**\n- **s\u00e4ger**\n- **med**\n- **sak**\n- **ser**\n- **\u00e4r**"
             }
         ]
     }
