@@ -166,7 +166,8 @@ class Conversation:
     def __init__(
         self,
         id: str,
-        question_id: str,
+        question_id: int,
+        sample_id: int,
         nr_vocab: int,
         question: str,
         response: str,
@@ -174,6 +175,7 @@ class Conversation:
     ):
         self.id = id
         self.question_id = question_id
+        self.sample_id = sample_id
         self.nr_vocab = nr_vocab
         self.question = question
         self.response = response

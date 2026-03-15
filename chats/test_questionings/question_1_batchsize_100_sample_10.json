@@ -22,7 +22,7 @@
         "content": [
             {
                 "type": "output_text",
-                "text": "**Kort svar:**  \n**en** och **ett** \u00e4r tv\u00e5 s\u00e4tt att s\u00e4ga \u201ca/an\u201d i svensk.\n\n**Kort f\u00f6rklaring:**  \nI svensk har ord tv\u00e5 **grupp**. En del ord har **en**, och en del ord har **ett**. Du m\u00e5ste veta f\u00f6r varje ord om det \u00e4r **en** eller **ett**.\n\n**Exempel:**  \nDet \u00e4r **en** **m\u00e4nniska**.  \nDet \u00e4r **ett** **barn**.  \nDet \u00e4r **en** **fr\u00e5ga**.  \nDet \u00e4r **ett** **land**.  \nDet \u00e4r **en** **dag**.  \nDet \u00e4r **ett** **\u00e5r**.\n\nDu kan ocks\u00e5 se det med \u201cthe\u201d:  \n**en** \u2192 **den**  \n**ett** \u2192 **det**  \n\nExempel:  \n**den** **m\u00e4nniska**  \n**det** **barn**  \n**den** **fr\u00e5ga**  \n**det** **land**\n\n/?VOCABULARY?/\n- **grupp**"
+                "text": "**En** och **ett** \u00e4r tv\u00e5 former av \u201cen/ett\u201d. **En** g\u00e5r med vissa ord, och **ett** g\u00e5r med andra ord.\n\nI svenska finns tv\u00e5 grupper av ord: **en**-ord och **ett**-ord. Du m\u00e5ste bara veta vilket ord \u00e4r vilket.\n\nExempel:\nJag **har** **en** **fr\u00e5ga**.  \nJag **har** **ett** **barn**.  \n\nDu kan ocks\u00e5 se det med \u201cdet\u201d:\n**den** + **en**-ord  \n**det** + **ett**-ord  \n\nExempel:\n**den** **fr\u00e5ga**  \n**det** **barn**\n\n/?VOCABULARY?/\n- **form**\n- **vissa**\n- **ord**\n- **grupp**\n- **bara**\n- **veta**"
             }
         ]
     }

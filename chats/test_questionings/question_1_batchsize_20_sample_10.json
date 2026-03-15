@@ -13,7 +13,7 @@
         "content": [
             {
                 "type": "input_text",
-                "text": "User Question:\n            What's the difference between 'en' and 'ett' in swedish?\n\n            User Flashcards (Known Words):\n            och\nmen\nsom\neller\n\u00e4n\nutan\nvara\nha\nkunna\nskola\nunna\nf\u00e5\nbli\nkomma\nvilja\ng\u00f6ra\nfinna\nta\nse\nm\u00e5ste\ng\u00e5\ns\u00e4ga\n\u00e4ga\nbetyda\nb\u00f6ra\nge\nskriva\nte sig\ni\np\u00e5\n\u00e5\nav\nf\u00f6r\nmed\ntill\nom\nfr\u00e5n\nunder\nmot\nvid\nefter\ndess\ndet\nsom\njag\nvi\nman\nsig\nhan\nde\nsin\nall\nannan\ndu\nn\u00e5gon\nen\nden\nett\nde\ndet"
+                "text": "User Question:\n            What's the difference between 'en' and 'ett' in swedish?\n\n            User Flashcards (Known Words):\n            och\nmen\nsom\neller\n\u00e4n\nutan\nvara\nha\nkunna\nskola\nunna\nf\u00e5\nbli\nkomma\nvilja\ng\u00f6ra\nfinna\nta\nse\nm\u00e5ste"
             }
         ]
     },
@@ -22,7 +22,7 @@
         "content": [
             {
                 "type": "output_text",
-                "text": "**En** och **ett** \u00e4r tv\u00e5 ord f\u00f6r \u201ca/an\u201d. Du anv\u00e4nder **en** med ett **en-ord**, och **ett** med ett **ett-ord**.\n\nDet **betyda**: i svenska **vara** det tv\u00e5 **typ** av ord. Ett ord **ha** **en** eller **ett**.\n\nExempel:\nJag **ha** **en** **bok**.  \nJag **ha** **ett** **hus**.  \nDet **vara** **en** **bok**.  \nDet **vara** **ett** **hus**.  \n\n/?VOCABULARY?/\n- **tv\u00e5**\n- **ord**\n- **f\u00f6r**\n- **svenska**\n- **anv\u00e4nda**\n- **med**\n- **typ**\n- **bok**\n- **hus**"
+                "text": "**En** och **ett** \u00e4r **en** och **ett**.\n\nI svenska har ett **ord** ofta **en** eller **ett**. Det \u00e4r tv\u00e5 **form**.\n\nExempel:  \nDet \u00e4r **en** **bil**.  \nDet \u00e4r **ett** **hus**.  \n\nDu kan ocks\u00e5 se det h\u00e4r:  \n**en** **bil** \u2192 **bilen**  \n**ett** **hus** \u2192 **huset**  \n\n/?VOCABULARY?/\n- **en**\n- **ett**\n- **svenska**\n- **ord**\n- **ofta**\n- **eller**\n- **form**\n- **exempel**\n- **det**\n- **\u00e4r**\n- **bil**\n- **hus**\n- **du**\n- **kan**\n- **ocks\u00e5**\n- **se**\n- **h\u00e4r**\n- **bilen**\n- **huset**"
             }
         ]
     }

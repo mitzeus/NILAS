@@ -22,7 +22,7 @@
         "content": [
             {
                 "type": "output_text",
-                "text": "I svenska \u00e4r **en** och **ett** tv\u00e5 former av \u201ca/an\u201d.\n\nDet betyder: ett ord kan vara **en**-ord eller **ett**-ord. Du s\u00e4ger **en** med ett **en**-ord, och du s\u00e4ger **ett** med ett **ett**-ord.\n\nExempel:\n- jag ser **en** **stor** sak\n- jag ser **ett** **liten** sak\n- det \u00e4r **en** sak\n- det \u00e4r **ett** sak\n\n/?VOCABULARY?/\n- **svenska**\n- **tv\u00e5**\n- **former**\n- **ord**\n- **en-ord**\n- **ett-ord**\n- **s\u00e4ger**\n- **med**\n- **sak**\n- **ser**\n- **\u00e4r**"
+                "text": "En och ett betyder \u201ca/an\u201d, men de \u00e4r f\u00f6r olika ord. En \u00e4r f\u00f6r **en-ord**. Ett \u00e4r f\u00f6r **ett-ord**.\n\nDet betyder: du m\u00e5ste se om ordet \u00e4r \u201cen\u201d eller \u201cett\u201d. Du kan ofta se det i en bok: \u201cen \u2026\u201d eller \u201cett \u2026\u201d. Du kan ocks\u00e5 l\u00e4ra varje ord med en eller ett.\n\nExempel:  \nJag har en **bok**.  \nJag har ett **hus**.  \nDet \u00e4r en **bil**.  \nDet \u00e4r ett **barn**.  \nDet \u00e4r en liten **hund**.  \nDet \u00e4r ett litet **\u00e4pple**.\n\n/?VOCABULARY?/\n- **en-ord**\n- **ett-ord**\n- **bok**\n- **hus**\n- **bil**\n- **barn**\n- **hund**\n- **\u00e4pple**"
             }
         ]
     }

@@ -13,7 +13,7 @@
         "content": [
             {
                 "type": "input_text",
-                "text": "User Question:\n            What's the difference between 'en' and 'ett' in swedish?\n\n            User Flashcards (Known Words):\n            och\nmen\nsom\neller\n\u00e4n\nutan\nvara\nha\nkunna\nskola\nunna\nf\u00e5\nbli\nkomma\nvilja\ng\u00f6ra\nfinna\nta\nse\nm\u00e5ste\ng\u00e5\ns\u00e4ga\n\u00e4ga\nbetyda\nb\u00f6ra\nge\nskriva\nte sig\ni\np\u00e5\n\u00e5\nav\nf\u00f6r\nmed\ntill\nom\nfr\u00e5n\nunder\nmot\nvid"
+                "text": "User Question:\n            What's the difference between 'en' and 'ett' in swedish?\n\n            User Flashcards (Known Words):\n            och\nmen\nsom\neller\n\u00e4n\nutan\nvara\nha\nkunna\nskola\nunna\nf\u00e5\nbli\nkomma\nvilja\ng\u00f6ra\nfinna\nta\nse\nm\u00e5ste\ng\u00e5\ns\u00e4ga\n\u00e4ga\nbetyda\nb\u00f6ra\nge\nskriva\nte sig\ni\np\u00e5\n\u00e5\nav\nf\u00f6r\nmed\ntill\nom\nfr\u00e5n\nunder\nmot\nvid\nefter\ndess\ndet\nsom\njag\nvi\nman\nsig\nhan\nde\nsin\nall\nannan\ndu\nn\u00e5gon\nen\nden\nett\nde\ndet"
             }
         ]
     },
@@ -22,7 +22,7 @@
         "content": [
             {
                 "type": "output_text",
-                "text": "**En** och **ett** \u00e4r tv\u00e5 ord f\u00f6r \u201ca/an\u201d. De visar vilket **genus** ett ord har.\n\nI svenska finns tv\u00e5 genus: **en-ord** och **ett-ord**.  \n- **en** + en-ord  \n- **ett** + ett-ord  \n\nExempel:  \n- **en** **bok**  \n- **ett** **hus**\n\nDu kan ofta se det i formen med \u201cthe\u201d:  \n- en-ord: **en** bok \u2192 bok**en**  \n- ett-ord: **ett** hus \u2192 hus**et**\n\nDet finns ingen enkel regel som alltid s\u00e4ger om ett ord \u00e4r en-ord eller ett-ord, s\u00e5 man l\u00e4r sig det ord f\u00f6r ord.\n\n/?VOCABULARY?/\n- **en**\n- **ett**\n- **ord**\n- **tv\u00e5**\n- **svenska**\n- **genus**\n- **en-ord**\n- **ett-ord**\n- **bok**\n- **hus**\n- **form**\n- **ingen**\n- **regel**\n- **alltid**\n- **s\u00e4ga**\n- **l\u00e4r sig**"
+                "text": "**En** och **ett** \u00e4r tv\u00e5 ord f\u00f6r \u201ca/an\u201d. **En** \u00e4r f\u00f6r **en-ord**. **Ett** \u00e4r f\u00f6r **ett-ord**.\n\nDu kan se det s\u00e5 h\u00e4r: du s\u00e4ger **en** eller **ett** f\u00f6re ett ord, och ordet \u201cvill\u201d ha **en** eller **ett**.\n\nExempel:\nJag **har** **en** **annan**.  \nJag **har** **ett** **annat**.  \n\nDu kan ocks\u00e5 se det i \u201cthe\u201d:\n**den** = ofta med **en**  \n**det** = ofta med **ett**\n\nExempel:\n**den** + **en**  \n**det** + **ett**\n\n/?VOCABULARY?/\n- **a/an**\n- **en-ord**\n- **ett-ord**\n- **f\u00f6re**\n- **ofta**\n- **vill**\n- **ha** (som \u201cwant\u201d)"
             }
         ]
     }
