@@ -22,7 +22,7 @@
         "content": [
             {
                 "type": "output_text",
-                "text": "**En** och **ett** \u00e4r tv\u00e5 ord f\u00f6r \u201ca/an\u201d. **En** \u00e4r f\u00f6r **en-ord**. **Ett** \u00e4r f\u00f6r **ett-ord**.\n\nDu kan t\u00e4nka s\u00e5 h\u00e4r:  \nOm ordet \u00e4r ett **en-ord**, s\u00e5 s\u00e4ger du **en**. Om ordet \u00e4r ett **ett-ord**, s\u00e5 s\u00e4ger du **ett**.\n\nExempel:  \nJag har **en** **bok**.  \nJag har **ett** **hus**.  \nJag vill ha **en** **bil**, men jag vill ha **ett** **\u00e4pple**.\n\nDet finns ingen enkel regel som alltid funkar, s\u00e5 du m\u00e5ste ofta l\u00e4ra dig ordet med **en** eller **ett**.\n\n/?VOCABULARY?/\n- **en**\n- **ett**\n- **ord**\n- **en-ord**\n- **ett-ord**\n- **t\u00e4nka**\n- **bok**\n- **hus**\n- **bil**\n- **\u00e4pple**\n- **regel**\n- **alltid**\n- **funka**\n- **l\u00e4ra**\n- **ofta**"
+                "text": "**En** och **ett** \u00e4r som \u201ca/an\u201d p\u00e5 svenska, men de h\u00f6r till tv\u00e5 olika **grupper** av **ord**.\n\n**En** \u00e4r f\u00f6r **en-ord**.  \n**Ett** \u00e4r f\u00f6r **ett-ord**.\n\nDu kan t\u00e4nka s\u00e5 h\u00e4r: varje **substantiv** \u00e4r antingen **en** eller **ett**. Du m\u00e5ste ofta **l\u00e4ra** det med ordet.\n\nExempel:\n- **en** **bok**\n- **ett** **hus**\n- **en** **bil**\n- **ett** **barn**\n\nDu kan ocks\u00e5 se det i \u201cthe\u201d:\n- **en** bok \u2192 **boken**\n- **ett** hus \u2192 **huset**\n\n/?VOCABULARY?/\n- **en**\n- **ett**\n- **grupper**\n- **ord**\n- **substantiv**\n- **l\u00e4ra**\n- **bok**\n- **hus**\n- **bil**\n- **barn**\n- **boken**\n- **huset**"
             }
         ]
     }

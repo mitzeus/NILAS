@@ -22,7 +22,7 @@
         "content": [
             {
                 "type": "output_text",
-                "text": "**En** och **ett** \u00e4r tv\u00e5 ord f\u00f6r \u201ca/an\u201d.\n\n**En** \u00e4r f\u00f6r **en-ord**. **Ett** \u00e4r f\u00f6r **ett-ord**. Du m\u00e5ste **se** vilket ord det \u00e4r.\n\nDu kan **se** det s\u00e5 h\u00e4r:  \nDu **f\u00e5r** **en** + ord, eller **ett** + ord.  \nDu **m\u00e5ste** **se** ordet.\n\nExempel:  \nJag **f\u00e5r** **en** **bok**.  \nJag **f\u00e5r** **ett** **hus**.\n\n/?VOCABULARY?/\n- **en**\n- **ett**\n- **ord**\n- **bok**\n- **hus**"
+                "text": "**En** och **ett** \u00e4r som \u201ca/an\u201d p\u00e5 svenska, men de h\u00f6r till tv\u00e5 olika **grupper** av **ord**.\n\n**En** = f\u00f6r ett **ord** som \u00e4r **en**-ord.  \n**Ett** = f\u00f6r ett **ord** som \u00e4r **ett**-ord.\n\nDu kan t\u00e4nka s\u00e5 h\u00e4r: varje **ord** \u201c\u00e4r\u201d antingen **en** eller **ett**. Det \u00e4r n\u00e5got du ofta bara m\u00e5ste **kunna**.\n\nExempel:\n- **en** **bok**\n- **en** **bil**\n- **ett** **hus**\n- **ett** **barn**\n\n/?VOCABULARY?/\n- **en**\n- **ett**\n- **svenska**\n- **som**\n- **ord**\n- **grupper**\n- **bok**\n- **bil**\n- **hus**\n- **barn**"
             }
         ]
     }

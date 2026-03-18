@@ -22,7 +22,7 @@
         "content": [
             {
                 "type": "output_text",
-                "text": "En och ett \u00e4r som \u201ca/an\u201d p\u00e5 engelska: en g\u00e5r med ett ord, och ett g\u00e5r med ett annat ord.\n\nEn kort f\u00f6rklaring: i svenska har ord ofta tv\u00e5 \u201cgrupper\u201d. En ord-grupp tar en. En annan ord-grupp tar ett. Du m\u00e5ste ofta bara se vilket som \u00e4r r\u00e4tt f\u00f6r varje ord.\n\nExempel:\nJag har **en** **bok**.  \nJag har **ett** **hus**.  \nDet \u00e4r **en** **stor** **bok**.  \nDet \u00e4r **ett** **stor** **hus**.  \n\n/?VOCABULARY?/\n- **svenska**\n- **ord**\n- **grupp**\n- **ta** (som i: \u201cordet tar en/ett\u201d)\n- **r\u00e4tt**\n- **varje**\n- **bok**\n- **hus**"
+                "text": "**Kort svar:**  \n**en** och **ett** \u00e4r **den** och **det** f\u00f6r **en** sak.\n\n**Kort f\u00f6rklaring:**  \nI svenska har m\u00e5nga sak tv\u00e5 grupp: **en**-sak och **ett**-sak.  \n- **en**: du s\u00e4ger **en** + sak  \n- **ett**: du s\u00e4ger **ett** + sak  \n\nDu kan ocks\u00e5 se det med **den** och **det**:  \n- **en** sak \u2192 **den**  \n- **ett** sak \u2192 **det**\n\n**Exempel:**  \nJag har **en** sak. **Den** \u00e4r bra.  \nJag har **ett** sak. **Det** \u00e4r bra.  \n\nDu kan inte alltid se det fr\u00e5n sak. Du m\u00e5ste ofta bara veta: **en** eller **ett**.\n\n/?VOCABULARY?/  \n- **svenska**  \n- **sak**  \n- **grupp**  \n- **ofta**  \n- **alltid**  \n- **veta**"
             }
         ]
     }

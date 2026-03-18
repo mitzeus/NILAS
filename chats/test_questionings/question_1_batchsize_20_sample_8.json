@@ -22,7 +22,7 @@
         "content": [
             {
                 "type": "output_text",
-                "text": "**En** och **ett** \u00e4r som \u201ca/an\u201d p\u00e5 svenska. **En** \u00e4r f\u00f6r **en-ord**. **Ett** \u00e4r f\u00f6r **ett-ord**.\n\nDu kan s\u00e4ga: \u201cen \u2026\u201d eller \u201cett \u2026\u201d. Du m\u00e5ste veta om ordet \u00e4r **en** eller **ett**.\n\nExempel:\nJag ser **en** **bok**.  \nJag ser **ett** **hus**.  \nJag vill ha **en** **bil**.  \nJag vill ha **ett** **\u00e4pple**.  \n\n/\u200b?VOCABULARY?\u200b/\n- **en**\n- **ett**\n- **svenska**\n- **ord**\n- **en-ord**\n- **ett-ord**\n- **s\u00e4ga**\n- **veta**\n- **bok**\n- **hus**\n- **bil**\n- **\u00e4pple**\n- **jag**\n- **du**"
+                "text": "**En** och **ett** \u00e4r som \u201ca/an\u201d p\u00e5 svenska, men de h\u00f6r till tv\u00e5 olika **genus**.\n\nEn kort regel:  \n- **en** + ett **en-ord**  \n- **ett** + ett **ett-ord**\n\nDet \u00e4r oftast n\u00e5got du m\u00e5ste l\u00e4ra ord f\u00f6r ord: ett ord \u00e4r antingen **en** eller **ett**.\n\nExempel (vanliga):  \n- **en** **bok**  \n- **ett** **hus**  \n- **en** **stol**  \n- **ett** **barn**\n\n/?VOCABULARY?/\n- **en**\n- **ett**\n- **genus**\n- **en-ord**\n- **ett-ord**\n- **regel**\n- **l\u00e4ra**\n- **ord**\n- **bok**\n- **hus**\n- **stol**\n- **barn**"
             }
         ]
     }

@@ -22,7 +22,7 @@
         "content": [
             {
                 "type": "output_text",
-                "text": "En och ett \u00e4r \u201cen\u201d och \u201cett\u201d f\u00f6r ett **ord**.\n\nEn \u00e4r f\u00f6r en **sak** som \u00e4r \u201cen\u201d. Ett \u00e4r f\u00f6r en **sak** som \u00e4r \u201cett\u201d. Du m\u00e5ste bara veta vad en sak \u00e4r: en eller ett.\n\nJag ser en ring. Jag ser ett barn.  \nJag har en fr\u00e5ga. Jag har ett land.  \nDet \u00e4r en dag. Det \u00e4r ett \u00e5r.  \nDet \u00e4r en del. Det \u00e4r ett liv.  \n\n/?VOCABULARY?/\n- **ord**\n- **sak**"
+                "text": "I svenska \u00e4r **en** och **ett** tv\u00e5 ord f\u00f6r \u201ca/an\u201d. Du v\u00e4ljer **en** eller **ett** f\u00f6r att det passar med ordet.\n\nEn kort f\u00f6rklaring: m\u00e5nga ord \u00e4r **en**-ord, och m\u00e5nga ord \u00e4r **ett**-ord. Du kan ofta se det i en ordbok: \u201cen \u2026\u201d eller \u201cett \u2026\u201d. Du kan inte alltid veta bara fr\u00e5n ordet, s\u00e5 du l\u00e4r dig det ord f\u00f6r ord.\n\nExempel:\n- **en** dag  \n- **en** m\u00e4nniska  \n- **en** fr\u00e5ga  \n- **en** kommentar  \n- **en** ring  \n- **ett** barn  \n- **ett** land  \n- **ett** \u00e5r  \n- **ett** liv  \n- **ett** s\u00e4tt  \n\n/?VOCABULARY?/\n- **a/an**\n- **v\u00e4lja**\n- **passa**\n- **kort**\n- **f\u00f6rklaring**\n- **m\u00e5nga**\n- **ord**\n- **ordbok**\n- **l\u00e4ra**\n- **exempel**"
             }
         ]
     }

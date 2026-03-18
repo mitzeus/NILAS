@@ -22,7 +22,7 @@
         "content": [
             {
                 "type": "output_text",
-                "text": "**En** och **ett** \u00e4r tv\u00e5 ord f\u00f6r \u201ca/an\u201d. **En** \u00e4r f\u00f6r **en-ord** och **ett** \u00e4r f\u00f6r **ett-ord**.\n\nDet **betyda**: du **m\u00e5ste** **se** vilket ord det \u00e4r: **en** eller **ett**. Du kan ofta **se** det i en **skriva**-form: \u201cen ___\u201d eller \u201cett ___\u201d.\n\nExempel:\nJag **har** **en**.  \nJag **har** **ett**.  \nDet \u00e4r **en**.  \nDet \u00e4r **ett**.  \nJag **se** **en** och **ett**.\n\n(Om du vill, kan du ge 2\u20133 ord du **har** i din lista, och jag kan **s\u00e4ga** om de \u00e4r **en** eller **ett**.)\n\n/?VOCABULARY?/\n- **ord**\n- **tv\u00e5**\n- **f\u00f6r**\n- **vilket**\n- **ofta**\n- **form**\n- **exempel**\n- **ge**\n- **lista**"
+                "text": "**En** och **ett** \u00e4r tv\u00e5 ord f\u00f6r \u201ca/an\u201d. De visar vilket **genus** ett ord har.\n\nI svenska har m\u00e5nga ord tv\u00e5 genus: **en-ord** och **ett-ord**.  \nDu s\u00e4ger **en** med ett **en-ord**, och du s\u00e4ger **ett** med ett **ett-ord**.\n\nExempel:\n- jag **har** **en** **bok**  \n- jag **har** **ett** **hus**  \n- jag **ser** **en** **bil**  \n- jag **ser** **ett** **barn**\n\nDu kan ocks\u00e5 se det med \u201cthe\u201d:\n- **en** bok \u2192 **den** bok  \n- **ett** hus \u2192 **det** hus\n\n/?VOCABULARY?/\n- **tv\u00e5**\n- **ord**\n- **visar**\n- **vilket**\n- **genus**\n- **svenska**\n- **m\u00e5nga**\n- **bok**\n- **hus**\n- **bil**\n- **barn**"
             }
         ]
     }

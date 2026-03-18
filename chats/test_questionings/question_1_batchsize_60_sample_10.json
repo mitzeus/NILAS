@@ -22,7 +22,7 @@
         "content": [
             {
                 "type": "output_text",
-                "text": "**Kort svar:**  \n**en** och **ett** \u00e4r **en** och **ett**. De \u00e4r f\u00f6r **en** och **ett**.\n\n**Kort f\u00f6rklaring:**  \nI svenska \u00e4r **en** f\u00f6r ett ord som \u00e4r **en**. Och **ett** \u00e4r f\u00f6r ett ord som \u00e4r **ett**. Du kan se det i ordet: **en** eller **ett**.\n\n**Exempel:**  \nJag har **en**.  \nJag har **ett**.  \nDet \u00e4r **en**.  \nDet \u00e4r **ett**.\n\n/?VOCABULARY?/  \n- **kort**  \n- **svar**  \n- **f\u00f6rklaring**  \n- **svenska**  \n- **ord**  \n- **du**  \n- **kan**  \n- **se**  \n- **i**  \n- **exempel**  \n- **har**  \n- **\u00e4r**"
+                "text": "**En** och **ett** \u00e4r tv\u00e5 ord f\u00f6r \u201ca/an\u201d, men de h\u00f6r till tv\u00e5 olika **genus** i svenska.\n\nI svenska har m\u00e5nga ord antingen **en-ord** eller **ett-ord**. Du v\u00e4ljer **en** med ett **en-ord**, och du v\u00e4ljer **ett** med ett **ett-ord**. Det \u00e4r oftast n\u00e5got du m\u00e5ste l\u00e4ra dig f\u00f6r varje ord.\n\nExempel:\n- jag har **en** **bok**\n- jag har **ett** **hus**\n- det \u00e4r **en** **bil**\n- det \u00e4r **ett** **barn**\n\n/?VOCABULARY?/\n- **genus**\n- **en-ord**\n- **ett-ord**\n- **bok**\n- **hus**\n- **bil**\n- **barn**"
             }
         ]
     }

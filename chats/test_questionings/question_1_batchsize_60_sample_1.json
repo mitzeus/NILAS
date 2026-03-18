@@ -22,7 +22,7 @@
         "content": [
             {
                 "type": "output_text",
-                "text": "**En** och **ett** \u00e4r tv\u00e5 ord f\u00f6r \u201ca/an\u201d. **En** \u00e4r f\u00f6r **en-ord** och **ett** \u00e4r f\u00f6r **ett-ord**.\n\nDet **betyda**: du **m\u00e5ste** **se** vilket ord det \u00e4r: **en** eller **ett**. Du **kan** inte **ta** **ett** med **en-ord**, och du **kan** inte **ta** **en** med **ett-ord**.\n\nExempel:  \nJag **har** **en** **bok**.  \nJag **har** **ett** **hus**.  \nDet \u00e4r **en** **bil**.  \nDet \u00e4r **ett** **barn**.  \n\nOm du **inte** **vet**, du **kan** **se** i **en** **bok**.\n\n/?VOCABULARY?/\n- **tv\u00e5**\n- **ord**\n- **f\u00f6r**\n- **bok**\n- **hus**\n- **bil**\n- **barn**\n- **inte**\n- **vet**"
+                "text": "**En** och **ett** \u00e4r tv\u00e5 ord f\u00f6r \u201ca/an\u201d. De \u00e4r f\u00f6r tv\u00e5 olika **genus**: **en**-ord och **ett**-ord.\n\nI svenska har m\u00e5nga ord **en**, och n\u00e5gra ord har **ett**. Du m\u00e5ste veta om ett ord \u00e4r ett **en**-ord eller ett **ett**-ord.\n\nExempel:\n- jag har **en** \u2026  \n- jag har **ett** \u2026\n\n/?VOCABULARY?/\n- **a/an**\n- **tv\u00e5**\n- **ord**\n- **svenska**\n- **genus**\n- **m\u00e5nga**\n- **n\u00e5gra**\n- **m\u00e5ste**\n- **veta**\n- **exempel**"
             }
         ]
     }

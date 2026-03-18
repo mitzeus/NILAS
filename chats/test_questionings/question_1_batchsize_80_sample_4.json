@@ -22,7 +22,7 @@
         "content": [
             {
                 "type": "output_text",
-                "text": "**Kort svar:**  \n**en** och **ett** \u00e4r **en** och **ett**.\n\n**F\u00f6rklaring:**  \nI svenska har **en** och **ett** olika **betyda**:  \n**en** \u00e4r f\u00f6r **en**-ord, och **ett** \u00e4r f\u00f6r **ett**-ord.  \nDu **m\u00e5ste** **se** vilket ord det \u00e4r: **en** eller **ett**.\n\n**Exempel:**  \nDet \u00e4r **en**.  \nDet \u00e4r **ett**.  \nDet \u00e4r **en** och det \u00e4r **ett**.  \nJag **ser** **en**. Jag **ser** **ett**.  \nNu \u00e4r det **en**. Nu \u00e4r det **ett**.\n\n/?VOCABULARY?/\n- **svenska**\n- **olika**\n- **ord**"
+                "text": "**En** och **ett** \u00e4r tv\u00e5 ord f\u00f6r \u201ca/an\u201d, men de h\u00f6r till olika **ord**.\n\nI svenska har m\u00e5nga **ord** tv\u00e5 **typ**: **en-ord** och **ett-ord**. Du **m\u00e5ste** **se** vilket **ord** det \u00e4r.\n\nDu kan ofta **se** det s\u00e5 h\u00e4r:\n- **en** + (en-ord) \u2192 \u201cen \u2026\u201d\n- **ett** + (ett-ord) \u2192 \u201cett \u2026\u201d\n\nN\u00e4r du **skriva** med \u201cthe\u201d, blir det ofta:\n- en-ord: **den**\n- ett-ord: **det**\n\nExempel (bara som **typ**):\n- **en** \u2026 \u2192 **den** \u2026\n- **ett** \u2026 \u2192 **det** \u2026\n\n/?VOCABULARY?/\n- **ord**\n- **typ**"
             }
         ]
     }

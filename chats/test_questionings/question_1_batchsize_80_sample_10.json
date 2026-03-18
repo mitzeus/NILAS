@@ -22,7 +22,7 @@
         "content": [
             {
                 "type": "output_text",
-                "text": "En och ett \u00e4r som \u201ca/an\u201d p\u00e5 engelska, men de g\u00e5r med olika sorts ord.\n\nEn \u00e4r f\u00f6r ord som \u00e4r \u201cen-ord\u201d. Ett \u00e4r f\u00f6r ord som \u00e4r \u201cett-ord\u201d. Du m\u00e5ste bara veta vilket ord som \u00e4r vilket.\n\nDet \u00e4r en analog sak: en + ord, ett + ord.\n\nExempel: jag ser **en** stor sak. jag ser **ett** litet **ord**. jag har **en** bra sak. jag har **ett** bra **ord**.\n\n/?VOCABULARY?/\n- **ord**"
+                "text": "**Kort svar:**  \n**en** och **ett** \u00e4r som \u201ca/an\u201d. De \u00e4r tv\u00e5 olika ord f\u00f6r tv\u00e5 olika **typ** av **ord**.\n\n**Kort f\u00f6rklaring:**  \nI svenska har m\u00e5nga **ord** tv\u00e5 **typ**: **en-ord** och **ett-ord**.  \n- Du s\u00e4ger **en** + ett **en-ord**.  \n- Du s\u00e4ger **ett** + ett **ett-ord**.  \n\nDu m\u00e5ste ofta **bara** **se** vilket det \u00e4r. Det finns inte alltid en enkel **regel**.\n\n**Exempel:**  \n- **en** **liten** **sak**  \n- **ett** **litet** **hus**  \n- **den** **lilla** **saken**  \n- **det** **lilla** **huset**  \n\nH\u00e4r **se** du ocks\u00e5:  \n- med **en-ord**: **den**  \n- med **ett-ord**: **det**\n\n/?VOCABULARY?/\n- **typ**\n- **ord**\n- **regel**\n- **sak**\n- **hus**\n- **litet**\n- **lilla**\n- **saken**\n- **huset**"
             }
         ]
     }

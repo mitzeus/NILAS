@@ -22,7 +22,7 @@
         "content": [
             {
                 "type": "output_text",
-                "text": "**En** och **ett** \u00e4r som \u201ca/an\u201d p\u00e5 svenska. **En** \u00e4r f\u00f6r **en-ord**. **Ett** \u00e4r f\u00f6r **ett-ord**.\n\nDu kan se det s\u00e5 h\u00e4r: du m\u00e5ste veta om ett ord \u00e4r **en** eller **ett**.\n\nExempel:\n- **en** **bil**\n- **en** **bok**\n- **ett** **hus**\n- **ett** **barn**\n\nOm du inte vet, kan du ofta **gissa**, men det \u00e4r b\u00e4st att **l\u00e4ra** varje ord med **en** eller **ett**.\n\n/?VOCABULARY?/\n- **en**\n- **ett**\n- **svenska**\n- **som**\n- **ord**\n- **en-ord**\n- **ett-ord**\n- **bil**\n- **bok**\n- **hus**\n- **barn**\n- **du**\n- **det**\n- **s\u00e5**\n- **h\u00e4r**\n- **f\u00f6r**\n- **om**\n- **inte**\n- **vet**\n- **ofta**\n- **gissa**\n- **men**\n- **\u00e4r**\n- **b\u00e4st**\n- **l\u00e4ra**\n- **varje**\n- **med**"
+                "text": "**En** och **ett** \u00e4r tv\u00e5 ord f\u00f6r \u201ca/an\u201d i svenska.\n\nI svenska har ord ett **genus**: **en-ord** och **ett-ord**. Du v\u00e4ljer **en** med ett **en-ord**, och **ett** med ett **ett-ord**.\n\nExempel:\n- **en** **bok**\n- **en** **bil**\n- **ett** **hus**\n- **ett** **barn**\n\nDu kan ofta se det med \u201cthe\u201d ocks\u00e5:\n- **en** **bok** \u2192 **boken**\n- **ett** **hus** \u2192 **huset**\n\n/?VOCABULARY?/\n- **en**\n- **ett**\n- **svenska**\n- **tv\u00e5**\n- **ord**\n- **f\u00f6r**\n- **i**\n- **har**\n- **ett** **genus**\n- **en-ord**\n- **ett-ord**\n- **du**\n- **v\u00e4ljer**\n- **med**\n- **exempel**\n- **bok**\n- **bil**\n- **hus**\n- **barn**\n- **kan**\n- **ofta**\n- **se**\n- **det**\n- **ocks\u00e5**\n- **boken**\n- **huset**"
             }
         ]
     }

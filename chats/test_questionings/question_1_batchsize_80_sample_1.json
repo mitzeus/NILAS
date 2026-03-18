@@ -22,7 +22,7 @@
         "content": [
             {
                 "type": "output_text",
-                "text": "En och ett betyder \u201ca/an\u201d. En \u00e4r f\u00f6r **en-ord**. Ett \u00e4r f\u00f6r **ett-ord**.\n\nEn kort f\u00f6rklaring:  \nI svenska har ord ofta tv\u00e5 **grupp**. En del ord har \u201cen\u201d, och en del ord har \u201cett\u201d. Du m\u00e5ste ofta bara se vilket ord det \u00e4r: \u201cen\u201d eller \u201cett\u201d.\n\nExempel:  \nJag har en **bok**.  \nJag har ett **hus**.  \nDet \u00e4r en **stor** **bok**.  \nDet \u00e4r ett **stor** **hus**.  \nJag ser en **bok** nu.  \nJag ser ett **hus** nu.  \n\n/?VOCABULARY?/\n- **en-ord**\n- **ett-ord**\n- **grupp**\n- **bok**\n- **hus**"
+                "text": "I svenska \u00e4r **en** och **ett** tv\u00e5 ord f\u00f6r \u201ca/an\u201d.\n\n**En** \u00e4r f\u00f6r **en-ord**. **Ett** \u00e4r f\u00f6r **ett-ord**. Det **betyda**: du **m\u00e5ste** **se** vilket ord som \u00e4r r\u00e4tt f\u00f6r varje sak.\n\nDu kan ofta **se** det med \u201cden\u201d och \u201cdet\u201d:\n- **en** + den  \n- **ett** + det  \n\nExempel:\n- en stor sak  \n- ett stort sak  \n- den stor sak  \n- det stort sak  \n\n/\u200b?VOCABULARY?\u200b/\n- **svenska**\n- **tv\u00e5**\n- **ord**\n- **f\u00f6r**\n- **sak**\n- **r\u00e4tt**\n- **varje**\n- **ofta**"
             }
         ]
     }

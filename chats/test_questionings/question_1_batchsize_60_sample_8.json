@@ -22,7 +22,7 @@
         "content": [
             {
                 "type": "output_text",
-                "text": "**En** och **ett** \u00e4r **en** och **ett**: du **m\u00e5ste** **se** vilket ord som **\u00e4r** **en**-ord eller **ett**-ord.\n\n**En** **\u00e4r** f\u00f6r **en**-ord. **Ett** **\u00e4r** f\u00f6r **ett**-ord. Det **betyda**: du **s\u00e4ga** **en** eller **ett** f\u00f6re ordet.\n\nDu kan **se** det s\u00e5 h\u00e4r:\nJag **ha** **en** **annan**.\nJag **ha** **ett** **annat**.\n\nOm du inte **se** vilket det **\u00e4r**, kan du **s\u00e4ga** **det**.\n\nDu **kunna** ocks\u00e5 **se** det i en **skriva** (t.ex. \u201cen \u2026\u201d, \u201cett \u2026\u201d).\n\n/?VOCABULARY?/\n- **ord**\n- **f\u00f6re**\n- **en-ord**\n- **ett-ord**\n- **annat**\n- **s\u00e5 h\u00e4r**\n- **vilket**\n- **t.ex.**"
+                "text": "**En** och **ett** \u00e4r tv\u00e5 ord f\u00f6r \u201ca/an\u201d. Du anv\u00e4nder **en** med ett **en-ord** och **ett** med ett **ett-ord**.\n\nDet betyder: ett ord har **en**, eller ett ord har **ett**. Du kan inte v\u00e4lja fritt. Du m\u00e5ste veta om ordet \u00e4r ett **en-ord** eller ett **ett-ord**.\n\nExempel:\n- jag **har** **en** **bok**\n- jag **har** **ett** **hus**\n- jag **ser** **en** **bil**\n- jag **ser** **ett** **barn**\n\n/?VOCABULARY?/\n- **tv\u00e5**\n- **ord**\n- **anv\u00e4nda**\n- **bok**\n- **hus**\n- **bil**\n- **barn**\n- **v\u00e4lja**\n- **fritt**\n- **veta**"
             }
         ]
     }

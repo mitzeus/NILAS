@@ -22,7 +22,7 @@
         "content": [
             {
                 "type": "output_text",
-                "text": "**En** och **ett** \u00e4r tv\u00e5 ord f\u00f6r \u201ca/an\u201d. Du anv\u00e4nder **en** med **en**, och du anv\u00e4nder **ett** med **ett**.\n\nDet betyder: ett ord har **en**, eller ett ord har **ett**. Du kan inte v\u00e4lja fritt.\n\nExempel:  \nJag **har** **en**. Jag **har** **ett**.  \nJag **ser** **en**. Jag **ser** **ett**.  \nJag **tar** **en**. Jag **tar** **ett**.\n\n/?VOCABULARY?/  \n- **tv\u00e5**  \n- **ord**  \n- **anv\u00e4nda**  \n- **med**  \n- **f\u00f6r**  \n- **betyder**  \n- **eller**  \n- **v\u00e4lja**  \n- **fritt**  \n- **exempel**"
+                "text": "**En** och **ett** \u00e4r tv\u00e5 ord f\u00f6r \u201ca/an\u201d, men de h\u00f6r till olika **ord**.\n\nI svenska har m\u00e5nga **ord** tv\u00e5 **sort**: **en-ord** och **ett-ord**. Du v\u00e4ljer **en** eller **ett** efter vilket **ord** du har.\n\nExempel:\n- jag **har** **en** **bok**\n- jag **har** **ett** **hus**\n- **en** **man**\n- **ett** **barn**\n\nDu kan ofta se det i \u201cthe\u201d-formen ocks\u00e5:\n- **en** bok \u2192 **den** bok\n- **ett** hus \u2192 **det** hus\n\n/?VOCABULARY?/\n- **ord**\n- **sort**\n- **bok**\n- **hus**\n- **barn**\n- **form**"
             }
         ]
     }

@@ -22,7 +22,7 @@
         "content": [
             {
                 "type": "output_text",
-                "text": "En och ett \u00e4r **tv\u00e5** ord f\u00f6r \u201ca/an\u201d. En \u00e4r f\u00f6r en, och ett \u00e4r f\u00f6r ett.\n\nEn kort f\u00f6rklaring:  \nSvenska har tv\u00e5 **grupper**. Ett ord \u00e4r antingen \u201cen-ord\u201d eller \u201cett-ord\u201d. Du kan inte alltid se det; du m\u00e5ste ofta **l\u00e4ra** det ord f\u00f6r ord.\n\nExempel:  \nDet \u00e4r en stor sak.  \nDet \u00e4r ett stort hus.  \nJag ser en ny sak.  \nJag ser ett nytt hus.  \nDet \u00e4r en bra sak, men det \u00e4r ett bra hus.\n\nDu kan ocks\u00e5 se det med \u201cden/det\u201d:  \nden + en-ord  \ndet + ett-ord\n\n/?VOCABULARY?/\n- **tv\u00e5**\n- **ord**\n- **kort**\n- **f\u00f6rklaring**\n- **svenska**\n- **grupp**\n- **antingen**\n- **sak**\n- **hus**\n- **l\u00e4ra**"
+                "text": "**En** och **ett** \u00e4r tv\u00e5 ord f\u00f6r \u201ca/an\u201d, men de h\u00f6r till tv\u00e5 olika grupper av ord.\n\nI svenska har **en**-ord och **ett**-ord. Du anv\u00e4nder **en** med ett **en**-ord, och **ett** med ett **ett**-ord. Det \u00e4r en del av ordet, s\u00e5 du m\u00e5ste ofta l\u00e4ra dig det med varje nytt ord.\n\nExempel:\n- **en** **liten** sak  \n- **ett** **litet** hus  \n- **en** **stor** bil  \n- **ett** **stort** rum  \n- **en** **ny** bok  \n- **ett** **nytt** namn  \n\nDu kan ocks\u00e5 se skillnaden h\u00e4r:\n- **en** + **bra** sak  \n- **ett** + **bra** hus  \n\n/\u200b?VOCABULARY?\u200b/\n- **ord**\n- **svenska**\n- **tv\u00e5**\n- **grupp**\n- **anv\u00e4nda**\n- **del**\n- **ofta**\n- **l\u00e4ra**\n- **varje**\n- **nytt**\n- **sak**\n- **hus**\n- **bil**\n- **rum**\n- **bok**\n- **namn**"
             }
         ]
     }

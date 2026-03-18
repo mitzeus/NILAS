@@ -22,7 +22,7 @@
         "content": [
             {
                 "type": "output_text",
-                "text": "En och ett \u00e4r **tv\u00e5** ord f\u00f6r \u201ca/an\u201d. En g\u00e5r med ett ord som \u00e4r \u201cen-ord\u201d. Ett g\u00e5r med ett ord som \u00e4r \u201cett-ord\u201d.\n\nDet betyder: du kan inte v\u00e4lja fritt. Du m\u00e5ste veta om ordet \u00e4r ett en-ord eller ett ett-ord.\n\nTill exempel:\nJag har **en** ring.  \nJag har **ett** barn.  \nDet \u00e4r **en** dag.  \nDet \u00e4r **ett** land.  \n\nDu kan ofta se det i \u201cden/det\u201d ocks\u00e5:\nden ring  \ndet barn  \nden dag  \ndet land  \n\n/?VOCABULARY?/\n- **tv\u00e5**\n- **ord**\n- **fritt**\n- **veta**"
+                "text": "I svenska \u00e4r **en** och **ett** tv\u00e5 ord f\u00f6r \u201ca/an\u201d. Du v\u00e4ljer **en** eller **ett** f\u00f6r att ordet har **en**-typ eller **ett**-typ.\n\nEtt ord \u00e4r antingen **en**-ord eller **ett**-ord. Du s\u00e4ger \u201c**en** + ord\u201d eller \u201c**ett** + ord\u201d. Du kan ofta bara l\u00e4ra dig det med ordet.\n\nExempel:\n- **en** **m\u00e4nniska**\n- **en** **fr\u00e5ga**\n- **en** **ring**\n- **en** **del**\n- **ett** **barn**\n- **ett** **land**\n- **ett** **liv**\n- **ett** **s\u00e4tt**\n- **ett** **\u00e5r**\n\nDu kan ocks\u00e5 se det h\u00e4r:\n- **en** \u2192 **den**\n- **ett** \u2192 **det**\n\nExempel:\n- **den** **m\u00e4nniska**\n- **det** **barn**\n\n/?VOCABULARY?/\n- **typ**"
             }
         ]
     }

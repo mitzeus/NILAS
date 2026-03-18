@@ -22,7 +22,7 @@
         "content": [
             {
                 "type": "output_text",
-                "text": "**En** och **ett** \u00e4r tv\u00e5 ord f\u00f6r \u201ca/an\u201d. Du kan s\u00e4ga **en** med vissa ord, och **ett** med andra ord.\n\nDu kan t\u00e4nka s\u00e5 h\u00e4r:  \nDu l\u00e4r dig varje ord med **en** eller **ett**. Det **betyda** att ordet har **en**-ord eller **ett**-ord.\n\nExempel:  \nJag **har** **en**.  \nJag **har** **ett**.  \nDet **\u00e4r** **en**.  \nDet **\u00e4r** **ett**.\n\nOm du **ser** ett ord, s\u00e5 **m\u00e5ste** du veta om det \u00e4r **en**-ord eller **ett**-ord. D\u00e5 vet du om du ska s\u00e4ga **en** eller **ett**.\n\n/?VOCABULARY?/\n- **ord**\n- **tv\u00e5**\n- **vissa**\n- **andra**\n- **t\u00e4nka**\n- **l\u00e4ra**\n- **varje**\n- **har** (som i \u201char en/ett\u201d)\n- **att** (som i \u201catt s\u00e4ga\u201d)\n- **exempel**\n- **veta**\n- **d\u00e5**"
+                "text": "**En** och **ett** \u00e4r tv\u00e5 ord f\u00f6r \u201ca/an\u201d. Du anv\u00e4nder **en** med **en-ord** och **ett** med **ett-ord**.\n\nDu kan t\u00e4nka s\u00e5 h\u00e4r: varje **ord** \u00e4r antingen ett **en-ord** eller ett **ett-ord**. D\u00e5 blir det:\n- **en** + en-ord  \n- **ett** + ett-ord  \n\nExempel:\n- jag **ser** **en**  \n- jag **ser** **ett**  \n- **en** och **ett** **betyda** \u201ca/an\u201d, men de \u00e4r inte samma\n\n/?VOCABULARY?/\n- **tv\u00e5**\n- **ord**\n- **f\u00f6r**\n- **anv\u00e4nder**\n- **med**\n- **t\u00e4nka**\n- **varje**\n- **antingen**\n- **d\u00e5**\n- **blir**\n- **exempel**\n- **samma**"
             }
         ]
     }

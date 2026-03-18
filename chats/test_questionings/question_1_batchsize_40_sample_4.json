@@ -22,7 +22,7 @@
         "content": [
             {
                 "type": "output_text",
-                "text": "**En** och **ett** **betyda** \u201ca/an\u201d. **En** \u00e4r f\u00f6r **en**-ord. **Ett** \u00e4r f\u00f6r **ett**-ord.\n\nDu **m\u00e5ste** **se** vilket ord som \u00e4r **en** eller **ett**. Det \u00e4r en del av ordet.\n\nExempel:  \nJag **har** **en** **bok**.  \nJag **har** **ett** **hus**.  \nJag **ser** **en** **bil**.  \nJag **ser** **ett** **barn**.\n\n/?VOCABULARY?/\n- **en**\n- **ett**\n- **ord**\n- **bok**\n- **hus**\n- **bil**\n- **barn**\n- **vilket**\n- **del**\n- **av**"
+                "text": "**En** och **ett** \u00e4r tv\u00e5 ord f\u00f6r \u201ca/an\u201d i svenska. Du v\u00e4ljer **en** eller **ett** f\u00f6r att det **betyda** vilket **genus** ett **substantiv** har.\n\nOm ett ord \u00e4r ett **en-ord**, s\u00e5 s\u00e4ger du **en**. Om ett ord \u00e4r ett **ett-ord**, s\u00e5 s\u00e4ger du **ett**.\n\nDu kan ocks\u00e5 se skillnad n\u00e4r du **skriva** \u201cthe\u201d:\n- **en**-ord: **en** + ord \u2192 **den**\n- **ett**-ord: **ett** + ord \u2192 **det**\n\nExempel:\n- **en** **bok** \u2192 **den** **bok**\n- **ett** **hus** \u2192 **det** **hus**\n\n/?VOCABULARY?/\n- **en**\n- **ett**\n- **svenska**\n- **ord**\n- **genus**\n- **substantiv**\n- **en-ord**\n- **ett-ord**\n- **den**\n- **det**\n- **bok**\n- **hus**"
             }
         ]
     }

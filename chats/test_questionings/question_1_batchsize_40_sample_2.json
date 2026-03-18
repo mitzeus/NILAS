@@ -22,7 +22,7 @@
         "content": [
             {
                 "type": "output_text",
-                "text": "**En** och **ett** **betyda** \u201ca/an\u201d. **En** **g\u00e5** med **en**-**ord**. **Ett** **g\u00e5** med **ett**-**ord**.\n\nI svenska **finnas** tv\u00e5 **genus**. **En** \u00e4r f\u00f6r **utrum**. **Ett** \u00e4r f\u00f6r **neutrum**. Du **m\u00e5ste** **se** vilket **ord** det \u00e4r: **en**-**ord** eller **ett**-**ord**.\n\nExempel:\n- **en** **bok**\n- **en** **bil**\n- **ett** **hus**\n- **ett** **barn**\n\n/?VOCABULARY?/\n- **en**\n- **ett**\n- **ord**\n- **genus**\n- **utrum**\n- **neutrum**\n- **bok**\n- **bil**\n- **hus**\n- **barn**"
+                "text": "**En** och **ett** \u00e4r tv\u00e5 ord f\u00f6r \u201ca/an\u201d p\u00e5 svenska. Du anv\u00e4nder **en** med **en-ord** och **ett** med **ett-ord**.\n\nDet \u00e4r s\u00e5 f\u00f6r att svenska ord har tv\u00e5 **genus**: **utrum** (en) och **neutrum** (ett). Du kan ofta inte \u201cse\u201d vilket det \u00e4r, s\u00e5 du beh\u00f6ver l\u00e4ra dig varje ord som **en** eller **ett**.\n\nExempel:\n- **en**: **en** **bok**, **en** **bil**, **en** **stol**\n- **ett**: **ett** **hus**, **ett** **barn**, **ett** **\u00e4pple**\n\n/?VOCABULARY?/\n- **en**\n- **ett**\n- **svenska**\n- **ord**\n- **tv\u00e5**\n- **anv\u00e4nder**\n- **med**\n- **genus**\n- **utrum**\n- **neutrum**\n- **ofta**\n- **inte**\n- **l\u00e4ra**\n- **varje**\n- **bok**\n- **bil**\n- **stol**\n- **hus**\n- **barn**\n- **\u00e4pple**"
             }
         ]
     }

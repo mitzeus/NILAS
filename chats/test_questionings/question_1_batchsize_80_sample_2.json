@@ -22,7 +22,7 @@
         "content": [
             {
                 "type": "output_text",
-                "text": "En och ett \u00e4r **tv\u00e5** ord f\u00f6r \u201ca/an\u201d. En \u00e4r f\u00f6r **en**-ord. Ett \u00e4r f\u00f6r **ett**-ord.\n\nEn kort f\u00f6rklaring:  \nI svenska \u00e4r **en** och **ett** som \u201ca/an\u201d, men ordet du s\u00e4ger efter dem har **en** eller **ett**. Du kan inte bara v\u00e4lja.\n\nExempel:  \nJag **har** **en** **liten** sak.  \nJag **har** **ett** **litet** **det**.  \nDet \u00e4r **en** sak.  \nDet \u00e4r **ett** det.\n\n/?VOCABULARY?/\n- **tv\u00e5**\n- **ord**\n- **svenska**\n- **sak**\n- **kort**\n- **f\u00f6rklaring**\n- **v\u00e4lja**\n- **litet**"
+                "text": "**En** och **ett** \u00e4r tv\u00e5 ord f\u00f6r \u201ca/an\u201d. De visar vilket **genus** ett ord har: **en-ord** eller **ett-ord**.\n\nI svenska har m\u00e5nga ord **en**, och m\u00e5nga ord har **ett**. Du kan ofta bara l\u00e4ra dig det ord f\u00f6r ord.\n\nExempel:\n- jag **har** **en** **liten** sak  \n- jag **har** **ett** **litet** sak\n\nDu kan ocks\u00e5 se det med \u201cden/det\u201d:\n- **den** + en-ord  \n- **det** + ett-ord\n\nExempel:\n- **den** sak  \n- **det** sak\n\n/\u200b?VOCABULARY?\u200b/\n- **tv\u00e5**\n- **ord**\n- **visa**\n- **vilken**\n- **genus**\n- **svenska**\n- **m\u00e5nga**\n- **ofta**\n- **bara**\n- **l\u00e4ra**\n- **ord f\u00f6r ord**\n- **sak**\n- **litet**"
             }
         ]
     }

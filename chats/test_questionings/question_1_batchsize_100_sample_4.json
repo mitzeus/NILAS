@@ -22,7 +22,7 @@
         "content": [
             {
                 "type": "output_text",
-                "text": "En och ett \u00e4r **tv\u00e5** ord f\u00f6r \u201ca/an\u201d. En \u00e4r f\u00f6r ett ord som \u00e4r \u201cen-ord\u201d. Ett \u00e4r f\u00f6r ett ord som \u00e4r \u201cett-ord\u201d.\n\nDet betyder: du s\u00e4ger en f\u00f6re vissa ord, och ett f\u00f6re andra ord. Du m\u00e5ste bara veta om ordet \u00e4r ett en-ord eller ett ett-ord.\n\nDu kan s\u00e4ga:\nJag har en ring.  \nJag har ett barn.  \n\nDu kan ocks\u00e5 s\u00e4ga:\nDet \u00e4r en fr\u00e5ga.  \nDet \u00e4r ett land.  \n\n/\u200b?VOCABULARY?\u200b/\n- **tv\u00e5**\n- **f\u00f6re**\n- **vissa**\n- **ordet**"
+                "text": "**En** och **ett** betyder n\u00e4stan samma sak: \u201ca/an\u201d. Skillnaden \u00e4r att de h\u00f6r till tv\u00e5 olika **ord**-grupper i svenska.\n\nI svenska har **en**-ord och **ett**-ord.  \n- **en** + **m\u00e4nniska** \u2192 **en m\u00e4nniska**  \n- **ett** + **barn** \u2192 **ett barn**\n\nDu kan ofta se det i \u201cden/det\u201d ocks\u00e5:  \n- **den** + (ofta) **en**-ord  \n- **det** + (ofta) **ett**-ord\n\nExempel:  \n- **den** **m\u00e4nniska** (\u2192 **en m\u00e4nniska**)  \n- **det** **barn** (\u2192 **ett barn**)  \n- **en** **dag**, **ett** **\u00e5r**  \n- **en** **g\u00e5ng**, **ett** **liv**\n\n/?VOCABULARY?/\n- **ord**\n- **grupp**"
             }
         ]
     }

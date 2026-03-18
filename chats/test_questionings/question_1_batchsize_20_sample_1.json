@@ -22,7 +22,7 @@
         "content": [
             {
                 "type": "output_text",
-                "text": "**En** och **ett** \u00e4r tv\u00e5 ord f\u00f6r \u201ca/an\u201d. **En** \u00e4r f\u00f6r **en-ord**. **Ett** \u00e4r f\u00f6r **ett-ord**.\n\nDu s\u00e4ger **en** + ett ord, eller **ett** + ett ord. Du m\u00e5ste l\u00e4ra varje ord som **en-ord** eller **ett-ord**.\n\nExempel:\nJag **har** **en** **bil**.  \nJag **har** **ett** **hus**.  \nJag **vill** **ha** **en** **bok**, men jag **vill** **ha** **ett** **\u00e4pple**.  \nJag **kan** **ta** **en** **stol**, eller jag **kan** **ta** **ett** **bord**.\n\n/?VOCABULARY?/\n- **en**\n- **ett**\n- **ord**\n- **en-ord**\n- **ett-ord**\n- **bil**\n- **hus**\n- **bok**\n- **\u00e4pple**\n- **stol**\n- **bord**\n- **l\u00e4ra**\n- **s\u00e4ga**"
+                "text": "**En** och **ett** \u00e4r som \u201ca/an\u201d p\u00e5 svenska, men de h\u00f6r till tv\u00e5 olika **genus**.\n\n**En** \u00e4r f\u00f6r **en-ord**.  \n**Ett** \u00e4r f\u00f6r **ett-ord**.\n\nDu kan ofta se det i **artikeln**:  \n- **en** + ord  \n- **ett** + ord\n\nExempel:  \n- **en** **bok**  \n- **en** **bil**  \n- **ett** **hus**  \n- **ett** **barn**\n\nDet finns ingen enkel regel som alltid s\u00e4ger om ett ord \u00e4r **en** eller **ett**. Du l\u00e4r dig det b\u00e4st n\u00e4r du l\u00e4r dig ordet: \u201c**en** bok\u201d, \u201c**ett** hus\u201d.\n\n/?VOCABULARY?/\n- **en**\n- **ett**\n- **svenska**\n- **genus**\n- **en-ord**\n- **ett-ord**\n- **artikel**\n- **bok**\n- **bil**\n- **hus**\n- **barn**"
             }
         ]
     }

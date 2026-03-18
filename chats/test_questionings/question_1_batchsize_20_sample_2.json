@@ -22,7 +22,7 @@
         "content": [
             {
                 "type": "output_text",
-                "text": "**En** och **ett** \u00e4r tv\u00e5 ord f\u00f6r \u201ca/an\u201d.\n\n**En** \u00e4r f\u00f6r **en-ord**. **Ett** \u00e4r f\u00f6r **ett-ord**. Du m\u00e5ste se vilket ord det \u00e4r.\n\nExempel:  \nJag har **en** **bok**.  \nJag har **ett** **hus**.\n\n/?VOCABULARY?/\n- **en**\n- **ett**\n- **tv\u00e5**\n- **ord**\n- **f\u00f6r**\n- **du**\n- **\u00e4r**\n- **vilket**\n- **m\u00e5ste**\n- **se**\n- **jag**\n- **har**\n- **bok**\n- **hus**"
+                "text": "**En** och **ett** \u00e4r som \u201ca/an\u201d p\u00e5 svenska, men de h\u00f6r till tv\u00e5 olika **grupper** av **ord**.\n\nEn kort regel:  \n- **en** + ett **en-ord**  \n- **ett** + ett **ett-ord**\n\nDet \u00e4r mest n\u00e5got du m\u00e5ste l\u00e4ra dig f\u00f6r varje **sak**. Det finns inga 100% s\u00e4kra regler, men m\u00e5nga **en-ord** \u00e4r **personer** och m\u00e5nga **ett-ord** \u00e4r mer som en **ting** eller en **namn**.\n\nExempel:  \n- **en** **person**  \n- **ett** **namn**  \n- **en** **sak**  \n- **ett** **ting**\n\n/?VOCABULARY?/\n- **en**\n- **ett**\n- **grupper**\n- **ord**\n- **regel**\n- **en-ord**\n- **ett-ord**\n- **sak**\n- **person**\n- **personer**\n- **ting**\n- **namn**"
             }
         ]
     }
