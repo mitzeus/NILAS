@@ -1,0 +1,6 @@
+datasets<4.0.0
+pandas
+numpy
+matplotlib
+seaborn
+IPython
