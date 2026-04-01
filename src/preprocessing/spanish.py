@@ -166,10 +166,18 @@ def grammar_preprocessing(
         raise ValueError(f'nlp_size must be "large" or "small". Got {nlp_size}')
 
     if os.path.exists(db_dir):
-        os.remove(db_dir)
+        raise OSError(
+            f'Found existing spanish database. Due to very long processing time function is not allowed to execute in case of overwriting. Please delete file "{db_dir}" to proceed.'
+        )
+
+        # os.remove(db_dir)
 
     con = sqlite3.connect(db_dir)
     cursor = con.cursor()
+
+    cursor.execute("PRAGMA synchronous = OFF;")
+    cursor.execute("PRAGMA journal_mode = WAL;")
+    cursor.execute("PRAGMA temp_store = MEMORY;")
 
     cursor.execute(
         """
@@ -181,7 +189,10 @@ def grammar_preprocessing(
     )
     """
     )
+
     con.commit()
+
+    total_timer = time.time()
 
     for batch_i, batch in enumerate(
         pd.read_csv(os.path.join(root_dir, "spanish.csv"), chunksize=import_chunk_size)
@@ -207,27 +218,47 @@ def grammar_preprocessing(
                     key = (token.lemma_.lower(), token.pos_)
                     word_freq_dict[key] = word_freq_dict.get(key, 0) + 1
 
-        for (lemma, pos), freq in word_freq_dict.items():
-            # write to DB, either new entry if unique or +1 otherwise
-            cursor.execute(
-                """
+        records = [
+            (lemma, pos, freq, freq) for (lemma, pos), freq in word_freq_dict.items()
+        ]
+
+        cursor.executemany(
+            """
                 INSERT INTO word_freq (lemma, pos, frequency)
                 VALUES (?, ?, ?)
                 ON CONFLICT (lemma, pos)
                 DO UPDATE SET frequency = frequency + ?
             """,
-                (lemma, pos, freq, freq),
-            )
+            records,
+        )
+
+        # for (lemma, pos), freq in word_freq_dict.items():
+        #     # write to DB, either new entry if unique or +1 otherwise
+        #     cursor.execute(
+        #         """
+        #         INSERT INTO word_freq (lemma, pos, frequency)
+        #         VALUES (?, ?, ?)
+        #         ON CONFLICT (lemma, pos)
+        #         DO UPDATE SET frequency = frequency + ?
+        #     """,
+        #         (lemma, pos, freq, freq),
+        #     )
 
         con.commit()
 
         timer_end = time.time()
         total_time = timer_end - timer_start
         print(
-            f"Finished Batch {batch_i + 1} in {round(total_time, 2)} seconds ({round(total_time/import_chunk_size, 6)}/item)"
+            f"[{round((time.time() - total_timer)/60)} minutes since start] Finished Batch {batch_i + 1} in {round(total_time, 2)} seconds ({round(total_time/import_chunk_size, 6)}/item)"
         )
 
-    df = pd.read_sql_query("SELECT * FROM word_freq", con)
+    print(
+        f"Finished! Total time in hours: {round(((time.time() - total_timer) / 60) / 60, 2)}"
+    )
+
+    df = pd.read_sql_query(
+        "SELECT * FROM word_freq ORDER BY frequency DESC LIMIT 10", con
+    )
 
     con.close()
     return df
