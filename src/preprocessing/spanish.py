@@ -8,6 +8,7 @@ import csv
 import sqlite3
 import spacy
 import pandas as pd
+import time
 
 
 def load_dataset():
@@ -113,7 +114,10 @@ def extract_data_from_dataset(limit: int = float("inf")):
 
 
 def grammar_preprocessing(
-    nlp_size: str = "large", cores_to_use: int = 1, chunk_size: int = 10000
+    nlp_size: str = "large",
+    cores_to_use: int = 1,
+    import_chunk_size: int = 10000,
+    processing_chunk_size: int = 1000,
 ):
     """Preprocesses .csv file generated from `extract_data_from_dataset` using spaCy.
     It tokenizes, lemmatizes, and PoS tags all words in the dataset and writes data to a sqlite3 database for memory optimization.
@@ -123,7 +127,8 @@ def grammar_preprocessing(
     Args:
         nlp_size: "large" | "small". Defines which sized model to use in spaCy data preprocessing steps
         cores_to_use: Specifies how many cores to use for spaCy processing
-        chunk_size: Specifies how large each chunk of the dataset will be loaded in at one time and processsed by spaCy
+        import_chunk_size: Specifies how large each chunk of the dataset will be loaded in at one time
+        processing_chunk_size: Specifies how large each chunk of the dataset that will be processed in spaCy
 
     Returns:
         DataFrame: Pandas DataFrame reference to sqlite3 database
@@ -179,9 +184,10 @@ def grammar_preprocessing(
     con.commit()
 
     for batch_i, batch in enumerate(
-        pd.read_csv(os.path.join(root_dir, "spanish.csv"), chunksize=chunk_size)
+        pd.read_csv(os.path.join(root_dir, "spanish.csv"), chunksize=import_chunk_size)
     ):
         # load in chunks as not to explode my PC
+        timer_start = time.time()
         print(f"Processing Batch {batch_i + 1}")
         dialogues = batch["dialogue"]
 
@@ -193,7 +199,7 @@ def grammar_preprocessing(
             dialogue = dialogue.replace("\\n", " ")
 
         processed_dialogue = nlp.pipe(
-            dialogues, batch_size=chunk_size, n_process=cores_to_use
+            dialogues, batch_size=processing_chunk_size, n_process=cores_to_use
         )
         for doc in processed_dialogue:
             for token in doc:
@@ -214,6 +220,12 @@ def grammar_preprocessing(
             )
 
         con.commit()
+
+        timer_end = time.time()
+        total_time = timer_end - timer_start
+        print(
+            f"Finished Batch {batch_i + 1} in {round(total_time, 2)} seconds ({round(total_time/import_chunk_size, 6)}/item)"
+        )
 
     df = pd.read_sql_query("SELECT * FROM word_freq", con)
 
