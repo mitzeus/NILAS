@@ -40,7 +40,9 @@ def load_dataset():
 
     os.makedirs(spanish_raw_path, exist_ok=True)
 
-    with open(os.path.join(spanish_raw_path, spanish_filename), "wb") as f:
+    with open(
+        os.path.join(spanish_raw_path, spanish_filename), "wb", encoding="utf-8"
+    ) as f:
         for chunk in response.iter_content(chunk_size=8192):
             f.write(chunk)
 
@@ -63,7 +65,9 @@ def load_dataset():
     print("Spanish dataset downloaded and extracted successfully.")
 
 
-def extract_data_from_dataset(limit: int = float("inf")):
+def extract_data_from_dataset(
+    limit: int = float("inf"), limit_sampling_seed: int = None
+):
     """Extracts data generated from `load_dataset` and combines all documents into a .csv file with columns: ID, dialogue.
 
     Args:
@@ -87,6 +91,8 @@ def extract_data_from_dataset(limit: int = float("inf")):
         files = list(root.rglob("*.jsonl"))
 
         if len(files) > doc_process_limit:
+            if limit_sampling_seed is not None:
+                random.seed(limit_sampling_seed)
             files = random.sample(files, doc_process_limit)
 
         total_files_to_process = len(files)
@@ -109,7 +115,9 @@ def extract_data_from_dataset(limit: int = float("inf")):
             yield dialogue
 
     # write all conversations to one document
-    with open(os.path.join(spanish_target, "spanish.csv"), "w", newline="") as csvfile:
+    with open(
+        os.path.join(spanish_target, "spanish.csv"), "w", newline="", encoding="utf-8"
+    ) as csvfile:
         fieldnames = ["ID", "dialogue"]
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
