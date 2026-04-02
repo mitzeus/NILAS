@@ -9,6 +9,8 @@ import sqlite3
 import spacy
 import pandas as pd
 import time
+import random
+import math
 
 
 def load_dataset():
@@ -78,10 +80,17 @@ def extract_data_from_dataset(limit: int = float("inf")):
     # extract data from each file
     def extract_json_data(root_path):
         root = Path(root_path)
-        total_files_to_process = min(
-            [len(list(root.rglob("*.jsonl"))), doc_process_limit]
-        )
-        for doc_i, doc in enumerate(root.rglob("*.jsonl")):
+        # total_files_to_process = min(
+        #     [len(list(root.rglob("*.jsonl"))), doc_process_limit]
+        # )
+
+        files = list(root.rglob("*.jsonl"))
+
+        if len(files) > doc_process_limit:
+            files = random.sample(files, doc_process_limit)
+
+        total_files_to_process = len(files)
+        for doc_i, doc in enumerate(files):
             if doc_i >= doc_process_limit:
                 break
 
@@ -111,6 +120,13 @@ def extract_data_from_dataset(limit: int = float("inf")):
                 clean_dialogue = extracted_dialogue.replace("\n", "\\n")
                 writer.writerows([{"ID": idx_counter, "dialogue": clean_dialogue}])
                 idx_counter += 1
+
+    with open(
+        os.path.join(spanish_target, "spanish.csv"), newline="", encoding="utf-8"
+    ) as f:
+        reader = csv.reader(f)
+        total_row_count = sum(1 for _ in reader)
+        print(f"Wrote a total of {total_row_count} dialogues into spanish.csv.")
 
 
 def grammar_preprocessing(
@@ -177,7 +193,10 @@ def grammar_preprocessing(
 
     cursor.execute("PRAGMA synchronous = OFF;")
     cursor.execute("PRAGMA journal_mode = WAL;")
-    cursor.execute("PRAGMA temp_store = MEMORY;")
+    cursor.execute("PRAGMA mmap_size = 0;")
+    # cursor.execute("PRAGMA temp_store = MEMORY;")
+    cursor.execute("PRAGMA cache_size = -12000000;")
+    cursor.execute("PRAGMA temp_store = FILE;")
 
     cursor.execute(
         """
@@ -190,6 +209,12 @@ def grammar_preprocessing(
     """
     )
 
+    total_row_count = 0
+
+    with open(os.path.join(root_dir, "spanish.csv"), newline="", encoding="utf-8") as f:
+        reader = csv.reader(f)
+        total_row_count = sum(1 for _ in reader)
+
     con.commit()
 
     total_timer = time.time()
@@ -199,7 +224,9 @@ def grammar_preprocessing(
     ):
         # load in chunks as not to explode my PC
         timer_start = time.time()
-        print(f"Processing Batch {batch_i + 1}")
+        print(
+            f"Processing Batch {batch_i + 1}/{math.ceil(total_row_count/import_chunk_size)}"
+        )
         dialogues = batch["dialogue"]
 
         # for dialogue_i, dialogue in enumerate(batch["dialogue"]):
@@ -245,6 +272,9 @@ def grammar_preprocessing(
         #     )
 
         con.commit()
+
+        # if (batch_i + 1) % 50 == 0:
+        # cursor.execute("PRAGMA wal_checkpoint(TRUNCATE);")
 
         timer_end = time.time()
         total_time = timer_end - timer_start
