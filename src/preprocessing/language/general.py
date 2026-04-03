@@ -6,6 +6,16 @@ from src.preprocessing.probabilities import class_prior, hamilton
 
 
 def convert_frequency_to_WPM(frequencies: np.array[int], round_to: int = 2):
+    """
+    Converts raw frequency to Words per Million (WPM) metric.
+
+    Args:
+        frequencies: List of raw frequencies.
+        round_to: Rounds WPM values to N fractions.
+
+    Returns:
+        list: List of frequencies converted to WPM
+    """
     total_size = frequencies.sum()
 
     frequencies_wpm = np.round((frequencies / total_size) * 1000000, round_to)
@@ -21,7 +31,7 @@ def create_sorted_flashcard_set(
     rank_by: str,
     lang: str,
     target_columns: list[str] = None,
-    drop_pos: list[str] = None,
+    drop_pos: list[str] = [],
     limit: int = 100,
 ):
     """

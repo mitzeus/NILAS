@@ -117,7 +117,10 @@ def extract_data_from_dataset(
 
     # write all conversations to one document
     with open(
-        os.path.join(spanish_target, "spanish.csv"), "w", newline="", encoding="utf-8"
+        os.path.join(spanish_target, "spanish_full.csv"),
+        "w",
+        newline="",
+        encoding="utf-8",
     ) as csvfile:
         fieldnames = ["ID", "dialogue"]
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
@@ -131,11 +134,11 @@ def extract_data_from_dataset(
                 idx_counter += 1
 
     with open(
-        os.path.join(spanish_target, "spanish.csv"), newline="", encoding="utf-8"
+        os.path.join(spanish_target, "spanish_full.csv"), newline="", encoding="utf-8"
     ) as f:
         reader = csv.reader(f)
         total_row_count = sum(1 for _ in reader)
-        print(f"Wrote a total of {total_row_count} dialogues into spanish.csv.")
+        print(f"Wrote a total of {total_row_count} dialogues into spanish_full.csv.")
 
 
 def grammar_preprocessing(
@@ -220,7 +223,9 @@ def grammar_preprocessing(
 
     total_row_count = 0
 
-    with open(os.path.join(root_dir, "spanish.csv"), newline="", encoding="utf-8") as f:
+    with open(
+        os.path.join(root_dir, "spanish_full.csv"), newline="", encoding="utf-8"
+    ) as f:
         reader = csv.reader(f)
         total_row_count = sum(1 for _ in reader)
 
@@ -229,7 +234,9 @@ def grammar_preprocessing(
     total_timer = time.time()
 
     for batch_i, batch in enumerate(
-        pd.read_csv(os.path.join(root_dir, "spanish.csv"), chunksize=import_chunk_size)
+        pd.read_csv(
+            os.path.join(root_dir, "spanish_full.csv"), chunksize=import_chunk_size
+        )
     ):
         # load in chunks as not to explode my PC
         timer_start = time.time()
@@ -329,9 +336,7 @@ def finalize_dataset(limit=5000):
 
     df["WPM"] = convert_frequency_to_WPM(df["frequency"])
 
-    df.to_csv(
-        os.path.join(target_dir, f"spanish{limit}.csv"), index=True, index_label="ID"
-    )
+    df.to_csv(os.path.join(target_dir, f"spanish.csv"), index=True, index_label="ID")
 
     return df
 
@@ -339,12 +344,17 @@ def finalize_dataset(limit=5000):
 def remove_artifact_entries(data: pd.DataFrame, word_column: str):
     """
     Removes artifact entries in the dataset based on use of special characters.
-    # TODO
+
+    Args:
+        data: DataFrame to be processed.
+        word_column: Name of column in `data` to access word list.
+
+    Returns:
     """
     print(f"Removing artifact entries in data with {len(data)} rows.")
 
     cleaned_data = data[
-        ~data["lemma"].str.contains(
+        ~data[word_column].str.contains(
             r"[^a-zA-ZáéíóúÁÉÍÓÚñÑüÜ¿¡., ]", regex=True, na=False
         )
     ]
