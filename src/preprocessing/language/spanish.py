@@ -12,6 +12,8 @@ import time
 import random
 import math
 
+from src.preprocessing.language.general import convert_frequency_to_WPM
+
 
 def load_dataset():
     """Loads Spanish Dataset "ChatSubs" from source and extracts files inside
@@ -40,9 +42,7 @@ def load_dataset():
 
     os.makedirs(spanish_raw_path, exist_ok=True)
 
-    with open(
-        os.path.join(spanish_raw_path, spanish_filename), "wb", encoding="utf-8"
-    ) as f:
+    with open(os.path.join(spanish_raw_path, spanish_filename), "wb") as f:
         for chunk in response.iter_content(chunk_size=8192):
             f.write(chunk)
 
@@ -71,7 +71,8 @@ def extract_data_from_dataset(
     """Extracts data generated from `load_dataset` and combines all documents into a .csv file with columns: ID, dialogue.
 
     Args:
-        limit (Optional, float(inf)): Limits how many docs are processed. Used for testing.
+        limit (Optional): Limits how many docs are processed. Used for testing.
+        limit_sampling_seed (Optional): Seed used for sampling N files given my `limit`
 
     Returns:
         None
@@ -316,7 +317,7 @@ def finalize_dataset(limit=5000):
         raise TypeError(f"limit not of type int. Got {type(limit)}.")
 
     root_dir = "data/2-extracted/"
-    target_dir = "data/3-final/"
+    target_dir = "data/2-extracted/"
     db_dir = os.path.join(root_dir, "spanish.db")
 
     con = sqlite3.connect(db_dir)
@@ -326,8 +327,30 @@ def finalize_dataset(limit=5000):
         "SELECT * FROM word_freq ORDER BY frequency DESC LIMIT ?", con, params=(limit,)
     )
 
+    df["WPM"] = convert_frequency_to_WPM(df["frequency"])
+
     df.to_csv(
         os.path.join(target_dir, f"spanish{limit}.csv"), index=True, index_label="ID"
     )
 
     return df
+
+
+def remove_artifact_entries(data: pd.DataFrame, word_column: str):
+    """
+    Removes artifact entries in the dataset based on use of special characters.
+    # TODO
+    """
+    print(f"Removing artifact entries in data with {len(data)} rows.")
+
+    cleaned_data = data[
+        ~data["lemma"].str.contains(
+            r"[^a-zA-ZáéíóúÁÉÍÓÚñÑüÜ¿¡., ]", regex=True, na=False
+        )
+    ]
+
+    print(
+        f"Finished with a total of {len(cleaned_data)} rows. ({len(data) - len(cleaned_data)} removed.)"
+    )
+
+    return cleaned_data
