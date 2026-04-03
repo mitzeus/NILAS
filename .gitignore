@@ -1,5 +1,6 @@
 .env
 .venv
+.DS_Store
 
 /data/1-raw/spanish/*
 /data/1-raw/spanish.csv
