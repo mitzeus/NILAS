@@ -8,6 +8,10 @@
 
 NILAS (Nuimio Intelligence Language Agent System) is a subsystem developed for the award-winning language platform [Nuimio](https://nuimio.com). The project aims to enable seamless integration of AI & Machine Learning into the current algorithmic nature of Nuimio. It uses a flexible architecture built on iterative improvements using a varied set of closed-source models for increased performance.
 
+NILAS aims to simplify language learning by working together with you to perfect your individual language learning journey. NILAS enables for straight forward use of transforming users' questions and weaknesses into clear Call-to-Action, which enables instant feedback in activities, clear customized goals, and an effective path forward towards fluency.
+
+NILAS answers questions, does activities, maps users' strengths and weaknesses to customized training, all to accommodate a simple, comfortable, and effective learning journey, all in Nuimio.
+
 ## About Nuimio
 
 Nuimio is an award-winning language platform which promises to combine advanced technologies such as AI, Machine Learning, & Spaced-Repetition algorithms with interactive learning and a varied set of activities & challenges, all catered to your own proficiency level. With full flexibility, Nuimio creates a personalized experience based on the vocabulary you want to learn.
