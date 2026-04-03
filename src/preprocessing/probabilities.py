@@ -38,7 +38,6 @@ def class_prior(data: pd.DataFrame, pos_col: str, freq_col: str):
     fig, ax = plt.subplots(figsize=(10, 6))
     ax.grid(axis="y", linestyle="--", alpha=0.7)
     ax.bar(percentages["pos"], percentages["percentages"])
-    # plt.figsize = (10, 6)
     ax.set_xlabel("Word Classes")
     ax.set_ylabel("Frequency (%)")
     ax.set_title("Probability Distribution per Grammar Type")
