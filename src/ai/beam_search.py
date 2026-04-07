@@ -10,6 +10,10 @@ import os
 
 
 class Node:
+    """
+    Node object for use in `BeamSearch` and creating a beam tree.
+    """
+
     def __init__(self, me: str, parent: object | None, probability: float):
         self.me = me
         self.parent = parent
@@ -49,10 +53,6 @@ class BeamSearch:
         Returns:
             list[str]: Updated beams
         """
-        # TODO:
-        # Add new layer to beam tree
-        # Measure lexical constraints and naturalness of all the new paths and rank them
-        # Update beams
 
         if len(self.tree) == 0 and type(layer) is dict:  # Check if root
             # root
@@ -97,9 +97,22 @@ class BeamSearch:
         # ...
 
     def build_sequence_from_obj(self, obj: object):
+        """
+        Builds string sequence from a single parsed object using `parent` attribute.
+
+        Args:
+            obj: `Node` object.
+
+        Returns:
+            str: Corresponding sequence string for the provided object.
+        """
         sequence_build = ""
 
         def build_sequence(part: object):
+            """
+            Builds string sequence from a single parsed object using `parent` attribute.
+            A subfunction of `build_sequence_from_obj` function and uses recursion.
+            """
             if part.parent == None:
                 return part.me
 
@@ -123,6 +136,15 @@ class BeamSearch:
         # TODO add limitations using flashcard list
 
         def calculate_sequence_prob(obj: object):
+            """
+            Calculates total probability of a sequence given a `Node` object using recursion.
+
+            Args:
+                obj: `Node` object.
+
+            Returns:
+                str: Total probability of sequence from `Node` object.
+            """
             if obj.parent == None:  # base case
                 return obj.probability
 
@@ -143,11 +165,30 @@ class BeamSearch:
         return top_n_items
 
     def reset(self):
+        """
+        Resets sequence, tree, and references to current beams.
+
+        Args:
+            None
+
+        Returns:
+            None
+        """
         self.sequence = ""
         self.tree = []
         self.beams = []
+        self.beam_obj = []
 
     def visualize_tree(self, filename: str):
+        """
+        Visualizes beam tree using GraphViz library.
+
+        Args:
+            filename: File name of the generated png file
+
+        Returns:
+            None
+        """
         u = graphviz.Digraph(
             "Beam Tree",
             node_attr={"color": "lightblue2", "style": "filled"},

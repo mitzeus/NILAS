@@ -94,6 +94,9 @@ class Conversation_Model:
         # TODO: implement method to determine user level based on flashcards CEFR level and amount of words in flashcard library
         pass
 
+        # TODO add a "build_partial_sequence" bool that when true will when generated append onto an assistant
+        # TODO part instead of completing it until it's set again and locks the final output for using beam_search
+
     def ask(
         self,
         prompt: str,
