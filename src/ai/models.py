@@ -50,6 +50,7 @@ class Conversation_Model:
         model_name: str,
         temperature: float = 0.3,
         max_output_tokens: int = 1000,
+        tokenwise_generation: bool = False,
         store: bool = False,
         keep_history: bool = True,
         save_history_to_file: bool = True,
@@ -71,9 +72,16 @@ class Conversation_Model:
         self.history = [
             {
                 "role": "system",
-                "content": [{"type": "input_text", "text": self.system_message}],
+                "content": self.system_message,
             }
         ]
+        # self.history = [
+        #     {
+        #         "role": "system",
+        #         "content": [{"type": "input_text", "text": self.system_message}],
+        #     }
+        # ]
+        self.single_token_sequence_length = 0
 
     def _save_history(self):
         with open(self.file_save_name, "w") as f:
@@ -97,13 +105,214 @@ class Conversation_Model:
         # TODO add a "build_partial_sequence" bool that when true will when generated append onto an assistant
         # TODO part instead of completing it until it's set again and locks the final output for using beam_search
 
+    def generate_tokenwise(
+        self,
+        prompt: str,
+        generated_sequence: str,
+        top_logprobs: int = 20,
+        n_tokens: int = 1,
+        new_prompt: bool = False,
+        target_language: str = None,
+        preferred_language: str = None,
+        level: str = None,
+    ) -> tuple[object, object | list[object], str | list[str], bool]:
+        """
+        Tokenwise generation. Generates only one token at a time. Used for implementation with other tokenwise algorithms.
+
+        Args:
+            prompt: Original prompt
+            generaged_sequence: The partial or empty generated sequence (should be updated for every call)
+            top_logprobs: Specifies how many top logprobs to get from the model response
+            n_tokens: how many tokens to generate for each function call. `1` is recommended for per-token operations
+            target_language: Language which the model will interperet as being the language user wants to learn
+            preferred_language: Language which the model will interperet as your preferred language to receive response in
+            level: User language level (For example CEFR: A1, A2, B1, B2, C1, C2)
+
+
+        Returns:
+            object: Response object from OpenAI responses API
+            object | list[object]: top logprobs object extracted from OpenAI responses API, or list of top logprobs if `n_tokens > 1`.
+            str | list[str]: Single generated token or if `n_tokens > 1`, a list of tokens
+            bool: If the model is finished and is done generating the full sequence
+        """
+        if self.flashcards == None:
+            print(
+                "WARNING: No word library has been imported. No flashcard limitations are set."
+            )
+
+        preprocessed_prompt = process_prompt(
+            prompt=prompt,
+            flashcards=self.flashcards,
+            target_language=target_language,
+            preferred_language=preferred_language,
+            level=level,
+        )
+
+        # if self.keep_history and new_prompt == True:
+        #     self.history += [
+        #         {
+        #             "role": "user",
+        #             "content": preprocessed_prompt,
+        #         }
+        #     ]
+        # else:
+        #     self.history = [
+        #         {
+        #             "role": "system",
+        #             "content": self.system_message,
+        #         },
+        #         {
+        #             "role": "user",
+        #             "content": preprocessed_prompt,
+        #         },
+        #     ]
+
+        if new_prompt == True:
+            self.history += [
+                {
+                    "role": "user",
+                    "content": preprocessed_prompt,
+                }
+            ]
+
+        # if (
+        #     generated_sequence
+        # ):  # appends previously generated sequence to build on one token at a time
+        #     # print("adding")
+        #     # if self.history[-1]["role"] == "assistant":
+        #     #     self.history[-1]["content"] = generated_sequence
+
+        #     # else:
+        #     #     self.history += [
+        #     #         {
+        #     #             "role": "assistant",
+        #     #             "content": generated_sequence,
+        #     #         }
+        #     #     ]
+        #     pass
+        # else:
+        #     self.single_token_sequence_length = 0
+
+        if self.history[-1]["role"] == "assistant":
+            self.history[-1]["content"] = generated_sequence
+
+        else:
+            self.history += [
+                {
+                    "role": "assistant",
+                    "content": generated_sequence,
+                }
+            ]
+
+        # print(self.history)
+
+        # response = self.model_client.ChatCompletion.create(
+        #     model=self.model_name,
+        #     messages=self.history,
+        #     temperature=self.temperature,
+        #     max_completion_tokens=n_tokens,
+        #     logprobs=True,
+        #     store=self.store,
+        #     top_logprobs=top_logprobs,
+        # )
+
+        print(self.history[-1]["content"])
+
+        response = self.model_client.completions.create(
+            model=self.model_name,
+            prompt="\n".join(f"{m['role']}: {m['content']}" for m in self.history),
+            temperature=self.temperature,
+            max_tokens=n_tokens,
+            # logprobs=True,
+            # store=self.store,
+            # top_logprobs=top_logprobs,
+            logprobs=top_logprobs,
+        )
+
+        self.single_token_sequence_length += n_tokens
+
+        choice = response.choices[0]
+
+        is_finished = self._check_if_generation_is_finished(
+            choice, self.max_output_tokens, self.single_token_sequence_length
+        )
+
+        # response_top_logprobs = (
+        #     [choice.logprobs.content[i].top_logprobs for i in range(n_tokens)]
+        #     if n_tokens > 1
+        #     else choice.logprobs.content[0].top_logprobs
+        # )
+
+        # generated_response = (
+        #     [choice.logprobs.content[i].token for i in range(n_tokens)]
+        #     if n_tokens > 1
+        #     else choice.logprobs.content[0].token
+        # )
+        response_top_logprobs = (
+            [choice.logprobs.top_logprobs[i] for i in range(n_tokens)]
+            if n_tokens > 1
+            else choice.logprobs.top_logprobs[0]
+        )
+
+        generated_response = (
+            [choice.logprobs.tokens[i] for i in range(n_tokens)]
+            if n_tokens > 1
+            else choice.logprobs.tokens[0]
+        )
+
+        # response_top_logprobs = choice.logprobs.content[0].top_logprobs
+
+        # generated_response = choice.logprobs.content[0].token
+
+        return response, response_top_logprobs, generated_response, is_finished
+
+    def _check_if_generation_is_finished(self, choice, max_tokens, generated_tokens_nr):
+        """
+        Used by `generate_tokenwise` to check if n token generation has finished or reached maximum allowed token amount.
+
+        Args:
+            choice: OpenAI responses API object with first choice extracted (`n=1` in the API)
+            max_tokens: Maximum allowed tokens to generate
+            generated_tokens_nr: Current number of generated tokens in the generated sequence
+
+        Returns:
+            bool: If the model is finished and is done generating the full sequence
+        """
+        FINISH_TOKENS = ["<|endoftext|>", "<|im_end|>"]
+
+        want_to_finish = False
+
+        if choice.finish_reason == "stop":
+            want_to_finish = True
+
+        # if choice.logprobs.content[-1].token in FINISH_TOKENS:
+        #     want_to_finish = True
+
+        # if generated_tokens_nr >= max_tokens:
+        #     want_to_finish = True
+
+        return want_to_finish
+
     def ask(
         self,
         prompt: str,
         target_language: str = None,
         preferred_language: str = None,
         level: str = None,
-    ) -> str:
+    ) -> tuple[object, str]:
+        """
+        Ask function for model.
+
+        Args:
+            prompt: User prompt
+            target_language: Language which the model will interperet as being the language user wants to learn
+            preferred_language: Language which the model will interperet as your preferred language to receive response in
+            level: User language level (For example CEFR: A1, A2, B1, B2, C1, C2)
+
+        Returns:
+            object: Response object from OpenAI responses API
+            str: Output text from the response object
+        """
         if self.flashcards == None:
             print(
                 "WARNING: No word library has been imported. No flashcard limitations are set."
@@ -162,7 +371,7 @@ class Conversation_Model:
         if self.save_history_to_file:
             self._save_history()
 
-        return response.output_text
+        return response, response.output_text
 
 
 class Conversation:
