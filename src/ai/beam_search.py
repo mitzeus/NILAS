@@ -32,6 +32,7 @@ class BeamSearch:
 
     def __init__(self, beam_size: int, allowed_words: list[str]):
         self.sequence = ""
+        self.initialized = False  # to check if root has been added to tree yet
 
         self.beam_size = beam_size
         self.allowed_words = allowed_words
@@ -39,6 +40,9 @@ class BeamSearch:
         self.tree = []
         self.beams = []  # Holds beam strings
         self.beam_obj = []  # Holds object for last token in beams
+
+        self.best_beam_probability = float("-inf")
+        self.best_beam_ids = []
 
     def update(self, layer: list[dict[str, float]] | dict[str, float]):
         """
@@ -56,6 +60,8 @@ class BeamSearch:
 
         if len(self.tree) == 0 and type(layer) is dict:  # Check if root
             # root
+
+            self.initialized = True
 
             proposed_objs = []
             for key, prob in layer.items():
@@ -163,6 +169,20 @@ class BeamSearch:
         top_n_items = [proposed[i] for i in top_indices]
 
         return top_n_items
+
+    def length_penalty(length: int, alpha: float = 0.6) -> float:
+        """
+        Wu et al. 2016 (Google NMT) length penalty.
+        alpha=0:   no normalization (raw log-prob, biased to short)
+        alpha=1:   full normalization (divide by length)
+        alpha=0.6: empirically good default for most tasks
+        """
+        return ((5 + length) ** alpha) / ((5 + 1) ** alpha)
+
+    def calculate_normalized_probability(
+        self, log_prob_sum: float, length: int, alpha: float = 0.6
+    ) -> float:
+        return log_prob_sum / self.length_penalty(length, alpha)
 
     def reset(self):
         """
