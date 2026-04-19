@@ -14,13 +14,21 @@ class Node:
     Node object for use in `BeamSearch` and creating a beam tree.
     """
 
-    def __init__(self, me: str, parent: object | None, probability: float):
-        self.me = me
+    def __init__(
+        self,
+        token_id: int,
+        token_string: str,
+        parent: object | None,
+        probability: float,
+    ):
+        self.id = token_id
+        self.token = token_string
         self.parent = parent
         self.probability = probability
         self.children = []
 
 
+# TODO remake for token ids and not raw strings (until return)
 class BeamSearch:
     """
     The `BeamSearch` class contains attributes and methods for doing beam search on a sequence.
@@ -39,20 +47,23 @@ class BeamSearch:
 
         self.tree = []
         self.beams = []  # Holds beam strings
+        self.beam_ids = []  # Holds beam token ids
         self.beam_obj = []  # Holds object for last token in beams
 
         self.best_beam_probability = float("-inf")
         self.best_beam_ids = []
 
-    def update(self, layer: list[dict[str, float]] | dict[str, float]):
+    def update(self, layer: list[dict[int, any]] | dict[int, any]):
         """
         Adds layer to beam tree, updates beams to be the best ones based on metrics of
         naturalness and lexical constraints.
 
+        # TODO redo documentation for the new input format
+        # TODO add a checker where len logprobs must be bigger than beam size
         Args:
-            layer: list of list of strings where each string must be the updated part of the beam i.
-                    Each index i corresponds to the promposed updated sequences for beam i. Takes only
-                    a single list of strings if it's the first token in the sequence (tree root). #TODO
+            layer: list of list of integers where each integer must be the updated part of the beam i.
+                    Each index i corresponds to the promosed updated sequences for beam i. Takes only
+                    a single list of integers if it's the first token in the sequence (tree root). #TODO
 
         Returns:
             list[str]: Updated beams
@@ -64,48 +75,57 @@ class BeamSearch:
             self.initialized = True
 
             proposed_objs = []
-            for key, prob in layer.items():
-                root = Node(key, None, prob)
-                self.tree.append(root)
+            for token_id, token_info in layer.items():
+                root = Node(token_id, token_info["word"], None, token_info["logprob"])
                 proposed_objs.append(root)
 
             # rank the best
             top_results = self.pick_best_paths(proposed_objs)
 
             for item in top_results:
-                self.beams.append(item.me)
+                self.tree.append(item)  # Only add selected nodes to tree
+                self.beams.append(item.token)
+                self.beam_ids.append([item.id])
                 self.beam_obj.append(item)
 
-            return self.beams
+        else:
+            # normal sequence generation
 
-        # normal sequence generation
+            proposed_objs = []
+            for i, beam_i_proposal in enumerate(layer):
+                for token_id, token_info in beam_i_proposal.items():
+                    node = Node(
+                        token_id,
+                        token_info["word"],
+                        self.beam_obj[i],
+                        token_info["logprob"],
+                    )
+                    self.beam_obj[i].children.append(node)
+                    proposed_objs.append(node)
 
-        proposed_objs = []
-        for i, beam_i_proposal in enumerate(layer):
-            for key, prob in beam_i_proposal.items():
-                node = Node(key, self.beam_obj[i], prob)
-                self.beam_obj[i].children.append(node)
-                self.tree.append(node)
-                proposed_objs.append(node)
+            top_results = self.pick_best_paths(proposed_objs)
 
-        top_results = self.pick_best_paths(proposed_objs)
+            # Only add selected nodes to tree
+            for item in top_results:
+                self.tree.append(item)
 
-        self.beams = []
-        self.beam_obj = []
-        for item in top_results:
-            self.beams.append(self.build_sequence_from_obj(item))
-            self.beam_obj.append(item)
+            self.beams = []
+            self.beam_ids = []
+            self.beam_obj = []
+            for item in top_results:
+                string_sequence, id_sequence = self.build_sequence_from_obj(item)
+                self.beams.append(string_sequence)
+                self.beam_ids.append(id_sequence)
+                self.beam_obj.append(item)
 
-        return self.beams
+        return self.beams, self.beam_ids
 
-        # make objects of them and append to children of the beam objs
-
-        # ...
+        # TODO check for EOS
 
     def build_sequence_from_obj(self, obj: object):
         """
-        Builds string sequence from a single parsed object using `parent` attribute.
-
+        Builds string and ID sequence from a single parsed object using `parent` attribute.
+        # TODO upodate for token ids as well
         Args:
             obj: `Node` object.
 
@@ -113,6 +133,7 @@ class BeamSearch:
             str: Corresponding sequence string for the provided object.
         """
         sequence_build = ""
+        sequence_ids_build = []
 
         def build_sequence(part: object):
             """
@@ -120,13 +141,15 @@ class BeamSearch:
             A subfunction of `build_sequence_from_obj` function and uses recursion.
             """
             if part.parent == None:
-                return part.me
+                return part.token, [part.id]
 
-            return build_sequence(part.parent) + " " + part.me
+            str_part, id_part = build_sequence(part.parent)
 
-        sequence_build = build_sequence(obj)
+            return str_part + " " + part.token, id_part + [part.id]
 
-        return sequence_build
+        sequence_build, sequence_ids_build = build_sequence(obj)
+
+        return sequence_build, sequence_ids_build
 
     def pick_best_paths(self, proposed: list[object]):
         """
@@ -155,7 +178,9 @@ class BeamSearch:
                 return obj.probability
 
             # has parents
-            return obj.probability * calculate_sequence_prob(obj.parent)
+            return obj.probability + calculate_sequence_prob(
+                obj.parent
+            )  # sum of logprobs
 
         probabilities = []
 
@@ -197,6 +222,7 @@ class BeamSearch:
         self.sequence = ""
         self.tree = []
         self.beams = []
+        self.beam_ids = []
         self.beam_obj = []
 
     def visualize_tree(self, filename: str):
@@ -215,14 +241,20 @@ class BeamSearch:
         )
 
         for item in self.tree:
-            if item.parent != None:
-                u.edge(
-                    f"({item.parent.probability}) {item.parent.me}",
-                    f"({item.probability}) {item.me}",
+            if item.parent is not None:
+                parent_node_name = f"node_{id(item.parent)}"
+                child_node_name = f"node_{id(item)}"
+                parent_label = (
+                    f"({round(item.parent.probability, 2)}) {item.parent.token}"
                 )
+                child_label = f"({round(item.probability, 2)}) {item.token}"
+
+                u.node(parent_node_name, label=parent_label)
+                u.node(child_node_name, label=child_label)
+                u.edge(parent_node_name, child_node_name)
 
         u.save(f"figures/{filename}.gv")
-        u.attr(size="8,8", dpi="500")
+        u.attr(size="12,12", dpi="1000")
 
         # u.format = "png"
         u.render(f"figures/{filename}", view=False, format="png")
