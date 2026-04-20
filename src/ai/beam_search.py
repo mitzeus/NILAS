@@ -20,7 +20,7 @@ class Node:
 
     def __init__(
         self,
-        token_id: int,
+        token_id: list[int],
         token_string: str,
         parent: object | None,
         probability: float,
@@ -84,7 +84,7 @@ class BeamSearch:
         self.min_allowed_len = min_allowed_len
         self.alpha = alpha
 
-        self.nlp = spacy.load("sv_core_news_lg")  # for Swedish
+        # self.nlp = spacy.load("sv_core_news_lg")  # for Swedish
 
         self.tree = []
         self.beams = []  # Holds beam objects
@@ -98,7 +98,7 @@ class BeamSearch:
         self.best_beam = ""
         self.finished = False
 
-    def update(self, layer: list[dict[int, any]] | dict[int, any]):
+    def update(self, layer: list[dict[str, any]] | dict[str, any]):
         """
         Adds layer to beam tree, updates beams to be the best ones based on metrics of
         naturalness and lexical constraints.
@@ -121,16 +121,16 @@ class BeamSearch:
             )
             return
 
-        if len(self.tree) == 0 and type(layer) is dict:  # Check if root
+        if len(self.tree) == 0 and type(layer[0]) is dict:  # Check if root
             # root
 
             self.initialized = True
 
             proposed_objs = []
-            for token_id, token_info in layer.items():
+            for token in layer:
                 # TODO HERE when creating logprob node, apply lambda penalty
                 # TODO directly on logprob.
-                root = Node(token_id, token_info["word"], None, token_info["logprob"])
+                root = Node(token["ids"], token["word"], None, token["logprob"])
                 proposed_objs.append(root)
 
             # rank the best
@@ -159,15 +159,15 @@ class BeamSearch:
 
             proposed_objs = []
             for i, beam_i_proposal in enumerate(layer):
-                for token_id, token_info in beam_i_proposal.items():
+                for token in beam_i_proposal:
                     # TODO HERE when creating logprob node, apply lambda penalty
                     # TODO directly on logprob.
 
                     node = Node(
-                        token_id,
-                        token_info["word"],
+                        token["ids"],
+                        token["word"],
                         self.beam_obj[i],
-                        token_info["logprob"],
+                        token["logprob"],
                     )
                     self.beam_obj[i].children.append(node)
                     proposed_objs.append(node)
@@ -237,12 +237,15 @@ class BeamSearch:
             Builds string sequence from a single parsed object using `parent` attribute.
             A subfunction of `build_sequence_from_obj` function and uses recursion.
             """
+            # print("Current Node")
+            # print(part.token)
+
             if part.parent == None:
-                return part.token, [part.id]
+                return part.token, part.id
 
             str_part, id_part = build_sequence(part.parent)
 
-            return str_part + part.token, id_part + [part.id]
+            return str_part + part.token, id_part + part.id
 
         sequence_build, sequence_ids_build = build_sequence(obj)
 
@@ -377,6 +380,7 @@ class BeamSearch:
         for proposal in proposed:
             string_sequence, id_sequence = self.build_sequence_from_obj(proposal)
             beam_prob = self.calculate_sequence_prob(proposal)
+
             norm_beam_prob = self.calculate_normalized_probability(
                 beam_prob, len(id_sequence), self.alpha
             )
@@ -416,7 +420,7 @@ class BeamSearch:
             # add dummies
             diff_amount = self.beam_size - len(chosen_beams)
             for i in range(diff_amount):
-                dummy_node = Node(0, "", None, float("-inf"))
+                dummy_node = Node([0], "", None, float("-inf"))
                 dummy_beam = Beam(
                     [0], "", float("-inf"), float("-inf"), dummy_node, True
                 )
@@ -458,6 +462,7 @@ class BeamSearch:
         self.beam_obj = []
 
     def visualize_tree(self, filename: str):
+        # TODO fix a bug with the last token(s) not showing (prob never added to tree)
         """
         Visualizes beam tree using GraphViz library.
 

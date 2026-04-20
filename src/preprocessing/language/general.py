@@ -1,11 +1,12 @@
 import pandas as pd
 import numpy as np
+from numpy.typing import NDArray
 import os
 
 from src.preprocessing.probabilities import class_prior, hamilton
 
 
-def convert_frequency_to_WPM(frequencies: np.array[int], round_to: int = 2):
+def convert_frequency_to_WPM(frequencies: NDArray[np.int_], round_to: int = 2):
     """
     Converts raw frequency to Words per Million (WPM) metric.
 
