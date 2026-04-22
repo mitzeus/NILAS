@@ -1,0 +1,15 @@
+* Try to test CI with 
+* Explaining algorithm and tree search
+* How to frame it as one of the soft questions how to integrate different tokenizations to our desired word tokens. I used specifically GREEDY summed tokenization
+* Throw in the formula for normalized logprob
+* Maybe see if you can build penalty over a sequece with many invalid words
+* Add accumulated logprob into tree
+* Use at least 100 samples, compute naturalness and error of lexical error and correctness to answer
+* Use LLM
+* Average logprob,
+
+Combinational logprob is high means good fit
+
+Check into Google Colab Paid and see if it can run the stronger more
+
+FOCUS on writing, getting 3 metrics, metrics, naturalness, violation of lexical constraint, Method and results is the most imortant.

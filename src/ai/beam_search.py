@@ -68,10 +68,9 @@ class BeamSearch:
         self,
         beam_size: int,
         allowed_words: list[str],
-        eos_token_id: any,
         tokenizer: object,
         allowed_word_penalty: float = 2.5,
-        min_allowed_len: int = 5,
+        # min_allowed_len: int = 5,
         alpha: float = 0.6,
     ):
         self.sequence = ""
@@ -79,9 +78,9 @@ class BeamSearch:
 
         self.beam_size = beam_size
         self.allowed_words = allowed_words
-        self.eos_token_id = eos_token_id
+        self.eos_token_id = tokenizer.eos_token_id
         self.tokenizer = tokenizer
-        self.min_allowed_len = min_allowed_len
+        # self.min_allowed_len = min_allowed_len
         self.alpha = alpha
 
         # self.nlp = spacy.load("sv_core_news_lg")  # for Swedish
@@ -490,10 +489,10 @@ class BeamSearch:
                 u.node(child_node_name, label=child_label)
                 u.edge(parent_node_name, child_node_name)
 
-        u.save(f"figures/{filename}.gv")
+        u.save(f"figures/trees/{filename}.gv")
         u.attr(size="12,12", dpi="1000")
 
         # u.format = "png"
-        u.render(f"figures/{filename}", view=False, format="png")
+        u.render(f"figures/trees/{filename}", view=False, format="png")
 
-        os.remove(f"figures/{filename}")  # removes extra no codex .dot file
+        os.remove(f"figures/trees/{filename}")  # removes extra no codex .dot file

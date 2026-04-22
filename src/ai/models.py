@@ -1,423 +1,270 @@
-from vllm import LLM, SamplingParams
 from src.ai.beam_search import BeamSearch
+from src.ai.tools import (
+    build_chat_with_token_ids,
+    generate_token,
+    find_optimal_beams,
+    get_max_token_length_of_vocab,
+    process_vocab_to_prompt,
+)
 from vllm.inputs import TokensPrompt
-import contractions
-import re
 
 
-def generate_token(
-    prompt_token_ids: list[int] | list[list[int]],
-    model: LLM,
-    sampling_params: SamplingParams,
-    verbose_generation: bool = False,
-) -> tuple[dict[int, any], int, int]:
-    """
-    Generates a single token given the prompt and chat history with vLLM.
+class Custom_vLLM:
+    def __init__(
+        self,
+        model: object,
+        tokenizer: object,
+        lemmatizer: object,
+        allowed_words: list[str],
+        beam_size: int = 1,
+        word_soft_constraint_penalty: float = 2.5,
+        alpha: float = 0.6,
+    ):
+        output = ""
 
-    # TODO change documentation to reflect also can take multiple prompts and give multiple returns
-    Args:
-        prompt_token_ids: A list of token IDs representing the input prompt.
-        model: The vLLM model to use for generation.
-        sampling_params: Parameters for sampling strategy.
+        self.model = model
+        self.tokenizer = tokenizer
+        self.eos_token_id = tokenizer.eos_token_id
+        self.lemmatizer = lemmatizer
+        self.allowed_words = allowed_words
+        self.beam_size = beam_size
+        self.word_soft_constraint_penalty = word_soft_constraint_penalty
+        self.alpha = alpha
 
-    Returns:
-        dict: Logprobs
-        int: Sampled token ID
-        int: Greedily selected token ID
-    """
-
-    do_multiprocess = True if isinstance(prompt_token_ids[0], list) else False
-
-    if do_multiprocess:
-        # Process and return several token generations in parallel (for beam search)
-
-        batched_prompts = [
-            TokensPrompt(prompt_token_ids=single_prompt_ids)
-            for single_prompt_ids in prompt_token_ids
-        ]
-
-        outputs = model.generate(
-            batched_prompts,
-            sampling_params=sampling_params,
-            use_tqdm=verbose_generation,
+        self.beam_tree = BeamSearch(
+            beam_size=self.beam_size,
+            allowed_words=self.allowed_words,
+            tokenizer=self.tokenizer,
+            allowed_word_penalty=self.word_soft_constraint_penalty,
+            alpha=self.alpha,
         )
 
-        logprobs_dicts = [outputs[i].outputs[0].logprobs for i in range(len(outputs))]
-        greedy_token_ids = [
-            max(logprobs_dicts[i][0], key=lambda tid: logprobs_dicts[i][0][tid].logprob)
-            for i in range(len(outputs))
-        ]
-        sampled_token_ids = [
-            outputs[i].outputs[0].token_ids[0] for i in range(len(outputs))
-        ]
-
-        return logprobs_dicts, sampled_token_ids, greedy_token_ids
-
-    else:
-        # Only process and return a single
-
-        outputs = model.generate(
-            TokensPrompt(prompt_token_ids=prompt_token_ids),
-            sampling_params=sampling_params,
-            use_tqdm=verbose_generation,
+    def __call__(
+        self,
+        system_prompt: str,
+        user_prompt: str,
+        sampling_params: object,
+        max_sequence_length: int = 200,
+        verbose: str | None = "sequence",
+        use_word_constraint=False,
+        word_constraint_type: str = "hard",
+        prompt_allowed_words: bool = False,
+    ):
+        system_prompt = process_vocab_to_prompt(
+            system_prompt, self.allowed_words, prompt_allowed_words
         )
 
-        output = outputs[0].outputs[0]  # Assuming batch size & max tokens are 1
-
-        logprobs_dict = output.logprobs  # index 0 = the single token we generated
-
-        greedy_token_id = max(
-            logprobs_dict[0], key=lambda tid: logprobs_dict[0][tid].logprob
-        )
-        sampled_token_id = output.token_ids[
-            0
-        ]  # index 0 = the single token we generated
-
-        return logprobs_dict, sampled_token_id, greedy_token_id
-
-
-def create_logprobs_dict(
-    logprobs: dict[int, any],
-    prompt_token_ids: list[int],
-    max_token_length: int,
-    model: LLM,
-    sampling_params: SamplingParams,
-    tokenizer: any,
-    EOS_TOKEN_ID: str,
-) -> dict[int, dict[str, any]]:
-    """
-    # TODO
-    """
-
-    extracted_logprobs = []
-
-    generated_logprob = logprobs[0]  # index 0 = the single token we generated
-
-    # extract the top k WORDS (not just tokens)
-    for token_id, token_logprob in generated_logprob.items():
-        # For each top k token for this single generated token
-        full_word_ids = [token_id]  # generate first segment
-        # generate the full word
-
-        sum_logprob = token_logprob.logprob
-
-        # If the initial token is EOS, don't try to continue generating.
-        if token_id == EOS_TOKEN_ID:
-            extracted_logprobs.append(
-                {
-                    "logprob": sum_logprob,
-                    "word": tokenizer.decode(full_word_ids),
-                    "ids": full_word_ids,
-                }
-            )
-            continue
-
-        # append the generated token to the prompt to generate the continuation of the word
-        custom_prompt_token_ids = prompt_token_ids + [token_id]
-
-        token_len = 1
-        # timer_start = time.time()
-        # print("------Beginning to generate for each token to explore if word or subword")
-        while token_len < max_token_length:
-            # Generate until we hit a space, or EOS
-            next_token_logprobs_dict, next_token_sampled_id, next_token_greedy_id = (
-                generate_token(custom_prompt_token_ids, model, sampling_params)
-            )
-            # TODO make this into its own bool hyperparameter
-            next_token_id_to_use = next_token_greedy_id  # switch this to switch between partial greedy completion or partial sampling completion
-
-            if next_token_id_to_use == EOS_TOKEN_ID:
-                # full_word_ids.append(next_token_id_to_use)
-                break
-            decoded = tokenizer.decode([next_token_id_to_use])
-            if decoded.startswith(" "):
-                break
-            else:
-                sum_logprob += next_token_logprobs_dict[0][next_token_id_to_use].logprob
-                full_word_ids.append(next_token_id_to_use)
-                custom_prompt_token_ids.append(next_token_id_to_use)
-                token_len += 1
-
-        # timer_end = time.time()
-
-        # print(f"------Done checking word/subword ({timer_end-timer_start})")
-
-        extracted_logprobs.append(
-            {
-                "logprob": sum_logprob,
-                "word": tokenizer.decode(full_word_ids),
-                "ids": full_word_ids,
-            }
+        max_possible_token_length_of_vocab = get_max_token_length_of_vocab(
+            self.allowed_words, self.tokenizer
         )
 
-        # extracted_logprobs[token_id] = {
-        #     # "logprob": token_logprob.logprob, # old, only first
-        #     "logprob": sum_logprob, # new, actually the full word
-        #     "word": tokenizer.decode(full_word_ids),
-        # }
-
-    return extracted_logprobs
-
-
-def apply_word_penalties(
-    logprobs: list[dict[str, any]] | list[list[dict[str, any]]],
-    allowed_words: list[str],
-    penalty: float,
-    constraint_type: str,
-    tokenizer: any,
-    lemmatizer: object,
-) -> list[dict[str, any]] | list[list[dict[str, any]]]:
-    """
-    Applies a `penalty` to all words which are present in `allowed_words`.
-
-    Args:
-        logprobs: Logprobs for each candidate for each beam branch.
-        allowed_words: List of allowed words to compare candidates with
-        penalty: Penalty to apply to logprobs if candidate not in `allowed_words`
-        lemmatizer: spaCy lemmatizer object to lemmatize candidates for comparing with allowed words
-
-    Returns:
-        list[dict[str, any]] | list[list[dict[str, any]]]: Returns identical structure as inputted with logprobs modified
-    """
-    do_multiprocess = True if isinstance(logprobs[0], list) else False
-
-    # Candidate example: {'logprob': -0.22042465209960938, 'word': ' found', 'ids': [1730]}
-
-    def process_word(candidate: dict, tokenizer: any, lemmatizer: object):
-
-        # if candidate["word"] == tokenizer.eos_token:
-        #     print("FOUND A LONE EOS TOKEN")
-
-        if tokenizer.eos_token in candidate["word"]:
-            # print("Found EOS token in word, auto allow...")
-            return True  # Allow EOS tokens so sequences can naturally terminate
-
-        decontracted = contractions.fix(candidate["word"])
-
-        # tag_cleaned = decontracted.replace(tokenizer.eos_token, "")
-
-        removed_specials_around = re.sub(
-            r"^\W+|\W+$", "", decontracted
-        )  # Remove only spcial characters before and after (eg. "-don't." -> "don't")
-
-        # # print("Started lemmatizing.")
-        doc = lemmatizer(removed_specials_around)
-
-        lemmas = [
-            item.lemma_ for item in doc
-        ]  # Can be several, usually 1 for the single last word
-
-        pos = [item.pos_ for item in doc]
-
-        # print(pos)
-
-        excluded_classes = set(["X", "SYM", "PROPN", "NUM", "SPACE", "PUNCT"])
-
-        exclude_indecies = [i for i, item in enumerate(pos) if item in excluded_classes]
-
-        lemmas = [item for i, item in enumerate(lemmas) if i not in exclude_indecies]
-        pos = [item for i, item in enumerate(pos) if i not in exclude_indecies]
-
-        # print("Found lemmas:")
-        # for lem in doc:
-        # print(f"  {lem.lemma_}, ({lem.pos_})")
-
-        # print(f"---{candidate["word"]}'s lemmas: {lemmas}")
-
-        # print("Allowed Words:")
-        # print(allowed_words)
-
-        if set(lemmas) & set(
-            allowed_words
-        ):  # Any overlap between word lemma and allowed words
-            # print("Found overlap!, Is ok.")
-            # print(last_generated_word_lemmas)
-            # print(self.allowed_words)
-            return True
-        else:
-            # print("No overlap? Applying penalty")
-            return False
-
-    if do_multiprocess:
-        for branch in logprobs:
-            for candidate in branch:
-                # print(f"Decision \"{candidate["word"]}\"")
-                is_allowed = process_word(candidate, tokenizer, lemmatizer)
-                # print("------Allowed") if is_allowed else print("------Denied")
-                if not is_allowed:
-                    if constraint_type == "soft":
-                        candidate["logprob"] -= penalty
-                    elif constraint_type == "hard":
-                        candidate["logprob"] = float("-inf")
-                    else:
-                        raise TypeError(
-                            f'Invalid word constraint type. "soft" | "hard", got "{constraint_type}"'
-                        )
-
-    else:
-        for candidate in logprobs:
-            is_allowed = process_word(candidate, tokenizer, lemmatizer)
-            if not is_allowed:
-                if constraint_type == "soft":
-                    candidate["logprob"] -= penalty
-                elif constraint_type == "hard":
-                    candidate["logprob"] = float("-inf")
-                else:
-                    raise TypeError(
-                        f'Invalid word constraint type. "soft" | "hard", got "{constraint_type}"'
-                    )
-
-    return logprobs
-
-
-def find_optimal_beams(
-    logprobs_dict: dict[int, any] | list[dict[int, any]],
-    beam_tree: BeamSearch,
-    prompt_token_ids: list[int],
-    allowed_words: list[str],
-    model: LLM,
-    sampling_params: SamplingParams,
-    tokenizer: any,
-    lemmatizer: object,
-    EOS_TOKEN_ID: str,
-    max_possible_token_length: int,
-    use_word_constraint: bool = False,
-    word_soft_constraint_penalty: float = 2.5,
-    word_constraint_type: str = "hard",
-):
-    """
-    Using a single token output logprobs, finds the optimal beams given a beam tree object.
-    # TODO
-    Args:
-        None
-
-    Returns:
-        list[int]: List of token IDs representing the last generated token for the optimal beams.
-    """
-
-    extracted_logprobs = {}
-
-    # Do some logic of removing words that are not in the vocab.
-    if beam_tree.initialized == False:
-        # initialize
-
-        # Example for 2 beams:
-        # [
-        #   {'logprob': -1.1990221738815308, 'word': 'John', 'ids': [13079]},
-        #   {'logprob': -1.3396471738815308, 'word': 'The', 'ids': [785]}
-        # ]
-        # timer_start = time.time()
-        # print("----Making Logprobs Object...")
-        extracted_logprobs = create_logprobs_dict(
-            logprobs_dict,
-            prompt_token_ids,
-            max_possible_token_length,
-            model,
-            sampling_params,
-            tokenizer,
-            EOS_TOKEN_ID,
+        original_token_ids = build_chat_with_token_ids(
+            system_prompt, user_prompt, self.tokenizer
         )
+        token_ids_for_beams = [
+            [] for _ in range(self.beam_tree.beam_size)
+        ]  # Use this to keep track of token IDs for each beam
+        prompts_token_ids = [
+            original_token_ids.copy() for _ in range(self.beam_tree.beam_size)
+        ]  # Use this to build original + generated token
 
-        if use_word_constraint:
-            logprobs_with_applied_penalties = apply_word_penalties(
-                extracted_logprobs,
-                allowed_words,
-                word_soft_constraint_penalty,
-                word_constraint_type,
-                tokenizer,
-                lemmatizer,
-            )
-        else:
-            logprobs_with_applied_penalties = extracted_logprobs
-        # timer_end = time.time()
-        # print(f"----Logprobs Object Done. ({timer_end - timer_start})")
+        for seq_step in range(max_sequence_length):
+            if verbose == "full" or verbose == "sequence":
+                print(f"Sequence step: {seq_step + 1}")
+            # Generate one token per seq step (in the beam tree it is processing full breath and each token is one step in depth)
 
-        # timer_start = time.time()
-        # print("----Updating Beam Tree...")
-        beams = beam_tree.update(logprobs_with_applied_penalties)
-        # timer_end = time.time()
-        # print(f"----Beam Tree Updated. ({timer_end - timer_start})")
-
-    else:
-        logprobs_dicts = logprobs_dict  # Now a list of dicts, one for each beam
-        generated_token_ids = prompt_token_ids  # Now list of prompt + previously generated tokens for each beam
-
-        extracted_logprobs = []
-
-        # Example 2 beams:
-        # [
-        #   [
-        #     {'logprob': -0.22042465209960938, 'word': ' found', 'ids': [1730]},
-        #     {'logprob': -2.4547996520996094, 'word': ' lost', 'ids': [5558]}
-        #   ],
-        #   [
-        #     {'logprob': -1.1107125282287598, 'word': ' guy', 'ids': [7412]},
-        #     {'logprob': -1.3607125282287598, 'word': ' man', 'ids': [883]}
-        #   ]
-        # ]
-        # timer_start = time.time()
-        # print("----Making Logprobs Object...")
-        for beam_i in range(beam_tree.beam_size):
-            extracted_logprobs.append(
-                create_logprobs_dict(
-                    logprobs_dicts[beam_i],
-                    generated_token_ids[beam_i],
-                    max_possible_token_length,
-                    model,
-                    sampling_params,
-                    tokenizer,
-                    EOS_TOKEN_ID,
+            if self.beam_tree.initialized == False:
+                # Generate the beam root
+                (
+                    print(f"Generating for {self.beam_tree.beam_size} beams.")
+                    if verbose == "full"
+                    else None
                 )
-            )
 
-        if use_word_constraint:
-            logprobs_with_applied_penalties = apply_word_penalties(
-                extracted_logprobs,
-                allowed_words,
-                word_soft_constraint_penalty,
-                word_constraint_type,
-                tokenizer,
-                lemmatizer,
-            )
-        else:
-            logprobs_with_applied_penalties = extracted_logprobs
+                logprobs_dict, sampled_token_id, greedy_token_id = generate_token(
+                    original_token_ids, self.model, sampling_params
+                )
 
-        # timer_end = time.time()
-        # print(f"----Logprobs Object Done. ({timer_end - timer_start})")
+                (
+                    print(f"Generated. Now finding optimal beams...")
+                    if verbose == "full"
+                    else None
+                )
 
-        # timer_start = time.time()
-        # print("----Updating Beam Tree...")
-        beams = beam_tree.update(logprobs_with_applied_penalties)
-        # timer_end = time.time()
-        # print(f"----Beam Tree Updated. ({timer_end - timer_start})")
+                beam_objects = find_optimal_beams(
+                    logprobs_dict,
+                    self.beam_tree,
+                    original_token_ids,
+                    self.allowed_words,
+                    self.model,
+                    sampling_params,
+                    self.tokenizer,
+                    self.lemmatizer,
+                    self.eos_token_id,
+                    max_possible_token_length=max_possible_token_length_of_vocab,
+                    use_word_constraint=use_word_constraint,
+                    word_soft_constraint_penalty=self.word_soft_constraint_penalty,
+                    word_constraint_type=word_constraint_type,
+                )
 
-    # Extract the last token of the beams which is the newly generated token
+                print("Found optimal beams.") if verbose == "full" else None
 
-    return beams
+                for i, beam in enumerate(beam_objects):
+                    prompts_token_ids[i] = (
+                        original_token_ids.copy() + beam.ids
+                    )  # add the last chosen token ids to the respective generated token id list (original + generated)
+
+                (
+                    print(
+                        "Now appended chosen tokens. Continuing to next sequence step...\n"
+                    )
+                    if verbose == "full"
+                    else None
+                )
+
+            else:
+                # Continue generating for N beams
+                (
+                    print(f"Generating for {self.beam_tree.beam_size} beams.")
+                    if verbose == "full"
+                    else None
+                )
+
+                logprobs_dicts, sampled_token_ids, greedy_token_ids = generate_token(
+                    prompts_token_ids,
+                    self.model,
+                    sampling_params,  # now inputting list of prompt + generated token ids for each beam
+                )
+
+                (
+                    print(f"Generated. Now finding optimal beams...")
+                    if verbose == "full"
+                    else None
+                )
+
+                beam_objects = (
+                    find_optimal_beams(  # will find best beams over all branches
+                        logprobs_dicts,
+                        self.beam_tree,
+                        prompts_token_ids,
+                        self.allowed_words,
+                        self.model,
+                        sampling_params,
+                        self.tokenizer,
+                        self.lemmatizer,
+                        self.eos_token_id,
+                        max_possible_token_length=max_possible_token_length_of_vocab,
+                        use_word_constraint=use_word_constraint,
+                        word_soft_constraint_penalty=self.word_soft_constraint_penalty,
+                        word_constraint_type=word_constraint_type,
+                    )
+                )
+
+                if self.beam_tree.finished:
+                    print("Fully finished.")
+                    self.output = self.tokenizer.decode(
+                        self.beam_tree.best_beam.ids, skip_special_tokens=True
+                    )
+                    break
+
+                print("Found optimal beams.") if verbose == "full" else None
+
+                for i, beam in enumerate(beam_objects):
+                    prompts_token_ids[i] = original_token_ids.copy() + beam.ids
+
+                (
+                    print(
+                        "Now appended chosen tokens. Continuing to next sequence step...\n"
+                    )
+                    if verbose == "full"
+                    else None
+                )
+
+        if not self.beam_tree.finished:
+            print("Did not finish before seqence maximum.")
+            self.output = [obj.sequence for obj in self.beam_tree.beams]
+
+        return self.output
 
 
-def build_chat_with_token_ids(
-    system_prompt: str, user_prompt: str, tokenizer: any
-) -> list[int]:
-    """
-    Builds initial chat history with prompt converted to token ids to start a new conversation history with vLLM.
+class Vanilla_vLLM:
+    def __init__(
+        self,
+        model: object,
+        tokenizer: object,
+        allowed_words: list[str],
+    ):
+        output = ""
 
-    Args:
-        system_prompt: The system prompt to set the behavior of the model.
-        user_prompt: The user prompt containing the prompt to ask the model.
-        tokenizer: The tokenizer to convert the prompts to token ids (using for example vLLM `use_tokenizer`)
+        self.model = model
+        self.tokenizer = tokenizer
+        self.allowed_words = allowed_words
 
-    Returns:
-        list[int]: The list of token IDs representing the initial chat history.
-    """
-    messages = [
-        {"role": "system", "content": system_prompt},
-        {"role": "user", "content": user_prompt},
-    ]
-    # apply_chat_template adds the <|begin_of_text|>, roles, etc.
-    token_ids = tokenizer.apply_chat_template(
-        messages,
-        add_generation_prompt=True,  # appends the assistant turn opener
-        return_tensors=None,  # returns a plain Python list
-    )
-    return token_ids
+    def __call__(
+        self,
+        system_prompt: str,
+        user_prompt: str,
+        sampling_params: object,
+        max_sequence_length: int = 200,
+        prompt_allowed_words: bool = False,
+        verbose: bool = False,
+    ):
+
+        system_prompt = process_vocab_to_prompt(
+            system_prompt, self.allowed_words, prompt_allowed_words
+        )
+
+        original_token_ids = build_chat_with_token_ids(
+            system_prompt, user_prompt, self.tokenizer
+        )
+
+        outputs = self.model.generate(
+            TokensPrompt(prompt_token_ids=original_token_ids),
+            sampling_params=sampling_params,
+            use_tqdm=verbose,
+        )
+
+        self.output = outputs[0].outputs[0].text
+
+        return self.output
+
+
+class Vanilla_ChatGPT:
+    def __init__(self, client: object, model: str, allowed_words: list[str]):
+        output = ""
+
+        self.client = client
+        self.model = model
+        self.allowed_words = allowed_words
+
+    def __call__(
+        self,
+        system_prompt: str,
+        user_prompt: str,
+        max_sequence_length: int = 200,
+        prompt_allowed_words: bool = False,
+    ):
+
+        system_prompt = process_vocab_to_prompt(
+            system_prompt, self.allowed_words, prompt_allowed_words
+        )
+
+        # print(system_prompt)
+
+        prompt = [
+            {
+                "role": "system",
+                "content": [{"type": "input_text", "text": system_prompt}],
+            },
+            {"role": "user", "content": [{"type": "input_text", "text": user_prompt}]},
+        ]
+
+        response = self.client.responses.create(
+            model=self.model,
+            input=prompt,
+            max_output_tokens=max_sequence_length,
+        )
+
+        self.output = response.output_text
+
+        return self.output
