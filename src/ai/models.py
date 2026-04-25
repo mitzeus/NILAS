@@ -239,7 +239,7 @@ class Vanilla_vLLM:
         max_sequence_length: int = 200,
         prompt_allowed_words: bool = False,
         verbose: bool = False,
-    ):
+    ) -> tuple[str, float]:
 
         system_prompt = process_vocab_to_prompt(
             system_prompt, self.allowed_words, prompt_allowed_words
@@ -289,7 +289,6 @@ class Vanilla_ChatGPT:
         system_prompt = process_vocab_to_prompt(
             system_prompt, self.allowed_words, prompt_allowed_words
         )
-
         # print(system_prompt)
 
         prompt = [

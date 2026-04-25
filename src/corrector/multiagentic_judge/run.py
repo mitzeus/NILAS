@@ -129,6 +129,7 @@ class IssueLedger(BaseModel):
 class RoundResult(BaseModel):
     round_number: int
     generated_text: str
+    perplexity: float
     review: FinalReview
     ledger_snapshot: IssueLedger  # State of ledger AFTER this round's synthesis
 
@@ -188,6 +189,156 @@ class IterativeConfig:
         0.3  # Also stop if critics tightly agree at a high score
     )
     min_rounds: int = 2
+
+
+@dataclass
+class GeneratorContext:
+    """
+    Everything the generator needs to produce the next output.
+    Constructed by build_generator_context() each round.
+    """
+
+    round_number: int
+    original_task: str
+
+    # The best output produced so far (None on round 1)
+    best_prior_output: Optional[str]
+    best_prior_score: Optional[float]
+
+    # Delta feedback: what changed THIS round specifically
+    # (not the full ledger — just the actionable diff)
+    delta_feedback: Optional[str]
+
+    # The full ledger is also available if your generator wants it
+    full_ledger: Optional[IssueLedger]
+
+    def to_prompt(self) -> str:
+        """
+        Render a ready-to-use prompt string in Option C format:
+          [task] + [best prior draft] + [delta feedback]
+
+        This is the default rendering. Override this method or build
+        your own rendering if your model uses a different format
+        (e.g. chat template, instruction tags, etc.)
+        """
+        if self.round_number == 1:
+            # Clean slate on round 1 — no prior output, no feedback
+            return textwrap.dedent(
+                f"""
+                {self.original_task}
+            """
+            ).strip()
+
+        open_issues = (
+            [i for i in self.full_ledger.issues if i.status == "open"]
+            if self.full_ledger
+            else []
+        )
+
+        improved_issues = (
+            [i for i in self.full_ledger.issues if i.status == "improved"]
+            if self.full_ledger
+            else []
+        )
+
+        resolved_issues = (
+            [i for i in self.full_ledger.issues if i.status == "resolved"]
+            if self.full_ledger
+            else []
+        )
+
+        # Build a focused delta block — not the full ledger prose
+        delta_lines = []
+
+        if resolved_issues:
+            delta_lines.append(
+                "The following issues from your previous draft have been RESOLVED — do not reintroduce them:"
+            )
+            for i in resolved_issues:
+                delta_lines.append(f"  ✓ [{i.issue_id}] {i.dimension}: {i.description}")
+
+        if improved_issues:
+            delta_lines.append(
+                "\nThe following issues are IMPROVING but not yet fully resolved:"
+            )
+            for i in improved_issues:
+                delta_lines.append(f"  ~ [{i.issue_id}] {i.dimension}: {i.description}")
+
+        if open_issues:
+            # Sort by recurrence — most persistent issues first
+            open_issues_sorted = sorted(
+                open_issues, key=lambda x: x.recurrence_count, reverse=True
+            )
+            delta_lines.append("\nThe following issues MUST be fixed in this revision:")
+            for i in open_issues_sorted:
+                recurrence = (
+                    f" (flagged {i.recurrence_count} times)"
+                    if i.recurrence_count > 1
+                    else ""
+                )
+                delta_lines.append(
+                    f"  ✗ [{i.issue_id}] {i.dimension}: {i.description}{recurrence}"
+                )
+
+        delta_block = (
+            "\n".join(delta_lines) if delta_lines else "No specific issues to address."
+        )
+
+        return textwrap.dedent(
+            f"""
+            TASK:
+            {self.original_task}
+ 
+            PREVIOUS BEST DRAFT (score: {self.best_prior_score:.1f}/5.0):
+            ---
+            {self.best_prior_output}
+            ---
+ 
+            REVISION INSTRUCTIONS:
+            Rewrite the draft above to address the following issues.
+            Preserve what was already working well. Do not simply patch — rewrite
+            sections where issues are deep.
+ 
+            {delta_block}
+ 
+            Produce the improved version now. Output only the revised text, no preamble.
+        """
+        ).strip()
+
+
+def build_generator_context(
+    round_number: int,
+    original_task: str,
+    completed_rounds: list[RoundResult],
+    current_ledger: IssueLedger,
+) -> GeneratorContext:
+    """
+    Construct the GeneratorContext for the upcoming round.
+
+    Selects the best prior output by score (not the most recent),
+    which avoids feeding a regression back to the generator.
+    """
+    if not completed_rounds:
+        return GeneratorContext(
+            round_number=round_number,
+            original_task=original_task,
+            best_prior_output=None,
+            best_prior_score=None,
+            delta_feedback=None,
+            full_ledger=None,
+        )
+
+    # Best round by score — not necessarily the most recent
+    best_round = max(completed_rounds, key=lambda r: r.review.overall_score)
+
+    return GeneratorContext(
+        round_number=round_number,
+        original_task=original_task,
+        best_prior_output=best_round.generated_text,
+        best_prior_score=best_round.review.overall_score,
+        delta_feedback=None,  # Computed inside to_prompt() from full_ledger
+        full_ledger=current_ledger,
+    )
 
 
 def _build_llm(profile: str, mc: ModelConfig) -> tuple[BaseChatModel, str]:
