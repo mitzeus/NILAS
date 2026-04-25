@@ -1,3 +1,5 @@
+import numpy as np
+
 from src.ai.beam_search import BeamSearch
 from src.ai.tools import (
     build_chat_with_token_ids,
@@ -20,7 +22,10 @@ class Custom_vLLM:
         word_soft_constraint_penalty: float = 2.5,
         alpha: float = 0.6,
     ):
-        output = ""
+        self.output = ""
+        self.perplexity = None
+
+        self.beam_average_logprobs = None
 
         self.model = model
         self.tokenizer = tokenizer
@@ -38,6 +43,19 @@ class Custom_vLLM:
             allowed_word_penalty=self.word_soft_constraint_penalty,
             alpha=self.alpha,
         )
+
+    def _calculate_perplexity(self):
+        """
+        Calculates perplexity, either for the best selected beam if finished, or for each of the non-finished beam candidates
+        """
+        if isinstance(self.beam_average_logprobs, list):
+            self.perplexity = [np.exp(-logprob) for logprob in self.beam_logprobs]
+        elif isinstance(self.beam_average_logprobs, float):
+            self.perplexity = np.exp(-self.beam_average_logprobs)
+        else:
+            raise TypeError(
+                f"beam_average_logprob is invalid type. Expected `list` | `int`, got {type(self.beam_average_logprobs)}"
+            )
 
     def __call__(
         self,
@@ -165,6 +183,9 @@ class Custom_vLLM:
                     self.output = self.tokenizer.decode(
                         self.beam_tree.best_beam.ids, skip_special_tokens=True
                     )
+                    self.beam_average_logprobs = (
+                        self.beam_tree.best_beam.logprob
+                    ) / len(self.beam_tree.best_beam.ids)
                     break
 
                 print("Found optimal beams.") if verbose == "full" else None
@@ -183,8 +204,13 @@ class Custom_vLLM:
         if not self.beam_tree.finished:
             print("Did not finish before seqence maximum.")
             self.output = [obj.sequence for obj in self.beam_tree.beams]
+            self.beam_average_logprobs = [
+                obj.logprob / len(obj.ids) for obj in self.beam_tree.beams
+            ]
 
-        return self.output
+        self._calculate_perplexity()
+
+        return self.output, self.perplexity
 
 
 class Vanilla_vLLM:
@@ -194,11 +220,16 @@ class Vanilla_vLLM:
         tokenizer: object,
         allowed_words: list[str],
     ):
-        output = ""
+        self.output = ""
+        self.perplexity = None
+        self.sequence_logprobs = []
 
         self.model = model
         self.tokenizer = tokenizer
         self.allowed_words = allowed_words
+
+    def _calculate_perplexity(self):
+        self.perplexity = np.exp(-np.mean(self.sequence_logprobs))
 
     def __call__(
         self,
@@ -225,17 +256,27 @@ class Vanilla_vLLM:
         )
 
         self.output = outputs[0].outputs[0].text
+        for token in outputs[0].outputs[0].logprobs:
+            for chosen in token.values():
+                self.sequence_logprobs.append(chosen.logprob)
 
-        return self.output
+        self._calculate_perplexity()
+
+        return self.output, self.perplexity
 
 
 class Vanilla_ChatGPT:
     def __init__(self, client: object, model: str, allowed_words: list[str]):
-        output = ""
+        self.output = ""
+        self.perplexity = None
+        self.sequence_logprobs = None
 
         self.client = client
         self.model = model
         self.allowed_words = allowed_words
+
+    def _calculate_perplexity(self):
+        self.perplexity = np.exp(-np.mean(self.sequence_logprobs))
 
     def __call__(
         self,
@@ -263,8 +304,14 @@ class Vanilla_ChatGPT:
             model=self.model,
             input=prompt,
             max_output_tokens=max_sequence_length,
+            include=["message.output_text.logprobs"],
         )
 
         self.output = response.output_text
+        self.sequence_logprobs = [
+            token_info.logprob for token_info in response.output[0].content[0].logprobs
+        ]
 
-        return self.output
+        self._calculate_perplexity()  # do this before finishing
+
+        return self.output, self.perplexity
