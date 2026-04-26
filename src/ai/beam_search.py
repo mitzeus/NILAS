@@ -460,7 +460,7 @@ class BeamSearch:
         # self.beam_ids = []
         self.beam_obj = []
 
-    def visualize_tree(self, filename: str):
+    def visualize_tree(self, filename: str, path: str = "figures/trees"):
         # TODO fix a bug with the last token(s) not showing (prob never added to tree)
         """
         Visualizes beam tree using GraphViz library.
@@ -489,10 +489,12 @@ class BeamSearch:
                 u.node(child_node_name, label=child_label)
                 u.edge(parent_node_name, child_node_name)
 
-        u.save(f"figures/trees/{filename}.gv")
+        os.makedirs(path, exist_ok=True)
+        full_path = os.path.join(path, filename)
+        u.save(f"{full_path}.gv")
         u.attr(size="12,12", dpi="1000")
 
         # u.format = "png"
-        u.render(f"figures/trees/{filename}", view=False, format="png")
+        u.render(f"{full_path}", view=False, format="png")
 
-        os.remove(f"figures/trees/{filename}")  # removes extra no codex .dot file
+        os.remove(f"{full_path}")  # removes extra no codex .dot file

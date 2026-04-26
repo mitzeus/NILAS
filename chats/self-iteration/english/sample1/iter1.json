@@ -1,0 +1,88 @@
+{
+    "round_number": 1,
+    "generated_text": "I svenskan är **en** och **ett** två former av den obestämda artikeln (“a/an” på engelska), och skillnaden handlar om **substantivets grammatiska genus**:\n\n- **en** används med **utrum** (”en-ord”)  \n  Ex: **en** bil, **en** stol, **en** hund\n\n- **ett** används med **neutrum** (”ett-ord”)  \n  Ex: **ett** hus, **ett** barn, **ett** äpple\n\n### Hur vet man vilket det är?\nDet finns inga helt säkra regler—oftast måste man lära sig ordet tillsammans med artikeln. Men som tumregel är **de flesta substantiv “en-ord”** (ungefär 70–80%).\n\n### Det påverkar också andra ord\nGenuset syns även i t.ex. adjektiv:\n\n- **en** röd bil  \n- **ett** röd**t** hus\n\noch i bestämd form:\n\n- **en** bil → bil**en**  \n- **ett** hus → hus**et**\n\nOm du vill kan du ge några substantiv du undrar över, så säger jag om de är “en” eller “ett” och visar exempelmeningar.",
+    "perplexity": 1.1955951761949548,
+    "review": {
+        "overall_score": 4.45,
+        "letter_grade": "B",
+        "summary": "This round saw strong performance across all dimensions, particularly in factual correctness and depth, where the scores were perfect. Clarity and reasoning quality showed minor areas for improvement, particularly regarding translations and discussions of exceptions. Overall, the content is well-structured and informative, with a few suggestions for enhancing accessibility and completeness.",
+        "critic_scores": [
+            {
+                "dimension": "Factual Correctness",
+                "profile": "factuality",
+                "score": 5,
+                "rationale": "The explanation of the difference between 'en' and 'ett' in Swedish is accurate and well-supported by examples. It correctly identifies the grammatical gender associated with each article and provides relevant examples for clarity. Additionally, the information about the predominance of 'en-words' and the impact on adjectives and definite forms is also correct.",
+                "improvement_tip": "None needed; the content is already accurate and informative."
+            },
+            {
+                "dimension": "Clarity & Communication",
+                "profile": "linguistics",
+                "score": 4,
+                "rationale": "The response provides a clear explanation of the difference between 'en' and 'ett' in Swedish, with structured examples that enhance understanding. However, the inclusion of a few Swedish terms without translation may slightly hinder comprehension for non-Swedish speakers.",
+                "improvement_tip": "Consider providing English translations for all Swedish terms used, ensuring that the explanation is accessible to readers unfamiliar with the language."
+            },
+            {
+                "dimension": "Grammar & Naturalness",
+                "profile": "linguistics",
+                "score": 4,
+                "rationale": "The response is generally well-structured and uses correct grammar throughout. The flow is natural, with clear explanations and examples. However, there are minor issues with punctuation and formatting that could be improved for better readability.",
+                "improvement_tip": "Ensure consistent formatting for examples, such as using bullet points or numbering for clarity, and check punctuation for any missing commas or periods."
+            },
+            {
+                "dimension": "Depth & Completeness",
+                "profile": "depth",
+                "score": 5,
+                "rationale": "The response thoroughly explains the difference between 'en' and 'ett' in Swedish, addressing their grammatical roles and providing examples. It also includes a helpful guideline about the prevalence of 'en-ord' and discusses the impact of grammatical gender on adjectives and definite forms, anticipating potential follow-up questions by inviting further inquiries about specific nouns.",
+                "improvement_tip": "Consider adding a brief note on common exceptions or irregularities in noun gender to enhance completeness."
+            },
+            {
+                "dimension": "Reasoning Quality",
+                "profile": "reasoning",
+                "score": 4,
+                "rationale": "The explanation clearly distinguishes between the two forms of the indefinite article in Swedish, providing examples and context for each. The reasoning is sound and well-supported by examples, although it could benefit from a more explicit discussion of exceptions or irregularities in the usage of 'en' and 'ett'.",
+                "improvement_tip": "Include a brief mention of exceptions or irregularities in the usage of 'en' and 'ett' to enhance the depth of the reasoning."
+            }
+        ],
+        "top_improvements": [
+            "Provide English translations for all Swedish terms used.",
+            "Ensure consistent formatting for examples, such as using bullet points or numbering.",
+            "Include a brief mention of exceptions or irregularities in the usage of 'en' and 'ett'."
+        ],
+        "confidence": "high",
+        "score_variance": 0.24
+    },
+    "ledger_snapshot": {
+        "issues": [
+            {
+                "issue_id": "CC-001",
+                "dimension": "Clarity & Communication",
+                "description": "Inclusion of Swedish terms without translation may hinder comprehension for non-Swedish speakers.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "improved",
+                "recurrence_count": 1
+            },
+            {
+                "issue_id": "GC-001",
+                "dimension": "Grammar & Naturalness",
+                "description": "Minor issues with punctuation and formatting that could be improved for better readability.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "improved",
+                "recurrence_count": 1
+            },
+            {
+                "issue_id": "RQ-001",
+                "dimension": "Reasoning Quality",
+                "description": "Could benefit from a more explicit discussion of exceptions or irregularities in the usage of 'en' and 'ett'.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "improved",
+                "recurrence_count": 1
+            }
+        ],
+        "round_summaries": [
+            "Overall, the response was strong with minor improvements suggested in clarity and reasoning."
+        ]
+    }
+}

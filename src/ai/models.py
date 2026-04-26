@@ -282,8 +282,10 @@ class Vanilla_ChatGPT:
         self,
         system_prompt: str,
         user_prompt: str,
+        sampling_params: object = None,
         max_sequence_length: int = 200,
         prompt_allowed_words: bool = False,
+        verbose: bool = True,
     ):
 
         system_prompt = process_vocab_to_prompt(
