@@ -240,6 +240,8 @@ class Vanilla_vLLM:
         prompt_allowed_words: bool = False,
         verbose: bool = False,
     ) -> tuple[str, float]:
+        if verbose is not None or verbose is not False:
+            verbose = True
 
         system_prompt = process_vocab_to_prompt(
             system_prompt, self.allowed_words, prompt_allowed_words
