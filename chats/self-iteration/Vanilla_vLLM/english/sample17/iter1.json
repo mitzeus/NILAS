@@ -1,0 +1,97 @@
+{
+    "round_number": 1,
+    "generated_text": "En inglés se usa \"un\" ante palabras que comienzan con una consonante sonora (como cónsonantes gemelares como bb y dd), o cuando la palabra empieza por vocal nasalmente [m], en el caso de las vocales cerradas: /n/, ɲ/ ([ñ]) , ŋ (/ŋ/) :\n\n- **Un** antes del *c*, b (*bees*):\n    - café  \n   \n   Un cafe  \n\nSiempre usas “una”:\n\n1.- Ante palabres empezando by un ás articulado [*h]: hombros – Una hombría,\n2-. Palabras terminadaing with sibilant sounds (-sh-, sh-) : thunders–Una thunder;\n3.–Palabra iniciándo segnaladamente [-ng] :\n4.-- Prensa,\n\nY siempre es correctos usar \"**uno**,\":\n\n5.) Números imparados e instancias numericas (\"one\", \"*I'm one year older than him*\" ):\n6) Después dles pronombres uno (“me”,“him”) :\"Me dio unas uvas\".\n\nPor ejemplo puedes decir correctamente estas frases sin necesidad alguna para añadir más contexto ya sea españolista ó inglsita:\"Dame unos papelitos\". En otras ocasiones debemos utilizar los artículos indefinidos según corresponda.\"Pidele algo agua\".\nAquí te pongo ejemplos clarificativos además",
+    "perplexity": 20.893270544392,
+    "review": {
+        "overall_score": 1.75,
+        "letter_grade": "D",
+        "summary": "This round's evaluation revealed significant issues across all dimensions, particularly in factual correctness and clarity. The text contained critical factual errors regarding English grammar rules, leading to confusion. Additionally, grammatical inaccuracies and disorganized structure further hindered understanding. Overall, there is a clear need for substantial improvement in accuracy and communication.",
+        "critic_scores": [
+            {
+                "dimension": "Factual Correctness",
+                "profile": "factuality",
+                "score": 1,
+                "rationale": "The text contains numerous critical factual errors regarding the use of 'a' and 'an' in English. It incorrectly states that 'un' is used before words starting with voiced consonants and provides nonsensical examples. Additionally, it mixes Spanish and English grammar rules inaccurately, leading to significant confusion.",
+                "improvement_tip": "Clarify the rules for using 'a' and 'an' in English, focusing on the correct usage based on the initial sound of the following word, and provide accurate examples."
+            },
+            {
+                "dimension": "Clarity & Communication",
+                "profile": "linguistics",
+                "score": 2,
+                "rationale": "The response contains numerous grammatical errors and unclear phrases that significantly hinder understanding. The structure is disorganized, with inconsistent formatting and a mix of languages that complicate the message. Key concepts are not clearly defined, leading to confusion about the rules for using 'a' and 'an'.",
+                "improvement_tip": "Revise the response for grammatical accuracy, organize the content into clear sections, and ensure consistent use of language to enhance clarity."
+            },
+            {
+                "dimension": "Grammar & Naturalness",
+                "profile": "linguistics",
+                "score": 2,
+                "rationale": "The response contains numerous grammatical errors, such as incorrect word forms ('palabres' instead of 'palabras'), inconsistent use of punctuation, and awkward phrasing that disrupts the flow. Additionally, the mixture of Spanish and English terms is confusing and detracts from clarity.",
+                "improvement_tip": "Focus on maintaining consistent language usage and ensure correct grammar, such as using appropriate plural forms and avoiding unnecessary complexity in sentence structure."
+            },
+            {
+                "dimension": "Depth & Completeness",
+                "profile": "depth",
+                "score": 2,
+                "rationale": "The response addresses the use of 'a' and 'an' in English but does so inaccurately and incompletely. It introduces several incorrect rules and examples, which detracts from the overall clarity and correctness of the explanation. Additionally, it fails to cover the basic rule of using 'a' before consonant sounds and 'an' before vowel sounds, which is fundamental to understanding the topic.",
+                "improvement_tip": "Provide a clear and accurate explanation of the rules for using 'a' and 'an', including examples that correctly illustrate the distinction based on the initial sounds of the following words."
+            },
+            {
+                "dimension": "Reasoning Quality",
+                "profile": "reasoning",
+                "score": 2,
+                "rationale": "The reasoning presented is weak and contains several logical gaps. The explanation of when to use 'a' and 'an' is muddled and includes incorrect examples and terminology, making it difficult to follow. The argument does not clearly support the conclusions drawn about the usage of articles in English.",
+                "improvement_tip": "Clarify the rules for using 'a' and 'an' with correct examples, ensuring that the explanation is logically structured and free from errors in terminology and grammar."
+            }
+        ],
+        "top_improvements": [
+            "Clarify the rules for using 'a' and 'an' in English with correct examples.",
+            "Revise the response for grammatical accuracy and organized content.",
+            "Ensure consistent language usage and correct grammar throughout."
+        ],
+        "confidence": "low",
+        "score_variance": 0.16
+    },
+    "ledger_snapshot": {
+        "issues": [
+            {
+                "issue_id": "FC-001",
+                "dimension": "Factual Correctness",
+                "description": "Numerous critical factual errors regarding the use of 'a' and 'an' in English.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "open",
+                "recurrence_count": 1
+            },
+            {
+                "issue_id": "CC-001",
+                "dimension": "Clarity & Communication",
+                "description": "Grammatical errors and unclear phrases significantly hinder understanding.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "open",
+                "recurrence_count": 1
+            },
+            {
+                "issue_id": "DC-001",
+                "dimension": "Depth & Completeness",
+                "description": "Inaccurate and incomplete explanation of the rules for using 'a' and 'an'.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "open",
+                "recurrence_count": 1
+            },
+            {
+                "issue_id": "RQ-001",
+                "dimension": "Reasoning Quality",
+                "description": "Weak reasoning with logical gaps in the explanation of article usage.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "open",
+                "recurrence_count": 1
+            }
+        ],
+        "round_summaries": [
+            "The evaluation highlighted numerous critical errors and a lack of clarity in the response."
+        ]
+    }
+}

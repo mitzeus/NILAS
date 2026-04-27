@@ -6,8 +6,10 @@ from langchain_openai import ChatOpenAI
 from langchain_core.language_models.chat_models import BaseChatModel, BaseMessage
 from langchain_core.messages import HumanMessage, SystemMessage, AIMessage
 from pydantic import BaseModel, Field
-from typing import Literal, Optional
+from typing import Literal, Optional, Union
 from langchain_core.chat_history import InMemoryChatMessageHistory
+from vllm import SamplingParams
+from src.ai.models import *
 from dotenv import load_dotenv
 import re
 import json
@@ -21,6 +23,9 @@ from dataclasses import dataclass, field
 from src.corrector.multiagentic_judge.configs import DEFAULT_RUBRIC
 
 load_dotenv()
+
+Generators = Union[Custom_vLLM, Vanilla_vLLM, Vanilla_ChatGPT]
+Verbosity = Literal["full", "sequence", None]
 
 # TODO Add history
 
@@ -129,6 +134,7 @@ class IssueLedger(BaseModel):
 class RoundResult(BaseModel):
     round_number: int
     generated_text: str
+    generator_name: str
     perplexity: float
     review: FinalReview
     ledger_snapshot: IssueLedger  # State of ledger AFTER this round's synthesis
@@ -684,3 +690,104 @@ def evaluate_llm_output_sync(
             llm_output, context, ledger, round_number, config, synthesis_profile_name
         )
     )
+
+
+async def run_self_iteration(
+    system_prompt: str,
+    prompt: str,
+    generator: Generators,
+    config: EvaluationConfig,
+    sampling_params: SamplingParams,
+    max_response_token_length: int,
+    language: str,
+    sample_nr: int,
+    prompt_allowed_words: bool = False,
+    verbose: Verbosity = "sequence",
+):
+
+    ledger = IssueLedger()
+    rounds: list[RoundResult] = []
+    converged = False
+    convergence_reason = None
+
+    save_path = f"chats/self-iteration/{generator.__class__.__name__}/{language}/sample{sample_nr+1}"
+    os.makedirs(save_path, exist_ok=True)
+
+    output, perplexity = generator(
+        system_prompt,
+        prompt,
+        sampling_params,
+        max_response_token_length,
+        prompt_allowed_words=prompt_allowed_words,
+        verbose=verbose,
+    )
+
+    # starting improvement loop
+    for round_num in range(1, config.max_rounds + 1):
+        feedback = ledger.to_prompt_block() if round_num > 1 else None
+
+        review, updated_ledger = await evaluate_round(
+            llm_output=output,
+            context=prompt,
+            ledger=ledger,
+            round_number=round_num,
+            config=config,
+        )
+
+        ledger = updated_ledger  # update with news
+
+        round_result = RoundResult(
+            round_number=round_num,
+            generated_text=output,
+            generator_name=generator.__class__.__name__,
+            perplexity=perplexity,
+            review=review,
+            ledger_snapshot=ledger.model_copy(deep=True),
+        )
+        rounds.append(round_result)
+        print(f"Round {round_num} completed. Saving...") if verbose is True else None
+
+        # save round
+        with open(f"{save_path}/iter{round_num}.json", "w", encoding="utf-8") as f:
+            f.write(round_result.model_dump_json(indent=4))
+
+        # save generated tree if generator has one
+        has_beam_tree = getattr(generator, "beam_tree", None)
+        if has_beam_tree:
+            generator.beam_tree.visualize_tree(f"{round_num}_tree", path=f"{save_path}")
+
+        print(f"Round {round_num} Saved.") if verbose is True else None
+
+        converged, convergence_reason = check_convergence(review, config, round_num)
+
+        if converged:
+            break
+
+        # generate
+        ctx = build_generator_context(round_num, prompt, rounds, ledger)
+
+        prompt = ctx.to_prompt()
+
+        output, perplexity = generator(
+            system_prompt,
+            prompt,
+            sampling_params,
+            max_response_token_length,
+            prompt_allowed_words=prompt_allowed_words,
+            verbose=verbose,
+        )
+
+    best_round = max(rounds, key=lambda r: r.review.overall_score)
+
+    with open(f"{save_path}/best.json", "w", encoding="utf-8") as f:
+        f.write(best_round.model_dump_json(indent=4))
+
+    final_result = IterativeEvaluationResult(
+        rounds=rounds,
+        final_output=best_round.generated_text,
+        final_score=best_round.review.overall_score,
+        converged=converged,
+        convergence_reason=convergence_reason,
+    )
+
+    return final_result

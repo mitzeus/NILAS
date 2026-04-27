@@ -240,7 +240,7 @@ class Vanilla_vLLM:
         prompt_allowed_words: bool = False,
         verbose: bool = False,
     ) -> tuple[str, float]:
-        if verbose is not None or verbose is not False:
+        if verbose is not False or len(verbose) > 0:
             verbose = True
 
         system_prompt = process_vocab_to_prompt(
@@ -303,12 +303,14 @@ class Vanilla_ChatGPT:
             {"role": "user", "content": [{"type": "input_text", "text": user_prompt}]},
         ]
 
+        print("ChatGPT processing...") if verbose is True else None
         response = self.client.responses.create(
             model=self.model,
             input=prompt,
             max_output_tokens=max_sequence_length,
             include=["message.output_text.logprobs"],
         )
+        print("ChatGPT Done.") if verbose is True else None
 
         self.output = response.output_text
         self.sequence_logprobs = [
