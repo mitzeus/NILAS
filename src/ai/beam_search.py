@@ -455,10 +455,19 @@ class BeamSearch:
             None
         """
         self.sequence = ""
+        self.initialized = False  # to check if root has been added to tree yet
         self.tree = []
         self.beams = []
         # self.beam_ids = []
         self.beam_obj = []
+
+        self.sequence = ""
+
+        self.best_beam_probability = float("-inf")
+        self.best_completed_beams = []
+
+        self.best_beam = ""
+        self.finished = False
 
     def visualize_tree(self, filename: str, path: str = "figures/trees"):
         # TODO fix a bug with the last token(s) not showing (prob never added to tree)

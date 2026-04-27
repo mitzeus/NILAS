@@ -133,6 +133,8 @@ class IssueLedger(BaseModel):
 
 class RoundResult(BaseModel):
     round_number: int
+    system_prompt: str
+    prompt: str
     generated_text: str
     generator_name: str
     perplexity: float
@@ -700,6 +702,7 @@ async def run_self_iteration(
     sampling_params: SamplingParams,
     max_response_token_length: int,
     language: str,
+    question_nr: int,
     sample_nr: int,
     prompt_allowed_words: bool = False,
     verbose: Verbosity = "sequence",
@@ -710,7 +713,7 @@ async def run_self_iteration(
     converged = False
     convergence_reason = None
 
-    save_path = f"chats/self-iteration/{generator.__class__.__name__}/{language}/sample{sample_nr+1}"
+    save_path = f"chats/self-iteration/{generator.__class__.__name__}/{language}/{question_nr}/sample{sample_nr+1}"
     os.makedirs(save_path, exist_ok=True)
 
     output, perplexity = generator(
@@ -721,6 +724,16 @@ async def run_self_iteration(
         prompt_allowed_words=prompt_allowed_words,
         verbose=verbose,
     )
+
+    starting_point = {
+        "system_prompt": system_prompt,
+        "prompt": prompt,
+        "generated_text": output,
+        "perplexity": perplexity,
+    }
+
+    with open(f"{save_path}/best.json", "w", encoding="utf-8") as f:
+        json.dump(starting_point, f, indent=4)
 
     # starting improvement loop
     for round_num in range(1, config.max_rounds + 1):
@@ -738,6 +751,8 @@ async def run_self_iteration(
 
         round_result = RoundResult(
             round_number=round_num,
+            system_prompt=system_prompt,
+            prompt=prompt,
             generated_text=output,
             generator_name=generator.__class__.__name__,
             perplexity=perplexity,

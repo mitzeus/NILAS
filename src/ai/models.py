@@ -9,6 +9,10 @@ from src.ai.tools import (
     process_vocab_to_prompt,
 )
 from vllm.inputs import TokensPrompt
+from typing import Literal, Optional
+from vllm import SamplingParams
+
+Word_constraint_type = Literal["hard", "soft"]
 
 
 class Custom_vLLM:
@@ -61,16 +65,18 @@ class Custom_vLLM:
         self,
         system_prompt: str,
         user_prompt: str,
-        sampling_params: object,
+        sampling_params: SamplingParams,
         max_sequence_length: int = 200,
         verbose: str | None = "sequence",
-        use_word_constraint=False,
-        word_constraint_type: str = "hard",
+        use_word_constraint: bool = False,
+        word_constraint_type: Word_constraint_type = "hard",
         prompt_allowed_words: bool = False,
     ):
         system_prompt = process_vocab_to_prompt(
             system_prompt, self.allowed_words, prompt_allowed_words
         )
+
+        print(system_prompt)
 
         max_possible_token_length_of_vocab = get_max_token_length_of_vocab(
             self.allowed_words, self.tokenizer
@@ -235,7 +241,7 @@ class Vanilla_vLLM:
         self,
         system_prompt: str,
         user_prompt: str,
-        sampling_params: object,
+        sampling_params: SamplingParams,
         max_sequence_length: int = 200,
         prompt_allowed_words: bool = False,
         verbose: bool = False,
@@ -284,7 +290,7 @@ class Vanilla_ChatGPT:
         self,
         system_prompt: str,
         user_prompt: str,
-        sampling_params: object = None,
+        sampling_params: SamplingParams = None,
         max_sequence_length: int = 200,
         prompt_allowed_words: bool = False,
         verbose: bool = True,
@@ -307,6 +313,7 @@ class Vanilla_ChatGPT:
         response = self.client.responses.create(
             model=self.model,
             input=prompt,
+            # seed=sampling_params.seed,
             max_output_tokens=max_sequence_length,
             include=["message.output_text.logprobs"],
         )
