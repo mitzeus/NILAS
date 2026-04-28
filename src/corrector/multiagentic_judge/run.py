@@ -704,8 +704,10 @@ async def run_self_iteration(
     language: str,
     question_nr: int,
     sample_nr: int,
+    word_batch_size: int,  # TODO
     prompt_allowed_words: bool = False,
     verbose: Verbosity = "sequence",
+    gpu_id: int | None = None,
 ):
 
     ledger = IssueLedger()
@@ -713,7 +715,10 @@ async def run_self_iteration(
     converged = False
     convergence_reason = None
 
-    save_path = f"chats/self-iteration/{generator.__class__.__name__}/{language}/{question_nr}/sample{sample_nr+1}"
+    if gpu_id is not None and isinstance(gpu_id, int):
+        save_path = f"chats/self-iteration/{generator.__class__.__name__}/{language}/prompt{question_nr}/{gpu_id}/sample{sample_nr+1}"
+    else:
+        save_path = f"chats/self-iteration/{generator.__class__.__name__}/{language}/prompt{question_nr}/sample{sample_nr+1}"
     os.makedirs(save_path, exist_ok=True)
 
     output, perplexity = generator(
