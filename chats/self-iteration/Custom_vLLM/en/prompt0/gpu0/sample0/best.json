@@ -1,0 +1,85 @@
+{
+    "round_number": 1,
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in English.\n\nYou also have a set vocabulary that you are ONLY allowed to select words from (unless not found), so no words outside these are allowed. The wordlist \nis provided as lemmas and you must first select a word, then conjugate it as needed to keep full naturalness. \nYou absolute must conjugate words all words that you can, except if it does not make sense in the sentence to maintain naturalness.\n\nThe only words outside this list you are allowed to use are proper nouns, so names of for example places etc.\n\nHere is the word list:\n# <word list>\n# No vocabulary constraints found. Please fully ignore these constraints.\n# <word list>\n",
+    "prompt": "Explain the difference between the present simple and present continuous tense in English, with easy examples.",
+    "generated_text": "The present simple tense is used for actions that happen regularly or in general, while the present continuous tense is used for actions that are happening at a particular moment in time.\n\n**Present Simple Example:**\n- I eat breakfast at 7 o'clock every morning.\n- They go to work by car.\n\n**Present Continuous Example:**\n- I am eating breakfast right now.\n- They are going to work right now.",
+    "generator_name": "Custom_vLLM",
+    "perplexity": 1.5061688689825135,
+    "review": {
+        "overall_score": 4.33,
+        "letter_grade": "B",
+        "model": "gpt-4o-mini",
+        "family": "openai",
+        "summary": "This round shows a strong performance with a weighted aggregate score of 4.33/5.0, indicating a solid understanding of the grammatical concepts. While the core explanations are accurate and clear, there are minor omissions that could enhance the depth of the content. Suggestions for improvement focus on adding additional uses of the tenses and including a summary to reinforce key points.",
+        "critic_scores": [
+            {
+                "model": "claude-sonnet-4-6",
+                "family": "anthropic",
+                "dimension": "Factual Correctness",
+                "profile": "sceptic",
+                "score": 4,
+                "rationale": "The core grammatical claims are accurate: the present simple is correctly described as used for habitual/general actions, and the present continuous is correctly described as used for actions happening at a particular moment. The examples clearly and correctly illustrate each tense. Minor omission: the present simple also covers permanent states and universal truths (e.g., 'Water boils at 100°C'), and the present continuous can also describe temporary situations or future arrangements, but these are reasonable simplifications for an introductory explanation.",
+                "improvement_tip": "Briefly mention one or two additional uses of each tense (e.g., present simple for permanent states/universal truths, present continuous for temporary situations or planned future events) to give a more complete and accurate picture without overwhelming the learner."
+            },
+            {
+                "model": "gpt-4o-mini",
+                "family": "openai",
+                "dimension": "Clarity & Communication",
+                "profile": "teacher",
+                "score": 4,
+                "rationale": "The response provides a clear distinction between the present simple and present continuous tenses, supported by relevant examples. The structure is logical, making it easy for the reader to follow the explanation. However, the inclusion of a brief summary or conclusion could enhance clarity further.",
+                "improvement_tip": "Add a brief summary sentence at the end to reinforce the main differences between the two tenses."
+            },
+            {
+                "model": "claude-haiku-4-5-20251001",
+                "family": "anthropic",
+                "dimension": "Grammar & Naturalness",
+                "profile": "editor",
+                "score": 5,
+                "rationale": "The response demonstrates flawless grammar throughout, with correct verb conjugations, proper punctuation, and clear sentence structure. The explanation flows naturally and conversationally, making the complex grammatical concept accessible. The parallel structure of the examples enhances readability and reinforces the contrast between the two tenses.",
+                "improvement_tip": "No grammatical improvements needed; consider adding one more example pair to show habitual vs. ongoing actions in a single scenario (e.g., 'She works as a teacher' vs. 'She is working on a project') to deepen understanding."
+            },
+            {
+                "model": "gemini-2.5-flash-lite",
+                "family": "google",
+                "dimension": "Task Match & Adequacy",
+                "profile": "analyst",
+                "score": 4,
+                "rationale": "The response correctly identifies the core difference between the present simple and present continuous tenses and provides clear, easy-to-understand examples for each. It directly addresses the prompt's request for an explanation and examples.",
+                "improvement_tip": "Consider adding a brief mention of other common uses for each tense, such as the present simple for facts and the present continuous for temporary situations, to provide a more comprehensive explanation."
+            }
+        ],
+        "top_improvements": [
+            "Briefly mention additional uses of each tense to provide a more complete picture.",
+            "Add a brief summary sentence at the end to reinforce the main differences.",
+            "Consider including one more example pair to illustrate habitual vs. ongoing actions."
+        ],
+        "confidence": "medium",
+        "score_variance": 0.188
+    },
+    "ledger_snapshot": {
+        "issues": [
+            {
+                "issue_id": "FC-001",
+                "dimension": "Factual Correctness",
+                "description": "Minor omissions in the explanation of tense uses.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "improved",
+                "recurrence_count": 1
+            },
+            {
+                "issue_id": "CC-001",
+                "dimension": "Clarity & Communication",
+                "description": "Lack of a brief summary or conclusion to enhance clarity.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "improved",
+                "recurrence_count": 1
+            }
+        ],
+        "round_summaries": [
+            "The explanations of the present simple and present continuous tenses are clear and accurate, with suggestions for minor enhancements."
+        ]
+    }
+}

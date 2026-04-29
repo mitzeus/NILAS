@@ -23,14 +23,18 @@ from dataclasses import dataclass, field
 from src.corrector.multiagentic_judge.configs import DEFAULT_RUBRIC
 
 load_dotenv()
+from src.helper.typing import WordConstraintType, Verbosity
+from src.ai.models import Generators
+from src.ai.tools import process_vocab_to_prompt
 
-Generators = Union[Custom_vLLM, Vanilla_vLLM, Vanilla_ChatGPT]
-Verbosity = Literal["full", "sequence", None]
+language_map = {"en": "English", "sv": "Swedish", "es": "Spanish", "kr": "Korean"}
 
 # TODO Add history
 
 
 class CriticScore(BaseModel):
+    model: str = Field(description="Name of critic model")
+    family: str = Field(description="Name of critic model family")
     dimension: str = Field(description="The rubric dimension being evaluated")
     profile: str = Field(description="Which model profile produced this score")
     score: int = Field(description="Integer score 1-5", ge=1, le=5)
@@ -43,6 +47,8 @@ class CriticScore(BaseModel):
 class FinalReview(BaseModel):
     overall_score: float = Field(description="Weighted aggregate score, 1.0-5.0")
     letter_grade: str = Field(description="A/B/C/D/F grade")
+    model: str = Field(description="Name of critic model")
+    family: str = Field(description="Name of critic model family")
     summary: str = Field(description="3-5 sentence holistic review")
     critic_scores: list[CriticScore]
     top_improvements: list[str] = Field(
@@ -56,6 +62,8 @@ class FinalReview(BaseModel):
 
 class ModelEntity(BaseModel):
     llm: BaseChatModel = Field(description="Callable object model")
+    model_name: str = Field(description="Name of model")
+    family: str = Field(description="Name of model family")
     profile: str = Field(description="Name of associated profile")
     history: list[BaseMessage] = Field(description="Local model conversation history")
 
@@ -231,11 +239,9 @@ class GeneratorContext:
         """
         if self.round_number == 1:
             # Clean slate on round 1 — no prior output, no feedback
-            return textwrap.dedent(
-                f"""
+            return textwrap.dedent(f"""
                 {self.original_task}
-            """
-            ).strip()
+            """).strip()
 
         open_issues = (
             [i for i in self.full_ledger.issues if i.status == "open"]
@@ -292,8 +298,7 @@ class GeneratorContext:
             "\n".join(delta_lines) if delta_lines else "No specific issues to address."
         )
 
-        return textwrap.dedent(
-            f"""
+        return textwrap.dedent(f"""
             TASK:
             {self.original_task}
  
@@ -310,8 +315,7 @@ class GeneratorContext:
             {delta_block}
  
             Produce the improved version now. Output only the revised text, no preamble.
-        """
-        ).strip()
+        """).strip()
 
 
 def build_generator_context(
@@ -349,7 +353,7 @@ def build_generator_context(
     )
 
 
-def _build_llm(profile: str, mc: ModelConfig) -> tuple[BaseChatModel, str]:
+def _build_llm(profile: str, mc: ModelConfig) -> tuple[BaseChatModel, str, str]:
     """
     Description
 
@@ -368,7 +372,7 @@ def _build_llm(profile: str, mc: ModelConfig) -> tuple[BaseChatModel, str]:
             "temperature": profile.temperature,
             "api_key": mc.anthropic_api_key,
         }
-        return ChatAnthropic(**kwargs), "anthropic"
+        return ChatAnthropic(**kwargs), profile.model, profile.family
 
     elif profile.family == "openai":
         kwargs = {
@@ -376,7 +380,7 @@ def _build_llm(profile: str, mc: ModelConfig) -> tuple[BaseChatModel, str]:
             "temperature": profile.temperature,
             "openai_api_key": mc.openai_api_key,
         }
-        return ChatOpenAI(**kwargs), "openai"
+        return ChatOpenAI(**kwargs), profile.model, profile.family
 
     elif profile.family == "google":
         kwargs = {
@@ -384,7 +388,7 @@ def _build_llm(profile: str, mc: ModelConfig) -> tuple[BaseChatModel, str]:
             "temperature": profile.temperature,
             "google_api_key": mc.google_api_key,
         }
-        return ChatGoogleGenerativeAI(**kwargs), "google"
+        return ChatGoogleGenerativeAI(**kwargs), profile.model, profile.family
 
     else:
         raise ValueError(f"Unknown model family for profile: {profile.family}")
@@ -394,8 +398,7 @@ def _build_judge_system_prompt(rubric_item: dict) -> str:
     anchors_text = "\n".join(
         f"  {k}/5 — {v}" for k, v in rubric_item["anchors"].items()
     )
-    return textwrap.dedent(
-        f"""
+    return textwrap.dedent(f"""
         You are a specialised AI critic focused exclusively on: **{rubric_item['dimension']}**.
  
         Definition: {rubric_item['description']}
@@ -420,15 +423,13 @@ def _build_judge_system_prompt(rubric_item: dict) -> str:
           "rationale": "<2-4 sentences>",
           "improvement_tip": "<one concrete, actionable suggestion>"
         }}
-    """
-    ).strip()
+    """).strip()
 
 
 def _build_judge_user_prompt(
     llm_output: str, context: Optional[str], ledger: IssueLedger
 ) -> str:
-    return textwrap.dedent(
-        f"""
+    return textwrap.dedent(f"""
         <prior_history>
         {ledger.to_prompt_block()}
         </prior_history>
@@ -442,12 +443,13 @@ def _build_judge_user_prompt(
         </llm_output>
  
         Evaluate the content above for your assigned dimension.
-    """
-    ).strip()
+    """).strip()
 
 
 async def _run_judge(
     llm: BaseChatModel,
+    model_name: str,
+    family: str,
     profile: str,
     rubric_item: dict,
     llm_output: str,
@@ -467,11 +469,10 @@ async def _run_judge(
     raw = re.sub(r"^```json\s*|^```\s*|```$", "", raw, flags=re.MULTILINE).strip()
 
     data = json.loads(raw)
-    return CriticScore(profile=profile, **data)
+    return CriticScore(model=model_name, family=family, profile=profile, **data)
 
 
-_SYNTHESIS_SYSTEM = textwrap.dedent(
-    """
+_SYNTHESIS_SYSTEM = textwrap.dedent("""
     You are a senior evaluation synthesis agent operating in an iterative improvement loop.
     You receive:
       1. The current round's critic scores
@@ -510,8 +511,7 @@ _SYNTHESIS_SYSTEM = textwrap.dedent(
         }
       ]
     }
-"""
-).strip()
+""").strip()
 
 
 async def _run_synthesis(
@@ -521,7 +521,7 @@ async def _run_synthesis(
     weighted_score: float,
     score_variance: float,
     current_round: int,
-) -> dict:
+) -> tuple[dict, IssueLedger]:
     scores_text = "\n".join(
         f"- [{cs.profile}] {cs.dimension} {cs.score}/5: {cs.rationale} | Tip: {cs.improvement_tip}"
         for cs in critic_scores
@@ -533,8 +533,7 @@ async def _run_synthesis(
         else "[]"
     )
 
-    user_prompt = textwrap.dedent(
-        f"""
+    user_prompt = textwrap.dedent(f"""
         Current round: {current_round}
         Weighted aggregate score: {weighted_score:.2f}/5.0
         Score variance: {score_variance:.2f}
@@ -546,8 +545,7 @@ async def _run_synthesis(
         {existing_issues_json}
  
         Produce the final review and updated issue ledger.
-    """
-    ).strip()
+    """).strip()
 
     response = await llm.ainvoke(
         [
@@ -623,16 +621,33 @@ async def evaluate_round(
 
     for rubric in config.rubric:
         rubric_profile = rubric["profile"]
-        llm, family = _build_llm(rubric_profile, mc)
-        model = ModelEntity(llm=llm, profile=rubric_profile, history=[])
+        llm, model_name, family = _build_llm(rubric_profile, mc)
+        model = ModelEntity(
+            llm=llm,
+            model_name=model_name,
+            family=family,
+            profile=rubric_profile,
+            history=[],
+        )
         judge_llms.append(model)
 
-    synthesis_llm, ai_family_name = _build_llm(synthesis_profile_name, mc)
+    synthesis_llm, synthesis_model_name, synthesis_family = _build_llm(
+        synthesis_profile_name, mc
+    )
+    synthesis_model = ModelEntity(
+        llm=synthesis_llm,
+        model_name=synthesis_model_name,
+        family=synthesis_family,
+        profile=rubric_profile,
+        history=[],
+    )
 
     # Run Judges
     judge_tasks = [
         _run_judge(
             model.llm,
+            model.model_name,
+            model.family,
             model.profile,
             rubric_item,
             llm_output,
@@ -654,7 +669,7 @@ async def evaluate_round(
     score_variance = _compute_variance([cs.score for cs in judge_scores])
 
     synthesis_data, updated_ledger = await _run_synthesis(
-        synthesis_llm,
+        synthesis_model.llm,
         judge_scores,
         ledger,
         weighted_score,
@@ -665,6 +680,8 @@ async def evaluate_round(
     review = FinalReview(
         overall_score=round(weighted_score, 2),
         letter_grade=_score_to_grade(weighted_score),
+        model=synthesis_model.model_name,
+        family=synthesis_model.family,
         summary=synthesis_data["summary"],
         critic_scores=judge_scores,
         top_improvements=synthesis_data["top_improvements"],
@@ -705,6 +722,8 @@ async def run_self_iteration(
     question_nr: int,
     sample_nr: int,
     word_batch_size: int,  # TODO
+    use_word_constraint: bool = False,
+    word_constraint_type: WordConstraintType = "hard",
     prompt_allowed_words: bool = False,
     verbose: Verbosity = "sequence",
     gpu_id: int | None = None,
@@ -716,34 +735,45 @@ async def run_self_iteration(
     convergence_reason = None
 
     if gpu_id is not None and isinstance(gpu_id, int):
-        save_path = f"chats/self-iteration/{generator.__class__.__name__}/{language}/prompt{question_nr}/{gpu_id}/sample{sample_nr+1}"
+        save_path = f"chats/self-iteration/{generator.__class__.__name__}/{language}/prompt{question_nr}/gpu{gpu_id}/sample{sample_nr}"
     else:
-        save_path = f"chats/self-iteration/{generator.__class__.__name__}/{language}/prompt{question_nr}/sample{sample_nr+1}"
+        save_path = f"chats/self-iteration/{generator.__class__.__name__}/{language}/prompt{question_nr}/sample{sample_nr}"
     os.makedirs(save_path, exist_ok=True)
 
+    print("Started. Generating initial response.") if verbose is not None else None
     output, perplexity = generator(
         system_prompt,
         prompt,
         sampling_params,
         max_response_token_length,
+        use_word_constraint,
+        word_constraint_type,
         prompt_allowed_words=prompt_allowed_words,
         verbose=verbose,
     )
 
     starting_point = {
-        "system_prompt": system_prompt,
+        "system_prompt": process_vocab_to_prompt(
+            system_prompt,
+            generator.allowed_words,
+            language_map[language],
+            prompt_allowed_words,
+        ),
         "prompt": prompt,
         "generated_text": output,
         "perplexity": perplexity,
     }
 
-    with open(f"{save_path}/best.json", "w", encoding="utf-8") as f:
+    with open(f"{save_path}/init.json", "w", encoding="utf-8") as f:
         json.dump(starting_point, f, indent=4)
+
+    print("Initial Response generated and saved.") if verbose is not None else None
 
     # starting improvement loop
     for round_num in range(1, config.max_rounds + 1):
         feedback = ledger.to_prompt_block() if round_num > 1 else None
 
+        print("Starting Evaluation...") if verbose is not None else None
         review, updated_ledger = await evaluate_round(
             llm_output=output,
             context=prompt,
@@ -751,12 +781,18 @@ async def run_self_iteration(
             round_number=round_num,
             config=config,
         )
+        print("Critics Done. Awaiting round result...") if verbose is not None else None
 
         ledger = updated_ledger  # update with news
 
         round_result = RoundResult(
             round_number=round_num,
-            system_prompt=system_prompt,
+            system_prompt=process_vocab_to_prompt(
+                system_prompt,
+                generator.allowed_words,
+                language_map[language],
+                prompt_allowed_words,
+            ),
             prompt=prompt,
             generated_text=output,
             generator_name=generator.__class__.__name__,
@@ -765,7 +801,11 @@ async def run_self_iteration(
             ledger_snapshot=ledger.model_copy(deep=True),
         )
         rounds.append(round_result)
-        print(f"Round {round_num} completed. Saving...") if verbose is True else None
+        (
+            print(f"Round {round_num} completed. Saving...")
+            if verbose is not None
+            else None
+        )
 
         # save round
         with open(f"{save_path}/iter{round_num}.json", "w", encoding="utf-8") as f:
@@ -776,7 +816,7 @@ async def run_self_iteration(
         if has_beam_tree:
             generator.beam_tree.visualize_tree(f"{round_num}_tree", path=f"{save_path}")
 
-        print(f"Round {round_num} Saved.") if verbose is True else None
+        print(f"Round {round_num} Saved.") if verbose is not None else None
 
         converged, convergence_reason = check_convergence(review, config, round_num)
 
@@ -788,11 +828,18 @@ async def run_self_iteration(
 
         prompt = ctx.to_prompt()
 
+        (
+            print(f"Generating new round response (round {round_num})")
+            if verbose is not None
+            else None
+        )
         output, perplexity = generator(
             system_prompt,
             prompt,
             sampling_params,
             max_response_token_length,
+            use_word_constraint,
+            word_constraint_type,
             prompt_allowed_words=prompt_allowed_words,
             verbose=verbose,
         )
@@ -801,6 +848,8 @@ async def run_self_iteration(
 
     with open(f"{save_path}/best.json", "w", encoding="utf-8") as f:
         f.write(best_round.model_dump_json(indent=4))
+
+    print("Round response generated and saved.") if verbose is not None else None
 
     final_result = IterativeEvaluationResult(
         rounds=rounds,

@@ -6,14 +6,19 @@ import re
 
 
 def process_vocab_to_prompt(
-    system_prompt: str, allowed_words: list[str], apply_constraint: bool = False
+    system_prompt: str,
+    allowed_words: list[str],
+    language: str,
+    apply_constraint: bool = False,
 ):
+
     if apply_constraint:
         vocab_str = ", \n".join(allowed_words)
-        return system_prompt.format(vocab=vocab_str)
+        return system_prompt.format(vocab=vocab_str, lang=language)
     else:
         return system_prompt.format(
-            vocab="No vocabulary constraints found. Please fully ignore these constraints."
+            vocab="No vocabulary constraints found. Please fully ignore these constraints.",
+            lang=language,
         )
 
 

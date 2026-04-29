@@ -11,8 +11,11 @@ from src.ai.tools import (
 from vllm.inputs import TokensPrompt
 from typing import Literal, Optional
 from vllm import SamplingParams
+from typing import Union
 
-Word_constraint_type = Literal["hard", "soft"]
+from src.helper.typing import WordConstraintType, Verbosity
+
+language_map = {"en": "English", "sv": "Swedish", "es": "Spanish", "kr": "Korean"}
 
 
 class Custom_vLLM:
@@ -21,6 +24,7 @@ class Custom_vLLM:
         model: object,
         tokenizer: object,
         lemmatizer: object,
+        language: str,
         allowed_words: list[str],
         beam_size: int = 1,
         word_soft_constraint_penalty: float = 2.5,
@@ -35,6 +39,7 @@ class Custom_vLLM:
         self.tokenizer = tokenizer
         self.eos_token_id = tokenizer.eos_token_id
         self.lemmatizer = lemmatizer
+        self.language = language_map[language]
         self.allowed_words = allowed_words
         self.beam_size = beam_size
         self.word_soft_constraint_penalty = word_soft_constraint_penalty
@@ -61,22 +66,28 @@ class Custom_vLLM:
                 f"beam_average_logprob is invalid type. Expected `list` | `int`, got {type(self.beam_average_logprobs)}"
             )
 
+    def _reset(self):
+        self.output = ""
+        self.perplexity = None
+        self.beam_average_logprobs = None
+        self.beam_tree.reset()
+
     def __call__(
         self,
         system_prompt: str,
         user_prompt: str,
         sampling_params: SamplingParams,
         max_sequence_length: int = 200,
-        verbose: str | None = "sequence",
         use_word_constraint: bool = False,
-        word_constraint_type: Word_constraint_type = "hard",
+        word_constraint_type: WordConstraintType = "hard",
         prompt_allowed_words: bool = False,
+        verbose: Verbosity = "sequence",
     ):
-        system_prompt = process_vocab_to_prompt(
-            system_prompt, self.allowed_words, prompt_allowed_words
-        )
+        self._reset()  # reset everything before generating
 
-        print(system_prompt)
+        system_prompt = process_vocab_to_prompt(
+            system_prompt, self.allowed_words, self.language, prompt_allowed_words
+        )
 
         max_possible_token_length_of_vocab = get_max_token_length_of_vocab(
             self.allowed_words, self.tokenizer
@@ -224,6 +235,7 @@ class Vanilla_vLLM:
         self,
         model: object,
         tokenizer: object,
+        language: str,
         allowed_words: list[str],
     ):
         self.output = ""
@@ -232,6 +244,7 @@ class Vanilla_vLLM:
 
         self.model = model
         self.tokenizer = tokenizer
+        self.language = language_map[language]
         self.allowed_words = allowed_words
 
     def _calculate_perplexity(self):
@@ -243,14 +256,14 @@ class Vanilla_vLLM:
         user_prompt: str,
         sampling_params: SamplingParams,
         max_sequence_length: int = 200,
+        use_word_constraint: bool = False,
+        word_constraint_type: WordConstraintType | None = None,
         prompt_allowed_words: bool = False,
-        verbose: bool = False,
+        verbose: Verbosity = None,
     ) -> tuple[str, float]:
-        if verbose is not False or len(verbose) > 0:
-            verbose = True
 
         system_prompt = process_vocab_to_prompt(
-            system_prompt, self.allowed_words, prompt_allowed_words
+            system_prompt, self.allowed_words, self.language, prompt_allowed_words
         )
 
         original_token_ids = build_chat_with_token_ids(
@@ -260,7 +273,7 @@ class Vanilla_vLLM:
         outputs = self.model.generate(
             TokensPrompt(prompt_token_ids=original_token_ids),
             sampling_params=sampling_params,
-            use_tqdm=verbose,
+            use_tqdm=True if verbose is "full" else False,
         )
 
         self.output = outputs[0].outputs[0].text
@@ -274,13 +287,16 @@ class Vanilla_vLLM:
 
 
 class Vanilla_ChatGPT:
-    def __init__(self, client: object, model: str, allowed_words: list[str]):
+    def __init__(
+        self, client: object, model: str, language: str, allowed_words: list[str]
+    ):
         self.output = ""
         self.perplexity = None
         self.sequence_logprobs = None
 
         self.client = client
         self.model = model
+        self.language = language_map[language]
         self.allowed_words = allowed_words
 
     def _calculate_perplexity(self):
@@ -290,14 +306,16 @@ class Vanilla_ChatGPT:
         self,
         system_prompt: str,
         user_prompt: str,
-        sampling_params: SamplingParams = None,
+        sampling_params: SamplingParams | None = None,
         max_sequence_length: int = 200,
+        use_word_constraint: bool = False,
+        word_constraint_type: WordConstraintType | None = None,
         prompt_allowed_words: bool = False,
-        verbose: bool = True,
+        verbose: Verbosity = None,
     ):
 
         system_prompt = process_vocab_to_prompt(
-            system_prompt, self.allowed_words, prompt_allowed_words
+            system_prompt, self.allowed_words, self.language, prompt_allowed_words
         )
         # print(system_prompt)
 
@@ -327,3 +345,6 @@ class Vanilla_ChatGPT:
         self._calculate_perplexity()  # do this before finishing
 
         return self.output, self.perplexity
+
+
+Generators = Union[Custom_vLLM, Vanilla_vLLM, Vanilla_ChatGPT]
