@@ -1,0 +1,98 @@
+{
+    "sample_number": 5,
+    "round_number": 2,
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in Swedish.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "How do you use definite and indefinite forms of nouns in Swedish? Give simple examples.",
+    "generated_text": "Definite form: \"barnet\" (the child)\nIndefinite form: \"ett barn\" (a child)",
+    "generator_name": "Custom_vLLM",
+    "language": "sv",
+    "perplexity": 1.8389664780287047,
+    "vocab_size": 500,
+    "review": {
+        "overall_score": 2.9,
+        "letter_grade": "C",
+        "model": "gpt-4o-mini",
+        "family": "openai",
+        "summary": "This round shows a continued struggle with factual correctness, clarity, and depth, as the previous issues remain unresolved. The feedback highlights the need for more comprehensive examples and explanations to provide a complete understanding of Swedish noun forms. While the grammar and naturalness of the response are strong, the lack of clarity and completeness has hindered overall effectiveness.",
+        "critic_scores": [
+            {
+                "model": "claude-sonnet-4-6",
+                "family": "anthropic",
+                "dimension": "Factual Correctness",
+                "profile": "sceptic",
+                "score": 3,
+                "rationale": "The single example provided ('barnet'/'ett barn') is factually correct — 'barn' is indeed a neuter (ett-word) noun, and 'barnet' is its correct definite form. However, the response remains incomplete by showing only one gender class (neuter/ett-words) and omitting common-gender (en-word) nouns, which was flagged in FC-001. This creates a misleading impression that Swedish definiteness works the same way for all nouns, when in fact en-words follow a different pattern (e.g., 'en bil' → 'bilen').",
+                "improvement_tip": "Add at least one common-gender (en-word) example alongside the neuter example — e.g., 'en bil' (a car) → 'bilen' (the car) — to give a complete and accurate picture of how definiteness works across both Swedish noun genders."
+            },
+            {
+                "model": "gpt-4o-mini",
+                "family": "openai",
+                "dimension": "Clarity & Communication",
+                "profile": "teacher",
+                "score": 2,
+                "rationale": "The response provides basic examples of definite and indefinite forms but lacks a clear explanation of when to use each form. Additionally, it does not address the previously noted omission of common-gender nouns, which contributes to a lack of clarity and completeness.",
+                "improvement_tip": "Include a brief explanation of the rules for using definite and indefinite forms, along with more examples, including common-gender nouns."
+            },
+            {
+                "model": "claude-haiku-4-5-20251001",
+                "family": "anthropic",
+                "dimension": "Grammar & Naturalness",
+                "profile": "editor",
+                "score": 4,
+                "rationale": "The response is grammatically correct and uses natural, clear English phrasing. The examples are properly formatted with Swedish terms followed by English translations in parentheses. The structure is straightforward and easy to follow, with no grammatical errors or awkward constructions.",
+                "improvement_tip": "While grammar is strong, expand the response with a brief explanatory sentence (e.g., 'In Swedish, the definite form adds a suffix to the noun, while the indefinite form uses an article before it') to improve overall clarity and address the prior issue of lacking explanation of when to use each form."
+            },
+            {
+                "model": "gemini-2.5-flash-lite",
+                "family": "google",
+                "dimension": "Task Match & Adequacy",
+                "profile": "analyst",
+                "score": 2,
+                "rationale": "The response provides only one example for each form, which is insufficient to demonstrate usage. It also fails to explain the rules or context for when to use definite versus indefinite forms, as requested by the prompt. The previous feedback regarding depth and completeness remains unaddressed.",
+                "improvement_tip": "Provide multiple examples for both definite and indefinite forms, illustrating different noun genders and declensions. Additionally, explain the grammatical rules and common scenarios for using each form."
+            }
+        ],
+        "top_improvements": [
+            "Add examples of common-gender nouns to provide a complete picture of definiteness.",
+            "Include a brief explanation of when to use definite and indefinite forms.",
+            "Provide multiple examples illustrating different noun genders and declensions."
+        ],
+        "confidence": "medium",
+        "score_variance": 0.688
+    },
+    "ledger_snapshot": {
+        "issues": [
+            {
+                "issue_id": "FC-001",
+                "dimension": "Factual Correctness",
+                "description": "Incomplete picture by omitting examples of common-gender nouns.",
+                "first_seen_round": 1,
+                "last_seen_round": 2,
+                "status": "open",
+                "recurrence_count": 2
+            },
+            {
+                "issue_id": "CC-001",
+                "dimension": "Clarity & Communication",
+                "description": "Lacks explanation of when to use definite and indefinite forms.",
+                "first_seen_round": 1,
+                "last_seen_round": 2,
+                "status": "open",
+                "recurrence_count": 2
+            },
+            {
+                "issue_id": "DC-001",
+                "dimension": "Depth & Completeness",
+                "description": "Insufficient examples and context for the use of noun forms.",
+                "first_seen_round": 1,
+                "last_seen_round": 2,
+                "status": "open",
+                "recurrence_count": 2
+            }
+        ],
+        "round_summaries": [
+            "The response is factually correct but lacks depth and completeness in examples and explanations.",
+            "The response remains incomplete, with unresolved issues in factual correctness, clarity, and depth."
+        ]
+    }
+}

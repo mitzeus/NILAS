@@ -1,0 +1,88 @@
+{
+    "sample_number": 0,
+    "round_number": 1,
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in Swedish.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "How are yes/no questions formed in basic Swedish grammar?",
+    "generated_text": "Istället för \"ja\", säger du \"så\".",
+    "generator_name": "Custom_vLLM",
+    "language": "sv",
+    "perplexity": 2.379185913076548,
+    "vocab_size": 500,
+    "review": {
+        "overall_score": 2.62,
+        "letter_grade": "C",
+        "model": "gpt-4o-mini",
+        "family": "openai",
+        "summary": "This round revealed significant issues with factual correctness and clarity in the response. The incorrect assertion that 'så' replaces 'ja' in Swedish led to confusion and a failure to address the user's question about forming yes/no questions. Overall, the scores indicate a need for substantial improvement in both factual accuracy and communication clarity, as the current performance is below expectations.",
+        "critic_scores": [
+            {
+                "model": "claude-sonnet-4-6",
+                "family": "anthropic",
+                "dimension": "Factual Correctness",
+                "profile": "sceptic",
+                "score": 1,
+                "rationale": "The response claims that instead of 'ja' (yes), you say 'så' in Swedish, which is factually incorrect. 'Ja' is the standard Swedish word for 'yes' and is used in everyday speech. While 'jo' is an alternative affirmative used in specific contexts (e.g., contradicting a negative statement), 'så' means 'so/thus' and is not a standard replacement for 'ja'. Furthermore, the response completely fails to address the actual question about how yes/no questions are formed in Swedish (which involves inverting the subject and verb).",
+                "improvement_tip": "Explain that yes/no questions in Swedish are formed by inverting the subject and verb (e.g., 'Du talar svenska' → 'Talar du svenska?'), and correctly note that 'ja' means yes and 'nej' means no, with 'jo' used to affirm a negated question."
+            },
+            {
+                "model": "gpt-4o-mini",
+                "family": "openai",
+                "dimension": "Clarity & Communication",
+                "profile": "teacher",
+                "score": 2,
+                "rationale": "The response is hard to follow as it does not directly address the question about how yes/no questions are formed in Swedish grammar. It provides an incomplete and unclear answer that could confuse readers unfamiliar with the topic.",
+                "improvement_tip": "Provide a more comprehensive explanation of how yes/no questions are formed in Swedish, including examples and relevant grammatical rules."
+            },
+            {
+                "model": "claude-haiku-4-5-20251001",
+                "family": "anthropic",
+                "dimension": "Grammar & Naturalness",
+                "profile": "editor",
+                "score": 5,
+                "rationale": "The response is grammatically flawless with natural Swedish syntax. The sentence structure is clear and idiomatic: 'Istället för \"ja\", säger du \"så\".' (Instead of \"yes\", you say \"so\".)",
+                "improvement_tip": "No grammatical improvements needed. If expanding the response, consider adding examples of yes/no question formation (e.g., 'Pratar du svenska?' or 'Du pratar svenska, eller hur?') to better address the original question."
+            },
+            {
+                "model": "gemini-2.5-flash-lite",
+                "family": "google",
+                "dimension": "Task Match & Adequacy",
+                "profile": "analyst",
+                "score": 1,
+                "rationale": "The user asked about forming yes/no questions in Swedish grammar. The response incorrectly states that 'så' is used instead of 'ja', which is not a grammatical rule for forming questions and is factually incorrect in the context of Swedish.",
+                "improvement_tip": "Focus on the grammatical structure of forming questions in Swedish, such as verb-subject inversion, rather than providing incorrect vocabulary substitutions."
+            }
+        ],
+        "top_improvements": [
+            "Clearly explain that yes/no questions in Swedish are formed by inverting the subject and verb.",
+            "Correctly state that 'ja' means yes and 'nej' means no, with 'jo' used to affirm a negated question.",
+            "Provide comprehensive examples of yes/no question formation in Swedish."
+        ],
+        "confidence": "low",
+        "score_variance": 2.688
+    },
+    "ledger_snapshot": {
+        "issues": [
+            {
+                "issue_id": "FC-001",
+                "dimension": "Factual Correctness",
+                "description": "Incorrectly states that 'så' is used instead of 'ja' in Swedish.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "open",
+                "recurrence_count": 1
+            },
+            {
+                "issue_id": "CC-001",
+                "dimension": "Clarity & Communication",
+                "description": "Response does not clearly address how yes/no questions are formed in Swedish grammar.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "open",
+                "recurrence_count": 1
+            }
+        ],
+        "round_summaries": [
+            "The response failed to meet basic factual correctness and clarity standards, resulting in low scores."
+        ]
+    }
+}

@@ -1,0 +1,97 @@
+{
+    "sample_number": 3,
+    "round_number": 1,
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in Swedish.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "How are yes/no questions formed in basic Swedish grammar?",
+    "generated_text": "Ja-no frågor i grundläggande svenska är formade med \"nej\" i frågan.",
+    "generator_name": "Custom_vLLM",
+    "language": "sv",
+    "perplexity": 3.6918697204667903,
+    "vocab_size": 100,
+    "review": {
+        "overall_score": 1.65,
+        "letter_grade": "D",
+        "model": "gpt-4o-mini",
+        "family": "openai",
+        "summary": "This round faced significant challenges, particularly in factual correctness regarding the formation of Swedish yes/no questions. Critics highlighted critical errors, particularly the incorrect use of 'nej' in the explanation. Clarity and communication were also noted as problematic, with suggestions for clearer structure and examples. Overall, the response requires substantial revision to meet the expectations of accuracy and clarity.",
+        "critic_scores": [
+            {
+                "model": "claude-sonnet-4-6",
+                "family": "anthropic",
+                "dimension": "Factual Correctness",
+                "profile": "sceptic",
+                "score": 1,
+                "rationale": "The response contains critical factual errors. First, the correct Swedish term for yes/no questions is 'ja/nej-frågor,' not 'ja-no frågor.' More importantly, the claim that these questions are formed with 'nej' (no) in the question is completely wrong. In Swedish, yes/no questions are formed by inverting the subject and verb (subject-verb inversion), placing the finite verb first — there is no use of 'nej' in forming such questions.",
+                "improvement_tip": "Explain that Swedish yes/no questions are formed through subject-verb inversion: the finite verb moves to the first position, followed by the subject (e.g., 'Talar du svenska?' — 'Do you speak Swedish?'), which mirrors the structure used in many other Germanic languages."
+            },
+            {
+                "model": "gpt-4o-mini",
+                "family": "openai",
+                "dimension": "Clarity & Communication",
+                "profile": "teacher",
+                "score": 2,
+                "rationale": "The response is hard to follow due to a significant misunderstanding of the question. It incorrectly states that 'nej' is used in forming yes/no questions, which is not accurate. The structure is also confusing, making it difficult for the reader to grasp the intended meaning.",
+                "improvement_tip": "Clarify the explanation by stating that yes/no questions in Swedish are typically formed by inverting the subject and verb, and provide a correct example for better understanding."
+            },
+            {
+                "model": "claude-haiku-4-5-20251001",
+                "family": "anthropic",
+                "dimension": "Grammar & Naturalness",
+                "profile": "editor",
+                "score": 2,
+                "rationale": "The response contains significant grammatical and structural issues. The phrase 'Ja-no frågor' is malformed (should be 'Ja/nej-frågor' or 'Yes/no questions'); the sentence structure is awkward and incomplete ('är formade med \"nej\" i frågan' — 'are formed with \"no\" in the question' — is vague and doesn't explain the actual grammatical mechanism). The response fails to clearly convey how Swedish yes/no questions are actually constructed (typically through inversion or intonation).",
+                "improvement_tip": "Restructure with clearer grammar and provide a concrete explanation: 'Yes/no questions in Swedish are typically formed by inverting the subject and verb, or by using rising intonation at the end of a statement.' Include an example to demonstrate the pattern."
+            },
+            {
+                "model": "gemini-2.5-flash-lite",
+                "family": "google",
+                "dimension": "Task Match & Adequacy",
+                "profile": "analyst",
+                "score": 1,
+                "rationale": "The response incorrectly states that yes/no questions are formed with 'nej' (no). This is the opposite of how yes/no questions are formed in Swedish, and it completely misses the user's request for information on forming these questions.",
+                "improvement_tip": "To form yes/no questions in Swedish, invert the subject and verb. For example, 'Du talar svenska' (You speak Swedish) becomes 'Talar du svenska?' (Do you speak Swedish?)."
+            }
+        ],
+        "top_improvements": [
+            "Correctly explain that Swedish yes/no questions are formed through subject-verb inversion.",
+            "Provide clear examples to illustrate the correct structure of yes/no questions in Swedish.",
+            "Improve grammatical structure and clarity to enhance reader understanding."
+        ],
+        "confidence": "low",
+        "score_variance": 0.25
+    },
+    "ledger_snapshot": {
+        "issues": [
+            {
+                "issue_id": "FC-001",
+                "dimension": "Factual Correctness",
+                "description": "Incorrect explanation of how Swedish yes/no questions are formed, specifically the erroneous use of 'nej'.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "open",
+                "recurrence_count": 1
+            },
+            {
+                "issue_id": "CC-001",
+                "dimension": "Clarity & Communication",
+                "description": "Response is hard to follow due to significant misunderstanding of the question and confusing structure.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "open",
+                "recurrence_count": 1
+            },
+            {
+                "issue_id": "DC-001",
+                "dimension": "Depth & Completeness",
+                "description": "Lacks adequate explanation and examples for forming yes/no questions in Swedish.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "open",
+                "recurrence_count": 1
+            }
+        ],
+        "round_summaries": [
+            "The response demonstrated critical factual inaccuracies and lacked clarity, necessitating major revisions."
+        ]
+    }
+}

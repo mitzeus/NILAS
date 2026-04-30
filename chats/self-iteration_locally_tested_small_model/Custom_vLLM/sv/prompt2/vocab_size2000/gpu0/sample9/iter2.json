@@ -1,0 +1,89 @@
+{
+    "sample_number": 9,
+    "round_number": 2,
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in Swedish.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "How are yes/no questions formed in basic Swedish grammar?",
+    "generated_text": "Ja/nej frågor bildas genom att lägga till \"nej\" vid slutet på frågan.",
+    "generator_name": "Custom_vLLM",
+    "language": "sv",
+    "perplexity": 1.5002635004588414,
+    "vocab_size": 2000,
+    "review": {
+        "overall_score": 2.3,
+        "letter_grade": "D",
+        "model": "gpt-4o-mini",
+        "family": "openai",
+        "summary": "This round has seen a significant decline in factual correctness, with the core issue regarding the formation of yes/no questions in Swedish remaining unresolved and arguably worsening. Clarity and communication also suffered due to the lack of a clear explanation and context. While grammatical correctness was noted, the overall response failed to meet the educational needs of the user. Improvement is necessary to enhance both factual accuracy and clarity.",
+        "critic_scores": [
+            {
+                "model": "claude-sonnet-4-6",
+                "family": "anthropic",
+                "dimension": "Factual Correctness",
+                "profile": "sceptic",
+                "score": 1,
+                "rationale": "The response is critically incorrect. In Swedish, yes/no questions (ja/nej-frågor) are formed by inverting the subject and verb (verb-subject word order), not by adding 'nej' at the end of a sentence. For example, 'Du talar svenska' (You speak Swedish) becomes 'Talar du svenska?' (Do you speak Swedish?). The claim that 'nej' is appended to form questions is entirely false and would actively mislead a learner. Issue FC-001 remains unresolved and has arguably worsened.",
+                "improvement_tip": "Correct the explanation to state that Swedish yes/no questions are formed through subject-verb inversion: move the finite verb to the first position and place the subject after it, e.g., 'Han är trött' → 'Är han trött?' — no auxiliary verb like English 'do' is needed."
+            },
+            {
+                "model": "gpt-4o-mini",
+                "family": "openai",
+                "dimension": "Clarity & Communication",
+                "profile": "teacher",
+                "score": 2,
+                "rationale": "The response is hard to follow and contains a significant factual error regarding the formation of yes/no questions in Swedish. The explanation lacks context and does not provide a clear understanding of the grammatical structure involved.",
+                "improvement_tip": "Provide a more accurate explanation of yes/no question formation in Swedish, including the correct use of word order and auxiliary verbs, to enhance clarity and understanding."
+            },
+            {
+                "model": "claude-haiku-4-5-20251001",
+                "family": "anthropic",
+                "dimension": "Grammar & Naturalness",
+                "profile": "editor",
+                "score": 4,
+                "rationale": "The response is grammatically correct and uses natural Swedish syntax. The sentence structure is clear and follows standard Swedish word order conventions. However, the response is extremely brief and lacks elaboration, which slightly impacts overall communicative naturalness in an educational context.",
+                "improvement_tip": "Expand the response with an example (e.g., 'Du är här → Är du här?') to demonstrate the concept more naturally and provide context for learners."
+            },
+            {
+                "model": "gemini-2.5-flash-lite",
+                "family": "google",
+                "dimension": "Task Match & Adequacy",
+                "profile": "analyst",
+                "score": 1,
+                "rationale": "The response completely fails to answer the user's question about forming yes/no questions in Swedish. Instead, it provides an incorrect and nonsensical statement about adding 'nej' (no) to the end of a question, which is not how yes/no questions are formed in Swedish. This is factually incorrect and does not address the core of the user's query.",
+                "improvement_tip": "To form yes/no questions in Swedish, invert the subject and verb. For example, 'Du är trött' (You are tired) becomes 'Är du trött?' (Are you tired?). Avoid adding words like 'nej' to the end of a statement to form a question."
+            }
+        ],
+        "top_improvements": [
+            "Correct the explanation to state that Swedish yes/no questions are formed through subject-verb inversion.",
+            "Provide a more accurate and detailed explanation of yes/no question formation, including examples.",
+            "Expand the response to include context and clarity for better understanding."
+        ],
+        "confidence": "low",
+        "score_variance": 1.5
+    },
+    "ledger_snapshot": {
+        "issues": [
+            {
+                "issue_id": "FC-001",
+                "dimension": "Factual Correctness",
+                "description": "Incorrect explanation of how yes/no questions are formed in Swedish.",
+                "first_seen_round": 1,
+                "last_seen_round": 2,
+                "status": "open",
+                "recurrence_count": 2
+            },
+            {
+                "issue_id": "CC-001",
+                "dimension": "Clarity & Communication",
+                "description": "Lack of clarity and context in the explanation of yes/no question formation.",
+                "first_seen_round": 1,
+                "last_seen_round": 2,
+                "status": "open",
+                "recurrence_count": 2
+            }
+        ],
+        "round_summaries": [
+            "The response was fundamentally flawed, with critical inaccuracies in factual correctness and clarity.",
+            "Factual correctness and clarity issues persist, with no improvements made since the last round."
+        ]
+    }
+}

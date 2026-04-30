@@ -1,0 +1,97 @@
+{
+    "sample_number": 2,
+    "round_number": 1,
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in Swedish.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "How do you use definite and indefinite forms of nouns in Swedish? Give simple examples.",
+    "generated_text": "Definite form: \"barnet\" (the child)\nIndefinite form: \"ett barn\" (a child)",
+    "generator_name": "Custom_vLLM",
+    "language": "sv",
+    "perplexity": 1.838956340313003,
+    "vocab_size": 2000,
+    "review": {
+        "overall_score": 4.03,
+        "letter_grade": "B",
+        "model": "gpt-4o-mini",
+        "family": "openai",
+        "summary": "This round shows a solid performance with a weighted aggregate score of 4.03/5.0, indicating a generally positive reception. However, there are notable areas for improvement, particularly in providing a more comprehensive explanation of Swedish noun forms. The feedback highlights the need for additional examples and clarity on usage rules. Overall, while the response is well-structured and grammatically sound, it lacks depth in content.",
+        "critic_scores": [
+            {
+                "model": "claude-sonnet-4-6",
+                "family": "anthropic",
+                "dimension": "Factual Correctness",
+                "profile": "sceptic",
+                "score": 4,
+                "rationale": "The examples given are factually correct: 'ett barn' is indeed the indefinite form meaning 'a child,' and 'barnet' is the definite form meaning 'the child.' Swedish neuter nouns (ett-words) take the suffix '-et' in the definite, which is accurately illustrated. However, the response is extremely minimal and omits the indefinite article 'en' for common-gender nouns (en-words), which could give an incomplete picture of the system.",
+                "improvement_tip": "Add an example of a common-gender (en-word) noun, such as 'en bil' (a car) → 'bilen' (the car), to accurately represent both grammatical genders in Swedish and avoid implying that all nouns follow the 'ett/-(e)t' pattern."
+            },
+            {
+                "model": "gpt-4o-mini",
+                "family": "openai",
+                "dimension": "Clarity & Communication",
+                "profile": "teacher",
+                "score": 4,
+                "rationale": "The response clearly distinguishes between the definite and indefinite forms of nouns in Swedish with straightforward examples. The structure is logical, making it easy for the reader to understand the concepts presented.",
+                "improvement_tip": "Consider providing a brief explanation of when to use each form to enhance understanding further."
+            },
+            {
+                "model": "claude-haiku-4-5-20251001",
+                "family": "anthropic",
+                "dimension": "Grammar & Naturalness",
+                "profile": "editor",
+                "score": 5,
+                "rationale": "The response is grammatically flawless and naturally structured. The formatting is clear and logical, with proper use of labels, examples in quotation marks, and English translations in parentheses. The sentence construction is simple, direct, and easy to follow—exactly appropriate for explaining a linguistic concept.",
+                "improvement_tip": "No improvements needed; this is an exemplary response. If expanding, consider adding one more example pair (e.g., 'en hund' vs. 'hunden') to reinforce the pattern, but the current answer is complete and well-executed."
+            },
+            {
+                "model": "gemini-2.5-flash-lite",
+                "family": "google",
+                "dimension": "Task Match & Adequacy",
+                "profile": "analyst",
+                "score": 1,
+                "rationale": "The response only provides one example for each form, which is insufficient to explain how to use definite and indefinite forms of nouns in Swedish. It fails to provide a general explanation or multiple examples as requested.",
+                "improvement_tip": "Provide a brief explanation of how definite and indefinite forms are used in Swedish, including rules for singular and plural, and offer at least two distinct examples for each form (definite and indefinite)."
+            }
+        ],
+        "top_improvements": [
+            "Add examples of common-gender nouns to provide a complete picture of Swedish noun forms.",
+            "Include a brief explanation of when to use definite and indefinite forms.",
+            "Provide multiple examples for both definite and indefinite forms to enhance understanding."
+        ],
+        "confidence": "medium",
+        "score_variance": 2.25
+    },
+    "ledger_snapshot": {
+        "issues": [
+            {
+                "issue_id": "FC-001",
+                "dimension": "Factual Correctness",
+                "description": "Omission of common-gender noun examples leading to an incomplete picture of noun forms.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "open",
+                "recurrence_count": 1
+            },
+            {
+                "issue_id": "CC-001",
+                "dimension": "Clarity & Communication",
+                "description": "Lack of explanation on when to use definite and indefinite forms.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "open",
+                "recurrence_count": 1
+            },
+            {
+                "issue_id": "DC-001",
+                "dimension": "Depth & Completeness",
+                "description": "Insufficient examples provided for explaining noun forms.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "open",
+                "recurrence_count": 1
+            }
+        ],
+        "round_summaries": [
+            "The response is clear and grammatically sound but lacks depth and multiple examples."
+        ]
+    }
+}

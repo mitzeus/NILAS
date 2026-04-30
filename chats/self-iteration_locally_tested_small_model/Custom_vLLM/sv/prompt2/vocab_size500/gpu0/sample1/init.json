@@ -1,0 +1,10 @@
+{
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in Swedish.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "How are yes/no questions formed in basic Swedish grammar?",
+    "generated_text": "Ist\u00e4llet f\u00f6r \"ja\", s\u00e4ger du \"s\u00e5\".",
+    "generator_name": "Custom_vLLM",
+    "language": "sv",
+    "perplexity": 2.379185434554771,
+    "vocab_size": 500,
+    "sample_number": 1
+}

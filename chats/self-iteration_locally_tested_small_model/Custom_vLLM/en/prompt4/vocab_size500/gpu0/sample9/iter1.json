@@ -1,0 +1,97 @@
+{
+    "sample_number": 9,
+    "round_number": 1,
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in English.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "Explain how to make simple past tense sentences in English, including regular verb examples.",
+    "generated_text": "To make simple past sentences in English, you use the base form of the verb preceded by \"did\" and the rest of the sentence in past tense. For example, with a regular verb like \"eat\":\n\n- Past tense: He ate.\n- Simple past: He did eat.",
+    "generator_name": "Custom_vLLM",
+    "language": "en",
+    "perplexity": 3.3052855544811757,
+    "vocab_size": 500,
+    "review": {
+        "overall_score": 1.65,
+        "letter_grade": "D",
+        "model": "gpt-4o-mini",
+        "family": "openai",
+        "summary": "This round highlighted significant issues with factual correctness and clarity in the explanation of the simple past tense. Critics unanimously pointed out critical factual errors regarding verb forms, leading to confusion. The overall scores reflect a need for substantial revision to align with grammatical standards and improve communication.",
+        "critic_scores": [
+            {
+                "model": "claude-sonnet-4-6",
+                "family": "anthropic",
+                "dimension": "Factual Correctness",
+                "profile": "sceptic",
+                "score": 1,
+                "rationale": "The explanation contains critical factual errors. The simple past tense in English is formed by adding '-ed' to regular verbs (e.g., 'walked,' 'talked'), not by using 'did' + base form. The 'did + base form' construction is the emphatic past or interrogative/negative auxiliary form, not the standard simple past. Additionally, 'ate' is the simple past of 'eat' (an irregular verb), not a regular verb example, which contradicts the prompt's requirement for regular verb examples.",
+                "improvement_tip": "Rewrite the explanation to correctly state that regular verbs form the simple past by adding '-ed' (e.g., 'walk → walked,' 'talk → talked'), and clearly distinguish this from the auxiliary 'did' used in questions and negatives (e.g., 'Did he walk?' / 'He did not walk')."
+            },
+            {
+                "model": "gpt-4o-mini",
+                "family": "openai",
+                "dimension": "Clarity & Communication",
+                "profile": "teacher",
+                "score": 2,
+                "rationale": "The explanation is hard to follow due to incorrect information about forming simple past tense sentences. The use of 'did' with the base form is not accurate for affirmative sentences, and the examples provided are confusing. The structure lacks coherence and fails to clearly convey the rules of simple past tense.",
+                "improvement_tip": "Clarify the explanation by stating that the simple past tense of regular verbs is formed by adding '-ed' to the base form, and provide correct examples such as 'He walked' instead of 'He did eat.'"
+            },
+            {
+                "model": "claude-haiku-4-5-20251001",
+                "family": "anthropic",
+                "dimension": "Grammar & Naturalness",
+                "profile": "editor",
+                "score": 2,
+                "rationale": "The response contains a fundamental grammatical error that undermines its credibility as an explanation. The statement 'you use the base form of the verb preceded by \"did\"' is incorrect—simple past tense uses the past form of the verb (e.g., 'ate'), not the base form preceded by 'did.' The examples provided are also confusing and contradictory: 'He ate' is correct simple past, but 'He did eat' is emphatic past, not standard simple past formation. This creates significant confusion for learners.",
+                "improvement_tip": "Clarify the core rule: for regular verbs, add '-ed' to the base form (e.g., 'walk' → 'walked'). Reserve 'did + base form' for questions and negatives (e.g., 'Did he walk?'), and note that 'did eat' is emphatic, not standard simple past."
+            },
+            {
+                "model": "gemini-2.5-flash-lite",
+                "family": "google",
+                "dimension": "Task Match & Adequacy",
+                "profile": "analyst",
+                "score": 1,
+                "rationale": "The response incorrectly explains how to form simple past tense sentences. It introduces 'did' which is used for the past tense *question* or *negative* form, not the simple affirmative past tense. The example provided is also misleading as 'He ate' is the correct simple past, not 'He did eat'.",
+                "improvement_tip": "Focus on explaining the standard affirmative simple past tense formation, which involves adding '-ed' to regular verbs or using the irregular past tense form, and provide clear examples of this correct structure."
+            }
+        ],
+        "top_improvements": [
+            "Rewrite the explanation to correctly state that regular verbs form the simple past by adding '-ed'.",
+            "Clarify the distinction between simple past tense and the use of 'did' for questions and negatives.",
+            "Provide clear and accurate examples of both regular and irregular verbs in the simple past tense."
+        ],
+        "confidence": "low",
+        "score_variance": 0.25
+    },
+    "ledger_snapshot": {
+        "issues": [
+            {
+                "issue_id": "FC-001",
+                "dimension": "Factual Correctness",
+                "description": "Incorrect explanation of how to form the simple past tense, including misleading examples.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "open",
+                "recurrence_count": 1
+            },
+            {
+                "issue_id": "CC-001",
+                "dimension": "Clarity & Communication",
+                "description": "The explanation is hard to follow and lacks coherence due to incorrect information.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "open",
+                "recurrence_count": 1
+            },
+            {
+                "issue_id": "DC-001",
+                "dimension": "Depth & Completeness",
+                "description": "Insufficient depth in explaining the rules of simple past tense, leading to confusion.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "open",
+                "recurrence_count": 1
+            }
+        ],
+        "round_summaries": [
+            "Critical factual errors and clarity issues were identified in the explanation of the simple past tense."
+        ]
+    }
+}

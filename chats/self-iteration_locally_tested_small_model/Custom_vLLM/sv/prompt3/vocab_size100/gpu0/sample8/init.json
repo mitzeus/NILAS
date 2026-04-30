@@ -1,0 +1,10 @@
+{
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in Swedish.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "Explain how to use common present tense verbs in Swedish with examples.",
+    "generated_text": "F\u00f6r att anv\u00e4nda de vanliga g\u00e4stentens ord i svenska kan du se till att anv\u00e4nda ordet \"ha\", \"ska\", \"g\u00f6ra\", \"stanna\", \"komma\", \"vara\", \"g\u00e5\", och \"stiga\". Exempel:\n\n- Ha: Hur m\u00e5ste jag ta livet p\u00e5 mig? Jag m\u00e5ste ha gjort det fel.\n- Ska: Hur ska jag kunna f\u00e5 tid att g\u00f6ra det?\n- G\u00f6ra: Hur ska jag kunna g\u00f6ra det s\u00e5 att det blir bra?\n- Stanna: Hur ska jag kunna stanna p\u00e5 v\u00e4g?\n- Komma: Hur ska jag kunna komma p\u00e5 det?\n- Vara: Hur ska jag kunna vara bra?\n- G\u00e5: Hur ska jag kunna g\u00e5 p\u00e5 v\u00e4g?\n- Stiga: Hur ska jag kunna stiga p\u00e5 v\u00e4g?",
+    "generator_name": "Custom_vLLM",
+    "language": "sv",
+    "perplexity": 2.6184034638045444,
+    "vocab_size": 100,
+    "sample_number": 8
+}

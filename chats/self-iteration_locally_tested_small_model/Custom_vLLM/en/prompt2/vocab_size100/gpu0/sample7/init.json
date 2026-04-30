@@ -1,0 +1,10 @@
+{
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in English.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "When should I use \u201ca\u201d and \u201can\u201d in English? Give clear rules and examples.",
+    "generated_text": "You use \"a\" before words that start with a sound other than a vowel, and \"an\" before words that start with a vowel sound.\n\nExamples:\n- \"a lawyer\" (lawyer starts with a sound other than a vowel)\n- \"an hour\" (hour starts with a vowel sound)",
+    "generator_name": "Custom_vLLM",
+    "language": "en",
+    "perplexity": 5.342102112606794,
+    "vocab_size": 100,
+    "sample_number": 7
+}

@@ -1,0 +1,99 @@
+{
+    "sample_number": 7,
+    "round_number": 3,
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in English.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "TASK:\n            How do you form basic yes/no questions in English? Show simple patterns and examples.\n\n            PREVIOUS BEST DRAFT (score: 3.0/5.0):\n            ---\n            To form basic yes/no questions in English, you can use the auxiliary verb (do, did, have, has) at the beginning of the sentence and place the rest of the question word order at the end. Here are some examples:\n\n- Yes/no question: Did you go to the store?\n- Yes/no question: Has she finished her homework?\n\nIn the first example, \"did\" is the auxiliary verb, and \"you go to the store\" is placed at the end.\nIn the second example, \"has\" is the auxiliary verb, and \"she finished her homework\" is placed at the end.\n            ---\n\n            REVISION INSTRUCTIONS:\n            Rewrite the draft above to address the following issues.\n            Preserve what was already working well. Do not simply patch — rewrite\n            sections where issues are deep.\n\n\nThe following issues MUST be fixed in this revision:\n  ✗ [FC-001] Factual Correctness: Incomplete explanation of auxiliary verbs and misleading oversimplification. (flagged 2 times)\n  ✗ [CC-001] Clarity & Communication: Awkward phrasing and unclear structure in the explanation. (flagged 2 times)\n  ✗ [DC-001] Depth & Completeness: Insufficient examples and explanation of question formation patterns. (flagged 2 times)\n\n            Produce the improved version now. Output only the revised text, no preamble.",
+    "generated_text": "To form basic yes/no questions in English, you can use the auxiliary verb (do, did, have, has) at the beginning of the sentence and place the rest of the question word order at the end. Here are some examples:\n\n- Yes/no question: Did you go to the store? (Here \"did\" is the auxiliary verb, and \"you go to the store\" is placed at the end.)\n- Yes/no question: Has she finished her homework? (Here \"has\" is the auxiliary verb, and \"she finished her homework\" is placed at the end.)\n\nFor questions using \"do\" and \"did\":\n- Yes/no question: Do you want to go to the movies? (Here \"do\" is the auxiliary verb, and \"you want to go to the movies\" is placed at the end.)\n- Yes/no question: Did he call you? (Here \"did\" is the auxiliary verb, and \"he call you\" is placed at the end.)\n\nFor questions using \"have\" and \"has\":\n- Yes/no question: Have you read the report? (Here \"have\" is the auxiliary verb, and \"you read the report\" is placed at the end.)\n- Yes/no question: Has the project been completed? (Here \"has\" is the auxiliary verb, and \"the project been completed\" is placed at the end.)",
+    "generator_name": "Custom_vLLM",
+    "language": "en",
+    "perplexity": 1.644994513141088,
+    "vocab_size": 500,
+    "review": {
+        "overall_score": 2.75,
+        "letter_grade": "C",
+        "model": "gpt-4o-mini",
+        "family": "openai",
+        "summary": "This round shows persistent issues in factual correctness, clarity, and depth, with critic scores indicating that the response still lacks a comprehensive explanation of auxiliary verbs and their role in question formation. While some aspects of grammar and naturalness were rated positively, the overall communication remains unclear and imprecise. The issues identified in previous rounds have not been adequately resolved, leading to a similar score to the last round.",
+        "critic_scores": [
+            {
+                "model": "claude-sonnet-4-6",
+                "family": "anthropic",
+                "dimension": "Factual Correctness",
+                "profile": "sceptic",
+                "score": 2,
+                "rationale": "The response still contains a misleading oversimplification by listing only 'do, did, have, has' as auxiliary verbs, completely omitting modal auxiliaries (can, will, would, should, must, etc.) and the verb 'to be' (is, are, was, were), which are equally fundamental to yes/no question formation in English. The structural description 'place the rest of the question word order at the end' is vague and grammatically imprecise. Additionally, the claim that 'he call you' is placed at the end is factually misleading — the base form of the verb is used after 'did,' but this grammatical rule is never explained, leaving the reader without accurate understanding of why the main verb changes form.",
+                "improvement_tip": "Explicitly cover all major auxiliary verb categories used in yes/no questions: 'be' verbs (Is she ready?), modal verbs (Can you help?), and 'do/does/did' for simple tenses, explaining that the main verb reverts to its base form when 'do/did' is used (e.g., 'Did he call?' not 'Did he called?')."
+            },
+            {
+                "model": "gpt-4o-mini",
+                "family": "openai",
+                "dimension": "Clarity & Communication",
+                "profile": "teacher",
+                "score": 2,
+                "rationale": "The response still contains awkward phrasing and unclear structure, particularly in the explanation of how to form yes/no questions. The use of 'placed at the end' is misleading, as it implies a structure that does not accurately reflect English syntax. Additionally, the examples provided do not clarify the role of auxiliary verbs effectively, leading to confusion.",
+                "improvement_tip": "Rephrase the explanation to clearly state that the auxiliary verb comes at the beginning of the question, followed by the subject and then the main verb, and provide a more structured breakdown of the question formation process."
+            },
+            {
+                "model": "claude-haiku-4-5-20251001",
+                "family": "anthropic",
+                "dimension": "Grammar & Naturalness",
+                "profile": "editor",
+                "score": 4,
+                "rationale": "The response demonstrates solid grammar with correct sentence construction and natural phrasing throughout. Auxiliary verbs are used correctly in all examples, and the explanatory text flows logically. Minor awkwardness appears in the repetitive parenthetical explanations (e.g., 'Here \"did\" is the auxiliary verb, and...'), which slightly disrupts naturalness, but this is a structural choice rather than a grammatical error.",
+                "improvement_tip": "Reduce repetition in the parenthetical explanations. Instead of restating the pattern for every example, use the first one or two as templates, then present additional examples without the redundant commentary—this will improve readability and natural flow."
+            },
+            {
+                "model": "gemini-2.5-flash-lite",
+                "family": "google",
+                "dimension": "Task Match & Adequacy",
+                "profile": "analyst",
+                "score": 3,
+                "rationale": "The response attempts to address the prompt by providing more examples of yes/no questions. However, it still suffers from an incomplete explanation of auxiliary verbs and question formation patterns, failing to fully resolve the previously identified issues of factual correctness, clarity, and depth.",
+                "improvement_tip": "Expand the explanation to include the role of the subject and the main verb in question formation, and provide a clearer, more structured breakdown of the patterns for different tenses or auxiliary verbs."
+            }
+        ],
+        "top_improvements": [
+            "Explicitly cover all major auxiliary verb categories used in yes/no questions.",
+            "Rephrase the explanation to clarify the structure of question formation.",
+            "Expand the explanation to include the role of the subject and the main verb."
+        ],
+        "confidence": "medium",
+        "score_variance": 0.688
+    },
+    "ledger_snapshot": {
+        "issues": [
+            {
+                "issue_id": "FC-001",
+                "dimension": "Factual Correctness",
+                "description": "Incomplete explanation of auxiliary verbs and misleading oversimplification.",
+                "first_seen_round": 1,
+                "last_seen_round": 3,
+                "status": "open",
+                "recurrence_count": 3
+            },
+            {
+                "issue_id": "CC-001",
+                "dimension": "Clarity & Communication",
+                "description": "Awkward phrasing and unclear structure in the explanation.",
+                "first_seen_round": 1,
+                "last_seen_round": 3,
+                "status": "open",
+                "recurrence_count": 3
+            },
+            {
+                "issue_id": "DC-001",
+                "dimension": "Depth & Completeness",
+                "description": "Insufficient examples and explanation of question formation patterns.",
+                "first_seen_round": 1,
+                "last_seen_round": 3,
+                "status": "open",
+                "recurrence_count": 3
+            }
+        ],
+        "round_summaries": [
+            "The evaluations reveal a need for improved factual accuracy and clearer communication in the explanation of yes/no question formation.",
+            "The response shows significant issues in factual accuracy and clarity, with no improvements noted from the previous round.",
+            "The response continues to struggle with factual correctness and clarity, resulting in a similar score to previous rounds."
+        ]
+    }
+}

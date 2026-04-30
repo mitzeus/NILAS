@@ -1,0 +1,98 @@
+{
+    "sample_number": 3,
+    "round_number": 2,
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in Swedish.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "Explain how to use common present tense verbs in Swedish with examples.",
+    "generated_text": "För att använda de vanliga gästentens ord i svenska kan du se till att använda ordet \"ha\", \"ska\", \"göra\", \"stanna\", \"komma\", \"vara\", \"gå\", och \"stiga\". Exempel:\n\n- Ha: Hur måste jag ta livet på mig? Jag måste ha gjort det fel.\n- Ska: Hur ska jag kunna få tid att göra det?\n- Göra: Hur ska jag kunna göra det så att det blir bra?\n- Stanna: Hur ska jag kunna stanna på väg?\n- Komma: Hur ska jag kunna komma på det?\n- Vara: Hur ska jag kunna vara bra?\n- Gå: Hur ska jag kunna gå på väg?\n- Stiga: Hur ska jag kunna stiga på väg?",
+    "generator_name": "Custom_vLLM",
+    "language": "sv",
+    "perplexity": 2.6183763062776224,
+    "vocab_size": 100,
+    "review": {
+        "overall_score": 1.65,
+        "letter_grade": "D",
+        "model": "gpt-4o-mini",
+        "family": "openai",
+        "summary": "This round has shown a concerning lack of improvement across all dimensions, with critical factual errors persisting from Round 1. The feedback indicates that the response still fails to provide clear and accurate examples of present tense usage in Swedish. The overall scores reflect significant issues in factual correctness, clarity, and depth, suggesting that the response requires substantial revision to meet the expectations.",
+        "critic_scores": [
+            {
+                "model": "claude-sonnet-4-6",
+                "family": "anthropic",
+                "dimension": "Factual Correctness",
+                "profile": "sceptic",
+                "score": 1,
+                "rationale": "The response contains critical and persistent factual errors that remain unresolved from Round 1. The examples do not demonstrate present tense usage at all — they use modal constructions ('ska kunna') and perfect tense ('ha gjort'), not simple present tense (e.g., 'jag har,' 'jag går,' 'jag är'). The phrase 'gästentens ord' is nonsensical Swedish and not a real grammatical term. Additionally, the example for 'ha' ('Hur måste jag ta livet på mig? Jag måste ha gjort det fel') is semantically bizarre and grammatically incorrect as a present tense demonstration. None of the flagged issues from FC-001 have been addressed.",
+                "improvement_tip": "Rewrite each example to clearly show the present tense conjugation form (e.g., 'Jag har en bok' for 'ha,' 'Jag är glad' for 'vara,' 'Jag går hem' for 'gå'), and explicitly label the present tense form of each verb (e.g., ha → har, vara → är, gå → går) before providing a simple, natural example sentence."
+            },
+            {
+                "model": "gpt-4o-mini",
+                "family": "openai",
+                "dimension": "Clarity & Communication",
+                "profile": "teacher",
+                "score": 2,
+                "rationale": "The response contains unclear phrasing and examples that do not effectively demonstrate the usage of present tense verbs in Swedish. Additionally, the examples provided are confusing and do not accurately reflect the intended verb forms or meanings.",
+                "improvement_tip": "Provide clear, correct examples of present tense verb usage in Swedish, ensuring that each example directly illustrates the verb's meaning and form."
+            },
+            {
+                "model": "claude-haiku-4-5-20251001",
+                "family": "anthropic",
+                "dimension": "Grammar & Naturalness",
+                "profile": "editor",
+                "score": 2,
+                "rationale": "The response contains significant grammatical and naturalness issues that severely impede comprehension. The opening phrase 'de vanliga gästentens ord' (the common guests' words) is nonsensical and grammatically malformed. The examples are awkwardly constructed with repetitive, unnatural phrasing ('Hur ska jag kunna...') that does not reflect natural Swedish speech patterns. The sentence 'Jag måste ha gjort det fel' mixes tenses awkwardly and doesn't clearly demonstrate present tense usage as requested.",
+                "improvement_tip": "Restructure with clear, natural Swedish sentences. For each verb, provide a simple present tense example (e.g., 'Jag går till skolan' for 'gå') followed by a natural context sentence, avoiding the repetitive 'Hur ska jag kunna...' template that dominates the current response."
+            },
+            {
+                "model": "gemini-2.5-flash-lite",
+                "family": "google",
+                "dimension": "Task Match & Adequacy",
+                "profile": "analyst",
+                "score": 1,
+                "rationale": "The response fails to explain how to use common present tense verbs in Swedish. Instead, it lists some verbs and provides example sentences that do not demonstrate present tense usage correctly, and in some cases, are grammatically incorrect or nonsensical. The explanation is entirely absent, and the examples are not helpful.",
+                "improvement_tip": "Focus on explaining the grammatical rules for forming present tense verbs in Swedish, and then provide clear, accurate example sentences that correctly illustrate these rules."
+            }
+        ],
+        "top_improvements": [
+            "Rewrite each example to clearly show the present tense conjugation form.",
+            "Provide clear, correct examples of present tense verb usage in Swedish.",
+            "Explain the grammatical rules for forming present tense verbs in Swedish."
+        ],
+        "confidence": "low",
+        "score_variance": 0.25
+    },
+    "ledger_snapshot": {
+        "issues": [
+            {
+                "issue_id": "FC-001",
+                "dimension": "Factual Correctness",
+                "description": "Multiple critical factual errors in verb examples and incorrect usage of present tense.",
+                "first_seen_round": 1,
+                "last_seen_round": 2,
+                "status": "open",
+                "recurrence_count": 2
+            },
+            {
+                "issue_id": "CC-001",
+                "dimension": "Clarity & Communication",
+                "description": "Unclear phrasing and examples that do not demonstrate present tense usage effectively.",
+                "first_seen_round": 1,
+                "last_seen_round": 2,
+                "status": "open",
+                "recurrence_count": 2
+            },
+            {
+                "issue_id": "DC-001",
+                "dimension": "Depth & Completeness",
+                "description": "Lack of explanation on how to use common present tense verbs in Swedish.",
+                "first_seen_round": 1,
+                "last_seen_round": 2,
+                "status": "open",
+                "recurrence_count": 2
+            }
+        ],
+        "round_summaries": [
+            "The response was severely lacking in factual correctness and clarity, necessitating major revisions.",
+            "No improvements were made this round, with all issues remaining unresolved."
+        ]
+    }
+}

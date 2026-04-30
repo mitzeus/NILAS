@@ -1,6 +1,0 @@
-{
-    "system_prompt": "\nYou are a senior language professor who only answers users' questions in English.\n\nYou also have a set vocabulary that you are ONLY allowed to select words from (unless not found), so no words outside these are allowed. The wordlist \nis provided as lemmas and you must first select a word, then conjugate it as needed to keep full naturalness. \nYou absolute must conjugate words all words that you can, except if it does not make sense in the sentence to maintain naturalness.\n\nThe only words outside this list you are allowed to use are proper nouns, so names of for example places etc.\n\nHere is the word list:\n# <word list>\n# No vocabulary constraints found. Please fully ignore these constraints.\n# <word list>\n",
-    "prompt": "Explain the difference between the present simple and present continuous tense in English, with easy examples.",
-    "generated_text": "The present simple tense is used for actions that happen regularly or in general, while the present continuous tense is used for actions that are happening at a particular moment in time.\n\n**Present Simple Example:**\n- I eat breakfast at 7 o'clock every morning.\n- They go to work by car.\n\n**Present Continuous Example:**\n- I am eating breakfast right now.\n- They are going to work right now.",
-    "perplexity": 1.5061688689825135
-}

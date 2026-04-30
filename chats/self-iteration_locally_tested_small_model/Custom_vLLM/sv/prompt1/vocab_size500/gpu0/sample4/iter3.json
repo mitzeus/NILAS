@@ -1,0 +1,99 @@
+{
+    "sample_number": 4,
+    "round_number": 3,
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in Swedish.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "TASK:\n            How do you use definite and indefinite forms of nouns in Swedish? Give simple examples.\n\n            PREVIOUS BEST DRAFT (score: 4.0/5.0):\n            ---\n            Definite form: \"barnet\" (the child)\nIndefinite form: \"ett barn\" (a child)\n            ---\n\n            REVISION INSTRUCTIONS:\n            Rewrite the draft above to address the following issues.\n            Preserve what was already working well. Do not simply patch — rewrite\n            sections where issues are deep.\n\n\nThe following issues MUST be fixed in this revision:\n  ✗ [FC-001] Factual Correctness: Omission of an example for common-gender nouns, leading to an incomplete picture. (flagged 2 times)\n  ✗ [CC-001] Clarity & Communication: Lack of explanation regarding when to use definite and indefinite forms. (flagged 2 times)\n  ✗ [DC-001] Depth & Completeness: Insufficient detail on the rules for using definite and indefinite forms, with only one example provided for each. (flagged 2 times)\n\n            Produce the improved version now. Output only the revised text, no preamble.",
+    "generated_text": "Definite form: \"barnet\" (ett barn) används när du menar ett viss barn, till exempel \"min barnet\" (ett barn).\nIndefinite form: \"ett barn\" används när du menar en barn, till exempel \"ett barn är gick på skolan\" (ett barn gick på skolan).\n\nDefinite form: \"barnets\" används när det är mer än ett barn, till exempel \"barnets liv\" (det livet av ett barn).\nIndefinite form: \"ett barn\" används när det är en barn, till exempel \"ett barn är gick på skolan\" (ett barn gick på skolan).\n\nDefinite form: \"barnets\" används när det är mer än ett barn, till exempel \"barnets liv\" (det livet av ett barn).\nIndefinite form: \"ett barn\" används när det är en barn, till exempel \"ett barn är gick på skolan\" (ett barn gick på skolan).\n\nDefinite form: \"barnets\" används när det är mer än ett barn, till exempel \"barnets liv\" (det livet av ett barn).\nIndefinite form: \"ett barn\" används när det är en barn, till exempel \"ett barn är gick på skolan\" (ett barn gick på skolan).",
+    "generator_name": "Custom_vLLM",
+    "language": "sv",
+    "perplexity": 1.25621446616003,
+    "vocab_size": 500,
+    "review": {
+        "overall_score": 1.32,
+        "letter_grade": "F",
+        "model": "gpt-4o-mini",
+        "family": "openai",
+        "summary": "This round shows a significant lack of improvement across all dimensions, with critical factual errors and severe grammatical issues persisting. The response remains confusing and structurally flawed, failing to address previous concerns regarding clarity and completeness. The issues identified in earlier rounds have not been resolved, and new problems have emerged, indicating a need for a complete overhaul of the response.",
+        "critic_scores": [
+            {
+                "model": "claude-sonnet-4-6",
+                "family": "anthropic",
+                "dimension": "Factual Correctness",
+                "profile": "sceptic",
+                "score": 1,
+                "rationale": "The response contains multiple critical factual errors. 'Min barnet' is grammatically incorrect Swedish (possessives don't take the definite suffix). 'Barnets' is the genitive form, not the plural definite form. 'Ett barn är gick på skolan' is nonsensical Swedish. The response still omits any example of common-gender (en-words) nouns, which was the core issue flagged in FC-001. The explanations conflate genitive, plural, and definite forms incorrectly, and the entire response is repetitively copy-pasted four times.",
+                "improvement_tip": "Provide accurate, distinct examples for both grammatical genders: an en-word (e.g., 'en bil' → indefinite, 'bilen' → definite) and an ett-word (e.g., 'ett barn' → indefinite, 'barnet' → definite), with correct Swedish sentences demonstrating when each form is used."
+            },
+            {
+                "model": "gpt-4o-mini",
+                "family": "openai",
+                "dimension": "Clarity & Communication",
+                "profile": "teacher",
+                "score": 2,
+                "rationale": "The response is confusing and contains significant structural issues, including repetitive sentences and unclear examples. The explanation of when to use definite and indefinite forms is lacking, and the examples provided do not effectively illustrate the rules. Additionally, there is a failure to include an example for common-gender nouns.",
+                "improvement_tip": "Provide clear definitions of definite and indefinite forms, include examples for both common-gender and neuter nouns, and ensure that the examples illustrate the rules effectively without repetition."
+            },
+            {
+                "model": "claude-haiku-4-5-20251001",
+                "family": "anthropic",
+                "dimension": "Grammar & Naturalness",
+                "profile": "editor",
+                "score": 1,
+                "rationale": "The response contains severe and pervasive grammatical errors that make it nearly unintelligible. Critical issues include: incorrect verb conjugation ('är gick' instead of 'gick'), gender-number disagreement ('en barn' instead of 'ett barn'), malformed sentences with nonsensical structure, and excessive repetition of identical paragraphs. The Swedish is fundamentally broken and would confuse any learner.",
+                "improvement_tip": "Start over with correct Swedish grammar: use 'ett barn' (neuter) consistently, ensure verbs conjugate properly ('gick på skolan'), and eliminate repetitive sections. Verify each sentence is grammatically sound before including it."
+            },
+            {
+                "model": "gemini-2.5-flash-lite",
+                "family": "google",
+                "dimension": "Task Match & Adequacy",
+                "profile": "analyst",
+                "score": 1,
+                "rationale": "The response completely fails to address the core task of explaining definite and indefinite noun forms in Swedish. It introduces incorrect grammatical concepts and examples, and repeats itself multiple times without providing any coherent explanation or accurate examples. The response is not only inadequate but actively misleading.",
+                "improvement_tip": "Focus on providing clear, accurate explanations of Swedish noun declension, including the rules for forming definite and indefinite singular and plural forms. Use simple, correct Swedish examples for each case, and explain the context in which each form is used."
+            }
+        ],
+        "top_improvements": [
+            "Provide accurate, distinct examples for both grammatical genders.",
+            "Ensure clear definitions of definite and indefinite forms with effective illustrations.",
+            "Revise the response for grammatical correctness and coherence."
+        ],
+        "confidence": "low",
+        "score_variance": 0.188
+    },
+    "ledger_snapshot": {
+        "issues": [
+            {
+                "issue_id": "FC-001",
+                "dimension": "Factual Correctness",
+                "description": "Omission of an example for common-gender nouns, leading to an incomplete picture.",
+                "first_seen_round": 1,
+                "last_seen_round": 3,
+                "status": "open",
+                "recurrence_count": 3
+            },
+            {
+                "issue_id": "CC-001",
+                "dimension": "Clarity & Communication",
+                "description": "Lack of explanation regarding when to use definite and indefinite forms.",
+                "first_seen_round": 1,
+                "last_seen_round": 3,
+                "status": "open",
+                "recurrence_count": 3
+            },
+            {
+                "issue_id": "DC-001",
+                "dimension": "Depth & Completeness",
+                "description": "Insufficient detail on the rules for using definite and indefinite forms, with only one example provided for each.",
+                "first_seen_round": 1,
+                "last_seen_round": 3,
+                "status": "open",
+                "recurrence_count": 3
+            }
+        ],
+        "round_summaries": [
+            "The response is factually accurate and clear but lacks depth and completeness in explanations and examples.",
+            "The response remains incomplete and unclear, with critical issues still present.",
+            "The response remains fundamentally flawed with no resolution to previously identified issues."
+        ]
+    }
+}

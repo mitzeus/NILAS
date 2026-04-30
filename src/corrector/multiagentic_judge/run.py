@@ -37,7 +37,7 @@ class CriticScore(BaseModel):
     family: str = Field(description="Name of critic model family")
     dimension: str = Field(description="The rubric dimension being evaluated")
     profile: str = Field(description="Which model profile produced this score")
-    score: int = Field(description="Integer score 1-5", ge=1, le=5)
+    score: int = Field(description="Integer score 1-5")
     rationale: str = Field(description="2-4 sentence justification of the score")
     improvement_tip: str = Field(
         description="One concrete, actionable improvement suggestion"
@@ -140,12 +140,15 @@ class IssueLedger(BaseModel):
 
 
 class RoundResult(BaseModel):
+    sample_number: int
     round_number: int
     system_prompt: str
     prompt: str
     generated_text: str
     generator_name: str
+    language: str
     perplexity: float
+    vocab_size: int
     review: FinalReview
     ledger_snapshot: IssueLedger  # State of ledger AFTER this round's synthesis
 
@@ -447,6 +450,7 @@ def _build_judge_user_prompt(
 
 
 async def _run_judge(
+    gpu_id: int,
     llm: BaseChatModel,
     model_name: str,
     family: str,
@@ -460,16 +464,28 @@ async def _run_judge(
     system = _build_judge_system_prompt(rubric_item)
     user = _build_judge_user_prompt(llm_output, context, ledger)
 
-    response = await asyncio.wait_for(
-        llm.ainvoke([SystemMessage(content=system), HumanMessage(content=user)]),
-        timeout=timeout,
-    )
+    try:
+        response = await asyncio.wait_for(
+            llm.ainvoke([SystemMessage(content=system), HumanMessage(content=user)]),
+            timeout=timeout,
+        )
+        raw = response.content.strip()
+        raw = re.sub(r"^```json\s*|^```\s*|```$", "", raw, flags=re.MULTILINE).strip()
 
-    raw = response.content.strip()
-    raw = re.sub(r"^```json\s*|^```\s*|```$", "", raw, flags=re.MULTILINE).strip()
+        data = json.loads(raw)
+        return CriticScore(model=model_name, family=family, profile=profile, **data)
+    except:
+        print(
+            f"[GPU {gpu_id}] Could not contact critic {model_name} ({family}). Skipping..."
+        )
+        response = {
+            "dimension": f"{rubric_item['dimension']}",
+            "score": -1,
+            "rationale": "Critic could not be contacted, ignore this critic.",
+            "improvement_tip": "Critic could not be contacted, ignore this critic.",
+        }
 
-    data = json.loads(raw)
-    return CriticScore(model=model_name, family=family, profile=profile, **data)
+        return CriticScore(model=model_name, family=family, profile=profile, **response)
 
 
 _SYNTHESIS_SYSTEM = textwrap.dedent("""
@@ -515,6 +531,7 @@ _SYNTHESIS_SYSTEM = textwrap.dedent("""
 
 
 async def _run_synthesis(
+    gpu_id: int,
     llm: BaseChatModel,
     critic_scores: list[CriticScore],
     ledger: IssueLedger,
@@ -547,25 +564,44 @@ async def _run_synthesis(
         Produce the final review and updated issue ledger.
     """).strip()
 
-    response = await llm.ainvoke(
-        [
-            SystemMessage(content=_SYNTHESIS_SYSTEM),
-            HumanMessage(content=user_prompt),
-        ]
-    )
+    try:
+        response = await llm.ainvoke(
+            [
+                SystemMessage(content=_SYNTHESIS_SYSTEM),
+                HumanMessage(content=user_prompt),
+            ]
+        )
+        raw = response.content.strip()
+        raw = re.sub(r"^```json\s*|^```\s*|```$", "", raw, flags=re.MULTILINE).strip()
+        data = json.loads(raw)
 
-    raw = response.content.strip()
-    raw = re.sub(r"^```json\s*|^```\s*|```$", "", raw, flags=re.MULTILINE).strip()
-    data = json.loads(raw)
+        # Validate synthesis response structure
+        if (
+            not isinstance(data, dict)
+            or "updated_issues" not in data
+            or "round_summary" not in data
+        ):
+            raise ValueError("Invalid synthesis response structure")
 
-    # Build updated ledger
-    updated_issues = [Issue(**i) for i in data["updated_issues"]]
-    updated_summaries = ledger.round_summaries + [data["round_summary"]]
-    updated_ledger = IssueLedger(
-        issues=updated_issues, round_summaries=updated_summaries
-    )
+        # Build updated ledger
+        updated_issues = [Issue(**i) for i in data["updated_issues"]]
+        updated_summaries = ledger.round_summaries + [data["round_summary"]]
+        updated_ledger = IssueLedger(
+            issues=updated_issues, round_summaries=updated_summaries
+        )
 
-    return data, updated_ledger
+        return data, updated_ledger
+    except Exception as exc:
+        print(f"[GPU {gpu_id}] Could not contact or parse synthesis. Skipping... {exc}")
+        data = {
+            "summary": "Could not contact synthesis. Ignore this review.",
+            "top_improvements": ["", "", ""],
+            "confidence": "",
+            "round_summary": "",
+            "updated_issues": [],
+        }
+        updated_ledger = ledger
+        return data, updated_ledger
 
 
 def _compute_variance(scores: list[int]) -> float:
@@ -606,6 +642,7 @@ def check_convergence(
 
 
 async def evaluate_round(
+    gpu_id: int,
     llm_output: str,
     context: str,
     ledger: IssueLedger,
@@ -645,6 +682,7 @@ async def evaluate_round(
     # Run Judges
     judge_tasks = [
         _run_judge(
+            gpu_id,
             model.llm,
             model.model_name,
             model.family,
@@ -660,15 +698,39 @@ async def evaluate_round(
     judge_scores: list[CriticScore] = await asyncio.gather(*judge_tasks)
 
     # Weighted aggregation
-    total_weight = sum(r["weight"] for r in config.rubric)
-    weighted_score = (
-        sum(cs.score * r["weight"] for cs, r in zip(judge_scores, config.rubric))
-        / total_weight
-    )
+    total_weight = 0
+    for cs, r in zip(judge_scores, config.rubric):
+        if cs.score != -1:
+            total_weight += r["weight"]
+
+    if total_weight == 0:
+        review = FinalReview(
+            overall_score=-1,
+            letter_grade="X",
+            model=synthesis_model.model_name,
+            family=synthesis_model.family,
+            summary="Could not run synthesis. No critics available.",
+            critic_scores=judge_scores,
+            top_improvements=[""],
+            confidence="",
+            score_variance=0,
+        )
+        updated_ledger = ledger
+        return review, updated_ledger
+    elif total_weight > 0:
+        weighted_score = (
+            sum(
+                cs.score * r["weight"]
+                for cs, r in zip(judge_scores, config.rubric)
+                if cs.score != -1
+            )
+            / total_weight
+        )
 
     score_variance = _compute_variance([cs.score for cs in judge_scores])
 
     synthesis_data, updated_ledger = await _run_synthesis(
+        gpu_id,
         synthesis_model.llm,
         judge_scores,
         ledger,
@@ -690,25 +752,6 @@ async def evaluate_round(
     )
 
     return review, updated_ledger
-
-
-def evaluate_llm_output_sync(
-    llm_output: str,
-    context: str,
-    ledger: IssueLedger,
-    round_number: int,
-    config: EvaluationConfig,
-    synthesis_profile_name: str = "synthesis",
-) -> FinalReview:
-    """
-    Synchronous wrapper. Use when not already inside an async event loop.
-    """
-    print("yes")
-    return asyncio.run(
-        evaluate_round(
-            llm_output, context, ledger, round_number, config, synthesis_profile_name
-        )
-    )
 
 
 async def run_self_iteration(
@@ -735,9 +778,9 @@ async def run_self_iteration(
     convergence_reason = None
 
     if gpu_id is not None and isinstance(gpu_id, int):
-        save_path = f"chats/self-iteration/{generator.__class__.__name__}/{language}/prompt{question_nr}/gpu{gpu_id}/sample{sample_nr}"
+        save_path = f"chats/self-iteration/{generator.__class__.__name__}/{language}/prompt{question_nr}/vocab_size{word_batch_size}/gpu{gpu_id}/sample{sample_nr}"
     else:
-        save_path = f"chats/self-iteration/{generator.__class__.__name__}/{language}/prompt{question_nr}/sample{sample_nr}"
+        save_path = f"chats/self-iteration/{generator.__class__.__name__}/{language}/prompt{question_nr}/vocab_size{word_batch_size}/sample{sample_nr}"
     os.makedirs(save_path, exist_ok=True)
 
     print("Started. Generating initial response.") if verbose is not None else None
@@ -761,7 +804,11 @@ async def run_self_iteration(
         ),
         "prompt": prompt,
         "generated_text": output,
+        "generator_name": generator.__class__.__name__,
+        "language": language,
         "perplexity": perplexity,
+        "vocab_size": word_batch_size,
+        "sample_number": sample_nr,
     }
 
     with open(f"{save_path}/init.json", "w", encoding="utf-8") as f:
@@ -775,17 +822,23 @@ async def run_self_iteration(
 
         print("Starting Evaluation...") if verbose is not None else None
         review, updated_ledger = await evaluate_round(
+            gpu_id=gpu_id,
             llm_output=output,
             context=prompt,
             ledger=ledger,
             round_number=round_num,
             config=config,
         )
-        print("Critics Done. Awaiting round result...") if verbose is not None else None
+        (
+            print("Critics & Synthesis Done. Awaiting round result...")
+            if verbose is not None
+            else None
+        )
 
         ledger = updated_ledger  # update with news
 
         round_result = RoundResult(
+            sample_number=sample_nr,
             round_number=round_num,
             system_prompt=process_vocab_to_prompt(
                 system_prompt,
@@ -796,7 +849,9 @@ async def run_self_iteration(
             prompt=prompt,
             generated_text=output,
             generator_name=generator.__class__.__name__,
+            language=language,
             perplexity=perplexity,
+            vocab_size=word_batch_size,
             review=review,
             ledger_snapshot=ledger.model_copy(deep=True),
         )

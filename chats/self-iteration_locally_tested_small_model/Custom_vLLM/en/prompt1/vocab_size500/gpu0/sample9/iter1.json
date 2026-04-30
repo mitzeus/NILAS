@@ -1,0 +1,97 @@
+{
+    "sample_number": 9,
+    "round_number": 1,
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in English.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "How do you form basic yes/no questions in English? Show simple patterns and examples.",
+    "generated_text": "To form basic yes/no questions in English, you can use the auxiliary verb (do, did, have, has) at the beginning of the sentence and place the rest of the question word order at the end. Here are some examples:\n\n- Yes/no question: Did you go to the store?\n- Yes/no question: Has she finished her homework?\n\nIn the first example, \"did\" is the auxiliary verb, and \"you go to the store\" is placed at the end.\nIn the second example, \"has\" is the auxiliary verb, and \"she finished her homework\" is placed at the end.",
+    "generator_name": "Custom_vLLM",
+    "language": "en",
+    "perplexity": 2.0920389679563773,
+    "vocab_size": 500,
+    "review": {
+        "overall_score": 3.0,
+        "letter_grade": "C",
+        "model": "gpt-4o-mini",
+        "family": "openai",
+        "summary": "This round's evaluations indicate a consistent need for improvement in factual correctness and clarity. Critics highlighted the incomplete explanation of auxiliary verbs and the confusing structure of the response. While the overall scores remain moderate, specific areas for enhancement have been identified, particularly in expanding examples and clarifying sentence structure.",
+        "critic_scores": [
+            {
+                "model": "claude-sonnet-4-6",
+                "family": "anthropic",
+                "dimension": "Factual Correctness",
+                "profile": "sceptic",
+                "score": 3,
+                "rationale": "The core explanation is mostly correct — auxiliary verbs like 'did' and 'has' are indeed inverted to form yes/no questions. However, the description is incomplete and slightly misleading: it omits modal auxiliaries (can, will, should, etc.) and the verb 'to be' as a main verb (e.g., 'Are you ready?'), which are equally fundamental patterns. The phrase 'place the rest of the question word order at the end' is awkward and imprecise, but not outright wrong. The claim that the listed auxiliaries (do, did, have, has) cover basic yes/no questions is an oversimplification that could mislead learners.",
+                "improvement_tip": "Expand the auxiliary verb list to include 'be' (as both main and auxiliary verb) and modal verbs (can, will, should, etc.), and clarify the inversion rule more precisely: the auxiliary verb moves to the front of the sentence, before the subject, rather than vaguely saying 'the rest is placed at the end.'"
+            },
+            {
+                "model": "gpt-4o-mini",
+                "family": "openai",
+                "dimension": "Clarity & Communication",
+                "profile": "teacher",
+                "score": 3,
+                "rationale": "The response provides a basic explanation of forming yes/no questions in English, but it lacks clarity in its structure. The examples are relevant, but the explanation about the placement of the auxiliary verb and the rest of the question is somewhat confusing and could be more precise.",
+                "improvement_tip": "Reorganize the explanation to clearly state the rule first, followed by examples, and ensure that the auxiliary verb's role is explained more clearly in relation to the sentence structure."
+            },
+            {
+                "model": "claude-haiku-4-5-20251001",
+                "family": "anthropic",
+                "dimension": "Grammar & Naturalness",
+                "profile": "editor",
+                "score": 3,
+                "rationale": "The response is grammatically correct and mostly natural, but contains a significant clarity issue. The phrase 'place the rest of the question word order at the end' is awkwardly worded and confusing—it should say something like 'the subject and verb follow in statement word order.' The explanation contradicts itself by saying the auxiliary goes 'at the beginning' and then 'at the end,' which undermines the naturalness of the instruction.",
+                "improvement_tip": "Revise the opening rule to: 'Move the auxiliary verb to the beginning of the sentence, keeping the subject and main verb in their normal order.' This is clearer and avoids the confusing 'at the end' phrasing."
+            },
+            {
+                "model": "gemini-2.5-flash-lite",
+                "family": "google",
+                "dimension": "Task Match & Adequacy",
+                "profile": "analyst",
+                "score": 3,
+                "rationale": "The response correctly identifies the use of auxiliary verbs at the beginning of a sentence to form yes/no questions. However, it only provides two examples and doesn't fully explain the patterns for different tenses or modal verbs, making it slightly under-detailed.",
+                "improvement_tip": "Expand the explanation to include patterns for different tenses (e.g., present simple with 'do/does') and modal verbs (e.g., 'can', 'will') to provide a more comprehensive answer."
+            }
+        ],
+        "top_improvements": [
+            "Expand the auxiliary verb list to include 'be' and modal verbs.",
+            "Reorganize the explanation to clearly state the rule first, followed by examples.",
+            "Revise the phrasing to eliminate confusion about the placement of the auxiliary verb."
+        ],
+        "confidence": "medium",
+        "score_variance": 0.0
+    },
+    "ledger_snapshot": {
+        "issues": [
+            {
+                "issue_id": "FC-001",
+                "dimension": "Factual Correctness",
+                "description": "Incomplete explanation of auxiliary verbs and misleading oversimplification.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "open",
+                "recurrence_count": 1
+            },
+            {
+                "issue_id": "CC-001",
+                "dimension": "Clarity & Communication",
+                "description": "Confusing structure and unclear explanation of sentence formation.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "open",
+                "recurrence_count": 1
+            },
+            {
+                "issue_id": "DC-001",
+                "dimension": "Depth & Completeness",
+                "description": "Insufficient detail on patterns for different tenses and modal verbs.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "open",
+                "recurrence_count": 1
+            }
+        ],
+        "round_summaries": [
+            "Critics noted several clarity and completeness issues that need addressing for better understanding."
+        ]
+    }
+}

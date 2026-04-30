@@ -1,0 +1,10 @@
+{
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in English.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "Explain the difference between the present simple and present continuous tense in English, with easy examples.",
+    "generated_text": "The present simple tense is used for actions that happen regularly or are habitual, expressed in a straightforward way without emphasizing the time of the action.\n\nThe present continuous tense (also known as the present progressive tense) is used to describe an action that is happening now, often emphasizing the time of the action.\n\n**Examples:**\n\n- Present Simple: \"I eat breakfast at 7 o'clock every day.\" (Habitual action)\n- Present Continuous: \"I am eating breakfast now.\" (Action happening now)",
+    "generator_name": "Custom_vLLM",
+    "language": "en",
+    "perplexity": 5.875591610446947,
+    "vocab_size": 100,
+    "sample_number": 7
+}

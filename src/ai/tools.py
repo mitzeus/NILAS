@@ -11,13 +11,38 @@ def process_vocab_to_prompt(
     language: str,
     apply_constraint: bool = False,
 ):
+    vocab_str = ", \n".join(allowed_words)
+    vocab_instruction = f"""
+    You also have a set vocabulary that you are ONLY allowed to select words from (unless not found), so no words outside these are allowed. The wordlist
+    is provided as lemmas and you must first select a word, then conjugate it as needed to keep full naturalness.
+    You absolute must conjugate words all words that you can, except if it does not make sense in the sentence to maintain naturalness.
+
+    The only words outside this list you are allowed to use are proper nouns, so names of for example places etc.
+
+    Here is the word list:
+    <word list>
+    {vocab_str}
+    <word list>
+    """.strip()
+    #     vocab_instruction = f"""
+    #     You will also be provided with a set of words to try to adhere to. If there are several good ways of expressing the same thing,
+    #     then prioritize the way where you get to include as many words as possible from here. The words are in lemma form so feel free
+    #     to conjugate them freely.
+
+    #     The only words you don't need to worry about at all are proper nouns, so names of for example places etc. which you of course can
+    #     use freely as much as you like.
+
+    #     Here is the word list:
+    #     <word list>
+    #     {vocab_str}
+    #     <word list>
+    # """.strip()
 
     if apply_constraint:
-        vocab_str = ", \n".join(allowed_words)
-        return system_prompt.format(vocab=vocab_str, lang=language)
+        return system_prompt.format(vocab=vocab_instruction, lang=language)
     else:
         return system_prompt.format(
-            vocab="No vocabulary constraints found. Please fully ignore these constraints.",
+            vocab="",
             lang=language,
         )
 

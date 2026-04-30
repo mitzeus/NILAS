@@ -1,0 +1,108 @@
+{
+    "sample_number": 5,
+    "round_number": 3,
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in English.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "TASK:\n            How do you form basic yes/no questions in English? Show simple patterns and examples.\n\n            PREVIOUS BEST DRAFT (score: 3.2/5.0):\n            ---\n            To form basic yes/no questions in English, you invert the subject and the auxiliary verb (if any) to the front of the sentence. If there's no auxiliary verb, you add \"do\" to the front. The rest of the sentence follows after the question word (usually \"do\" or \"did\" followed by the rest of the question).\n\nExamples:\n- Do you like pizza? (Yes/No: Do you like pizza?)\n- Did you go to the store? (Yes/No: Did you go to the store?)\n            ---\n\n            REVISION INSTRUCTIONS:\n            Rewrite the draft above to address the following issues.\n            Preserve what was already working well. Do not simply patch — rewrite\n            sections where issues are deep.\n\n\nThe following issues are IMPROVING but not yet fully resolved:\n  ~ [CC-002] Clarity & Communication: Some awkward phrasing and minor redundancy in the explanation.\n\nThe following issues MUST be fixed in this revision:\n  ✗ [FC-001] Factual Correctness: Omission of important cases such as using 'be' as a main verb and modal auxiliaries. (flagged 2 times)\n  ✗ [CC-001] Clarity & Communication: Explanation could benefit from more detail about the role of auxiliary verbs and examples. (flagged 2 times)\n  ✗ [DC-001] Depth & Completeness: Explanation lacks clarity on the two main patterns for forming questions. (flagged 2 times)\n\n            Produce the improved version now. Output only the revised text, no preamble.",
+    "generated_text": "To form basic yes/no questions in English, you invert the subject and the auxiliary verb (if any) to the front of the sentence. If there's no auxiliary verb, you add \"do\" to the front. The rest of the sentence follows after the question word (usually \"do\" or \"did\" followed by the rest of the question).\n\nExamples:\n- Do you like pizza? (Yes/No: Do you like pizza?)\n- Did you go to the store? (Yes/No: Did you go to the store?)\n- Is the movie good? (Yes/No: Is the movie good?)\n- Have you finished the work?",
+    "generator_name": "Custom_vLLM",
+    "language": "en",
+    "perplexity": 3.6081030405840684,
+    "vocab_size": 100,
+    "review": {
+        "overall_score": 2.43,
+        "letter_grade": "D",
+        "model": "gpt-4o-mini",
+        "family": "openai",
+        "summary": "This round shows persistent issues in factual correctness and clarity, particularly regarding the omission of modal auxiliaries and the use of 'be' as a main verb. While some improvements were noted in grammar and naturalness, the overall structure remains confusing. The need for a clearer delineation of the two main patterns for forming yes/no questions is still evident, indicating that further revisions are necessary.",
+        "critic_scores": [
+            {
+                "model": "claude-sonnet-4-6",
+                "family": "anthropic",
+                "dimension": "Factual Correctness",
+                "profile": "sceptic",
+                "score": 2,
+                "rationale": "The response still omits modal auxiliaries (e.g., 'Can you swim?', 'Will she come?'), which are a critical pattern for yes/no question formation. While 'be' as a main verb is now partially addressed with 'Is the movie good?', the explanation text itself was not updated to reflect this case, creating an inconsistency. The core rule stated ('if there's no auxiliary verb, add do') is incomplete because 'be' as a main verb does not follow the do-insertion rule, yet this distinction is never explained. The persistent omission of modal auxiliaries (flagged twice previously as FC-001) remains unresolved.",
+                "improvement_tip": "Explicitly add a section covering modal auxiliaries (can, will, should, must, etc.) with examples like 'Can you drive?' and clarify that when 'be' is the main verb, it moves to the front directly without 'do', distinguishing this clearly from the do-insertion pattern."
+            },
+            {
+                "model": "gpt-4o-mini",
+                "family": "openai",
+                "dimension": "Clarity & Communication",
+                "profile": "teacher",
+                "score": 2,
+                "rationale": "The response still lacks clarity and completeness, particularly regarding the role of auxiliary verbs and the omission of important cases like using 'be' as a main verb and modal auxiliaries. While some examples have been added, the structure remains confusing and does not clearly delineate the two main patterns for forming questions.",
+                "improvement_tip": "Provide a more structured explanation that clearly outlines the two main patterns for forming yes/no questions, including examples for each type of auxiliary verb and addressing the use of 'be' and modal verbs."
+            },
+            {
+                "model": "claude-haiku-4-5-20251001",
+                "family": "anthropic",
+                "dimension": "Grammar & Naturalness",
+                "profile": "editor",
+                "score": 3,
+                "rationale": "The response is grammatically correct and mostly natural in flow, but contains awkward phrasing and redundancy that undermines readability. The phrase 'The rest of the sentence follows after the question word (usually \"do\" or \"did\" followed by the rest of the question)' is confusing and circular. Additionally, the explanation lacks smooth transitions between concepts, making it feel somewhat disjointed despite being technically sound.",
+                "improvement_tip": "Simplify the explanation by removing the redundant parenthetical remark about 'do' or 'did,' and restructure the opening sentence to more clearly distinguish the two main patterns (auxiliary verb inversion vs. adding 'do') before providing examples."
+            },
+            {
+                "model": "gemini-2.5-flash-lite",
+                "family": "google",
+                "dimension": "Task Match & Adequacy",
+                "profile": "analyst",
+                "score": 3,
+                "rationale": "The response attempts to address the prompt by providing examples of yes/no questions. However, it fails to fully explain the two main patterns for forming questions, particularly regarding the use of 'be' as a main verb and modal auxiliaries, which were persistent issues from previous rounds. The explanation remains somewhat superficial and doesn't offer the depth required for a complete understanding.",
+                "improvement_tip": "Clearly delineate the two primary patterns for forming yes/no questions: one involving auxiliary verbs (including 'be' and modals) and another for sentences without auxiliaries (using 'do/does/did'). Provide distinct examples for each pattern."
+            }
+        ],
+        "top_improvements": [
+            "Explicitly add a section covering modal auxiliaries with examples.",
+            "Provide a more structured explanation that clearly outlines the two main patterns for forming yes/no questions.",
+            "Simplify the explanation by removing redundant phrases and improving transitions."
+        ],
+        "confidence": "medium",
+        "score_variance": 0.25
+    },
+    "ledger_snapshot": {
+        "issues": [
+            {
+                "issue_id": "FC-001",
+                "dimension": "Factual Correctness",
+                "description": "Omission of important cases such as using 'be' as a main verb and modal auxiliaries.",
+                "first_seen_round": 1,
+                "last_seen_round": 3,
+                "status": "open",
+                "recurrence_count": 3
+            },
+            {
+                "issue_id": "CC-001",
+                "dimension": "Clarity & Communication",
+                "description": "Explanation could benefit from more detail about the role of auxiliary verbs and examples.",
+                "first_seen_round": 1,
+                "last_seen_round": 3,
+                "status": "open",
+                "recurrence_count": 3
+            },
+            {
+                "issue_id": "CC-002",
+                "dimension": "Clarity & Communication",
+                "description": "Some awkward phrasing and minor redundancy in the explanation.",
+                "first_seen_round": 1,
+                "last_seen_round": 3,
+                "status": "improved",
+                "recurrence_count": 3
+            },
+            {
+                "issue_id": "DC-001",
+                "dimension": "Depth & Completeness",
+                "description": "Explanation lacks clarity on the two main patterns for forming questions.",
+                "first_seen_round": 1,
+                "last_seen_round": 3,
+                "status": "open",
+                "recurrence_count": 3
+            }
+        ],
+        "round_summaries": [
+            "The response shows a good understanding of yes/no question formation but requires more detail and clarity.",
+            "Factual inaccuracies and clarity issues remain largely unresolved this round.",
+            "Factual correctness and clarity issues remain largely unresolved despite some minor improvements."
+        ]
+    }
+}

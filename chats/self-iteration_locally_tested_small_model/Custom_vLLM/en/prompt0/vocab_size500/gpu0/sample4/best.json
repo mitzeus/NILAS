@@ -1,0 +1,89 @@
+{
+    "sample_number": 4,
+    "round_number": 2,
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in English.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "Explain the difference between the present simple and present continuous tense in English, with easy examples.",
+    "generated_text": "The present simple tense is used for actions that happen regularly or are habitual, in a non-specific time frame. Examples: \"I eat breakfast at 7 every morning.\" \"She goes to the gym five times a week.\"\n\nThe present continuous tense is used for actions that are happening now or at a specific time in the past. Examples: \"I am reading a book right now.\" \"She was studying for her exam last night.\"",
+    "generator_name": "Custom_vLLM",
+    "language": "en",
+    "perplexity": 2.705213204039223,
+    "vocab_size": 500,
+    "review": {
+        "overall_score": 2.83,
+        "letter_grade": "C",
+        "model": "gpt-4o-mini",
+        "family": "openai",
+        "summary": "The current round has shown persistent issues with the definition of the present continuous tense, which remains critically incorrect as noted in previous rounds. The clarity of the explanation has also been affected by this error, leading to confusion among readers. While grammatical aspects were generally well-received, the core factual inaccuracies have not been resolved. Overall, the feedback indicates a need for significant revisions to improve both factual correctness and clarity.",
+        "critic_scores": [
+            {
+                "model": "claude-sonnet-4-6",
+                "family": "anthropic",
+                "dimension": "Factual Correctness",
+                "profile": "sceptic",
+                "score": 1,
+                "rationale": "The definition of the present continuous tense remains critically incorrect. The output states it is used for 'actions happening now or at a specific time in the past,' and the example 'She was studying for her exam last night' uses the past continuous tense, not the present continuous. This is the same error flagged in FC-001 and has not been corrected. The present continuous is correctly used only for actions happening now or around the current time period (e.g., temporary situations), not past actions.",
+                "improvement_tip": "Rewrite the present continuous definition to state it describes actions happening right now or around the current moment (e.g., 'I am reading a book right now') and remove all past-tense examples, replacing them with correct present continuous sentences such as 'She is studying for her exam this week.'"
+            },
+            {
+                "model": "gpt-4o-mini",
+                "family": "openai",
+                "dimension": "Clarity & Communication",
+                "profile": "teacher",
+                "score": 3,
+                "rationale": "The explanation of the present simple tense is clear and well-structured, providing relevant examples. However, the definition of the present continuous tense is misleading, as it incorrectly states that it can refer to actions in the past, which detracts from overall clarity. This inconsistency could confuse readers.",
+                "improvement_tip": "Revise the definition of the present continuous tense to clarify that it refers only to actions happening at the moment of speaking or ongoing actions, and avoid including past actions in this context."
+            },
+            {
+                "model": "claude-haiku-4-5-20251001",
+                "family": "anthropic",
+                "dimension": "Grammar & Naturalness",
+                "profile": "editor",
+                "score": 4,
+                "rationale": "The response is grammatically sound with correct sentence construction and natural phrasing throughout. Examples are well-formed and easy to follow. However, there is a subtle inconsistency in tense usage within the present continuous explanation: the second example uses past continuous ('was studying') when discussing a tense that should focus on present actions, which creates minor confusion in the flow despite being grammatically correct.",
+                "improvement_tip": "Replace the past continuous example with a present continuous one (e.g., 'She is studying for her exam right now') to maintain grammatical consistency and natural alignment with the tense being explained."
+            },
+            {
+                "model": "gemini-2.5-flash-lite",
+                "family": "google",
+                "dimension": "Task Match & Adequacy",
+                "profile": "analyst",
+                "score": 3,
+                "rationale": "The response correctly identifies the use of the present simple tense and provides relevant examples. However, it incorrectly defines the present continuous tense as being used for actions in the past, which is inaccurate and deviates from the prompt's request to explain the *present* continuous tense.",
+                "improvement_tip": "Ensure the definition and examples for the present continuous tense strictly pertain to actions happening in the present moment or around the present time, not in the past."
+            }
+        ],
+        "top_improvements": [
+            "Rewrite the definition of the present continuous tense to focus solely on present actions.",
+            "Replace past-tense examples with accurate present continuous examples.",
+            "Ensure all explanations align with the requested tense to avoid confusion."
+        ],
+        "confidence": "low",
+        "score_variance": 1.188
+    },
+    "ledger_snapshot": {
+        "issues": [
+            {
+                "issue_id": "FC-001",
+                "dimension": "Factual Correctness",
+                "description": "Incorrect definition of the present continuous tense, including past actions.",
+                "first_seen_round": 1,
+                "last_seen_round": 2,
+                "status": "open",
+                "recurrence_count": 2
+            },
+            {
+                "issue_id": "CC-001",
+                "dimension": "Clarity & Communication",
+                "description": "Misleading structure and definition of the present continuous tense affecting clarity.",
+                "first_seen_round": 1,
+                "last_seen_round": 2,
+                "status": "open",
+                "recurrence_count": 2
+            }
+        ],
+        "round_summaries": [
+            "Factual correctness issues significantly impacted the overall evaluation this round.",
+            "Factual inaccuracies regarding the present continuous tense persist, impacting clarity and overall quality."
+        ]
+    }
+}

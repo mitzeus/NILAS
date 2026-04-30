@@ -1,0 +1,107 @@
+{
+    "sample_number": 1,
+    "round_number": 2,
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in Swedish.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "Explain how to use common present tense verbs in Swedish with examples.",
+    "generated_text": "För att använda de vanliga de sena tidsverbena i svenska med exempel:\n\n1. Ta: Jag tar en te.\n2. Gå: Han går till skolan.\n3. Skriva: Jag skriver en bok.\n4. Svara: Du svarar på e-post.\n5. Ta hand med: Vi tar hand om honom.\n6. Vänta: Jag väntar på bilen.\n7. Gå på: Han går på mat.\n8. Ta: Jag tar en bok.\n9. Vänta på: Jag väntar på bilen.\n10. Ta hand med: Vi tar hand om honom.",
+    "generator_name": "Custom_vLLM",
+    "language": "sv",
+    "perplexity": 1.891581109402873,
+    "vocab_size": 500,
+    "review": {
+        "overall_score": 1.75,
+        "letter_grade": "D",
+        "model": "gpt-4o-mini",
+        "family": "openai",
+        "summary": "This round has shown no improvement in the critical areas of factual correctness, clarity, and depth, with multiple issues remaining unresolved from Round 1. The feedback highlights persistent grammatical errors, unclear phrasing, and duplicate entries that continue to undermine the response's quality. The overall score reflects a lack of progress, indicating a need for significant revisions to address these concerns.",
+        "critic_scores": [
+            {
+                "model": "claude-sonnet-4-6",
+                "family": "anthropic",
+                "dimension": "Factual Correctness",
+                "profile": "sceptic",
+                "score": 1,
+                "rationale": "The response contains multiple critical factual errors that remain unresolved from Round 1. The phrase 'de vanliga de sena tidsverbena' is grammatically and semantically incorrect Swedish for 'common present tense verbs.' 'Ta hand med' is incorrect; the correct Swedish phrase is 'ta hand om' (which appears inconsistently). 'Gå på mat' is not a natural or correct Swedish expression for eating. Additionally, entries 1 and 8 are identical (both 'Ta: Jag tar...'), and entries 6 and 9 are duplicates ('Vänta på bilen'), as are entries 5 and 10 ('Ta hand om honom'), showing no improvement from the previously flagged duplicate issue.",
+                "improvement_tip": "Rewrite the list using verified, distinct Swedish present-tense verbs (e.g., äta, dricka, läsa, skriva, springa, arbeta, sova, tala) with accurate conjugations and natural example sentences, and have a native speaker or reliable Swedish grammar source confirm each phrase before including it."
+            },
+            {
+                "model": "gpt-4o-mini",
+                "family": "openai",
+                "dimension": "Clarity & Communication",
+                "profile": "teacher",
+                "score": 2,
+                "rationale": "The response is difficult to follow due to unclear phrasing and poor organization. There are duplicate entries and some phrases are not correctly structured in Swedish, which adds to the confusion.",
+                "improvement_tip": "Eliminate duplicate examples and ensure that all phrases are grammatically correct and clearly structured to enhance understanding."
+            },
+            {
+                "model": "claude-haiku-4-5-20251001",
+                "family": "anthropic",
+                "dimension": "Grammar & Naturalness",
+                "profile": "editor",
+                "score": 2,
+                "rationale": "The response contains multiple grammatical errors that significantly impair readability. The opening phrase 'de vanliga de sena tidsverbena' is awkwardly constructed and unnatural; 'de sena' (the late) is incorrect terminology for present tense verbs. Additionally, phrases like 'Gå på mat' (go on food) and 'Ta hand med' (take hand with) are grammatically malformed—the correct form is 'ta hand om' (take care of). The list format itself lacks natural explanatory flow, reading more like a disjointed inventory than a coherent explanation.",
+                "improvement_tip": "Restructure the opening to read naturally: 'Här är hur man använder vanliga presensverbena i svenska med exempel:' (Here is how to use common present tense verbs in Swedish with examples). Correct all verb phrases to their proper forms (e.g., 'ta hand om' instead of 'ta hand med'), and add brief grammatical context or conjugation patterns to create a more natural, instructional tone."
+            },
+            {
+                "model": "gemini-2.5-flash-lite",
+                "family": "google",
+                "dimension": "Task Match & Adequacy",
+                "profile": "analyst",
+                "score": 2,
+                "rationale": "The response attempts to provide examples of common present tense verbs in Swedish but suffers from significant issues. It includes duplicate entries (e.g., 'Ta', 'Vänta på', 'Ta hand med') and some grammatically incorrect or nonsensical examples ('Han går på mat'). The phrasing 'de vanliga de sena tidsverbena' is also unclear and likely a mistranslation.",
+                "improvement_tip": "Ensure all examples are grammatically correct and semantically sound. Avoid repeating verbs and phrases, and clarify any ambiguous introductory text."
+            }
+        ],
+        "top_improvements": [
+            "Rewrite the list using verified, distinct Swedish present-tense verbs with accurate conjugations.",
+            "Eliminate duplicate examples and ensure all phrases are grammatically correct.",
+            "Restructure the opening for natural flow and clarity, adding brief grammatical context."
+        ],
+        "confidence": "low",
+        "score_variance": 0.188
+    },
+    "ledger_snapshot": {
+        "issues": [
+            {
+                "issue_id": "FC-001",
+                "dimension": "Factual Correctness",
+                "description": "Several factual errors in Swedish phrases and duplicate entries undermine the response's reliability.",
+                "first_seen_round": 1,
+                "last_seen_round": 2,
+                "status": "open",
+                "recurrence_count": 2
+            },
+            {
+                "issue_id": "CC-001",
+                "dimension": "Clarity & Communication",
+                "description": "The response is hard to follow due to unclear phrasing and poor organization.",
+                "first_seen_round": 1,
+                "last_seen_round": 2,
+                "status": "open",
+                "recurrence_count": 2
+            },
+            {
+                "issue_id": "DC-001",
+                "dimension": "Depth & Completeness",
+                "description": "Repetitive examples and lack of diverse verb usage indicate inadequate depth.",
+                "first_seen_round": 1,
+                "last_seen_round": 2,
+                "status": "open",
+                "recurrence_count": 2
+            },
+            {
+                "issue_id": "RQ-001",
+                "dimension": "Reasoning Quality",
+                "description": "Disjointed explanations and incorrect grammatical structures hinder reasoning quality.",
+                "first_seen_round": 1,
+                "last_seen_round": 2,
+                "status": "open",
+                "recurrence_count": 2
+            }
+        ],
+        "round_summaries": [
+            "Significant factual and structural issues were identified, resulting in a low score.",
+            "No improvements were made this round, with all previously identified issues remaining unresolved."
+        ]
+    }
+}

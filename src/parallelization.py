@@ -5,8 +5,10 @@ import multiprocessing
 from itertools import product
 
 from vllm import SamplingParams
-from src.corrector.multiagentic_judge.run import EvaluationConfig, run_self_iteration
+from src.corrector.multiagentic_judge.run import EvaluationConfig
 from src.helper.typing import WordConstraintType
+
+import traceback
 
 
 async def process_work_items(
@@ -19,30 +21,36 @@ async def process_work_items(
     max_response_token_length: int,
     use_word_constraint: bool,
     word_constraint_type: WordConstraintType,
+    prompt_allowed_words: bool,
 ):
+    from src.corrector.multiagentic_judge.run import run_self_iteration
+
     for lang, prompt, prompt_i, sample_id, batch_size in work_items:
         # Each iteration:
         # 1. blocks on vLLM generate()
         # 2. fans out async API calls in parallel
         # 3. awaits synthesis
         # 4. moves to next item
-        await run_self_iteration(
-            generator_system_prompt,
-            prompt,
-            generator_map[lang],
-            config,
-            custom_sampling_params,
-            max_response_token_length,
-            lang,
-            prompt_i,
-            sample_id,
-            batch_size,
-            use_word_constraint,
-            word_constraint_type,
-            prompt_allowed_words=False,
-            verbose="sequence",
-            gpu_id=gpu_id,
-        )
+        try:
+            await run_self_iteration(
+                generator_system_prompt,
+                prompt,
+                generator_map[lang][batch_size],
+                config,
+                custom_sampling_params,
+                max_response_token_length,
+                lang,
+                prompt_i,
+                sample_id,
+                batch_size,
+                use_word_constraint,
+                word_constraint_type,
+                prompt_allowed_words=prompt_allowed_words,
+                verbose="sequence",
+                gpu_id=gpu_id,
+            )
+        except Exception:
+            traceback.print_exc()
 
 
 def gpu_worker(
@@ -56,13 +64,14 @@ def gpu_worker(
     enable_prefix_caching: bool,
     logprobs: int,
     # Custom vLLM constructor
-    tokenizer,
     lemmatizers: dict,
-    allowed_words: dict[str, list[str]],
+    allowed_words: dict[str, dict[int, list[str]]],
+    batch_sizes: list[int],
     beam_size: int,
     use_word_constraint: bool,
     word_constraint_type: WordConstraintType,
     word_soft_constraint_penalty: float,
+    prompt_allowed_words: bool,
     alpha: float,
     # run config
     generator_system_prompt: str,
@@ -75,6 +84,10 @@ def gpu_worker(
     from src.ai.vLLM import initialize_vLLM
     from src.ai.models import Custom_vLLM
     from src.corrector.multiagentic_judge.run import run_self_iteration
+    from vllm.transformers_utils.tokenizer import get_tokenizer
+
+    # Reinitialize tokenizer in worker process (prevents multiprocessing serialization issues)
+    tokenizer = get_tokenizer(model_name)
 
     # Initialize vLLM for worker instance
     llm = initialize_vLLM(
@@ -89,16 +102,19 @@ def gpu_worker(
 
     # Build one Custom_vLLM per language
     generator_map = {
-        lang: Custom_vLLM(
-            model=llm,
-            tokenizer=tokenizer,
-            lemmatizer=lemmatizers[lang],
-            language=lang,
-            allowed_words=allowed_words[lang],
-            beam_size=beam_size,
-            word_soft_constraint_penalty=word_soft_constraint_penalty,
-            alpha=alpha,
-        )
+        lang: {
+            batch_size: Custom_vLLM(
+                model=llm,
+                tokenizer=tokenizer,
+                lemmatizer=lemmatizers[lang],
+                language=lang,
+                allowed_words=allowed_words[lang][batch_size],
+                beam_size=beam_size,
+                word_soft_constraint_penalty=word_soft_constraint_penalty,
+                alpha=alpha,
+            )
+            for batch_size in batch_sizes
+        }
         for lang in lemmatizers
     }
 
@@ -115,6 +131,7 @@ def gpu_worker(
             max_response_token_length,
             use_word_constraint,
             word_constraint_type,
+            prompt_allowed_words,
         )
     )
 
@@ -136,11 +153,12 @@ def run_parallel(
     # Custom vLLM Constructor
     tokenizer,
     lemmatizers: dict,
-    allowed_words: dict[str, list[str]],
+    allowed_words: dict[str, dict[int, list[str]]],
     beam_size: int,
     use_word_constraint: bool,
     word_constraint_type: WordConstraintType,
     word_soft_constraint_penalty: float,
+    prompt_allowed_words: bool,
     alpha: float,
     # run config
     generator_system_prompt: str,
@@ -151,12 +169,11 @@ def run_parallel(
     # get all units of work
     all_work: list[tuple] = []
 
-    for (lang, prompts), batch_size in product(
-        prompts_by_language.items(), batch_sizes
-    ):  # Cartesian product, how did I not know this existed!?
+    for lang, prompts in prompts_by_language.items():
         for prompt_i, prompt in enumerate(prompts):
-            for sample_id in range(model_sample_size):
-                all_work.append((lang, prompt, prompt_i, sample_id, batch_size))
+            for batch_size in batch_sizes:
+                for sample_id in range(model_sample_size):
+                    all_work.append((lang, prompt, prompt_i, sample_id, batch_size))
 
     total = len(all_work)
     print(f"Total work items: {total} | GPUs {num_gpus}")
@@ -185,13 +202,14 @@ def run_parallel(
                 enable_prefix_caching=enable_prefix_caching,
                 logprobs=logprobs,
                 generator_system_prompt=generator_system_prompt,
-                tokenizer=tokenizer,
                 lemmatizers=lemmatizers,
                 allowed_words=allowed_words,
+                batch_sizes=batch_sizes,
                 beam_size=beam_size,
                 use_word_constraint=use_word_constraint,
                 word_constraint_type=word_constraint_type,
                 word_soft_constraint_penalty=word_soft_constraint_penalty,
+                prompt_allowed_words=prompt_allowed_words,
                 alpha=alpha,
                 config=config,
                 custom_sampling_params=custom_sampling_params,

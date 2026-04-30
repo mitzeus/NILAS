@@ -1,0 +1,99 @@
+{
+    "sample_number": 7,
+    "round_number": 3,
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in English.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "TASK:\n            How do you form basic yes/no questions in English? Show simple patterns and examples.\n\n            PREVIOUS BEST DRAFT (score: 3.5/5.0):\n            ---\n            To form basic yes/no questions in English, you invert the subject and the auxiliary verb (if any) to the front of the sentence. If there's no auxiliary verb, you add \"do\" to the front. The rest of the sentence follows after the question word (usually \"do\" or \"did\" followed by the rest of the question).\n\nExamples:\n- Do you like pizza? (Yes/No: Do you like pizza?)\n- Did you go to the store? (Yes/No: Did you go to the store?)\n            ---\n\n            REVISION INSTRUCTIONS:\n            Rewrite the draft above to address the following issues.\n            Preserve what was already working well. Do not simply patch — rewrite\n            sections where issues are deep.\n\n\nThe following issues MUST be fixed in this revision:\n  ✗ [FC-001] Factual Correctness: Incomplete explanation of yes/no question formation patterns. (flagged 2 times)\n  ✗ [CC-001] Clarity & Communication: Lack of detail on when to use auxiliary verbs versus 'do'. (flagged 2 times)\n  ✗ [DC-001] Depth & Completeness: Failure to provide multiple simple patterns and clear examples for yes/no question formation. (flagged 2 times)\n\n            Produce the improved version now. Output only the revised text, no preamble.",
+    "generated_text": "To form basic yes/no questions in English, you invert the subject and the auxiliary verb (if any) to the front of the sentence. If there's no auxiliary verb, you add \"do\" to the front. The rest of the sentence follows after the question word (usually \"do\" or \"did\" followed by the rest of the question).\n\nExamples:\n- Do you like pizza? (Yes/No: Do you like pizza?)\n- Did you go to the store? (Yes/No: Did you go to the store?)\n- Do I need to do it now? (Yes/No: Do I need to do it now?)\n- Did the team win the game? (Yes/No: Did the team win the game?)",
+    "generator_name": "Custom_vLLM",
+    "language": "en",
+    "perplexity": 2.8429112191499186,
+    "vocab_size": 100,
+    "review": {
+        "overall_score": 2.65,
+        "letter_grade": "C",
+        "model": "gpt-4o-mini",
+        "family": "openai",
+        "summary": "This round's evaluations indicate persistent issues in factual correctness and clarity regarding yes/no question formation, with no significant resolution of previously identified problems. The weighted aggregate score remains low, reflecting ongoing challenges in addressing the core issues. Improvements in grammar and naturalness were noted, but these do not compensate for the lack of depth and clarity in the explanations provided.",
+        "critic_scores": [
+            {
+                "model": "claude-sonnet-4-6",
+                "family": "anthropic",
+                "dimension": "Factual Correctness",
+                "profile": "sceptic",
+                "score": 2,
+                "rationale": "The response still contains an incomplete and partially misleading explanation of yes/no question formation. It only covers the 'do/did' pattern for simple present and past tenses, entirely omitting the auxiliary verb inversion pattern (e.g., 'Is she happy?', 'Can you swim?', 'Have they arrived?'). The claim that 'if there's no auxiliary verb, you add do to the front' is correct but presented as the primary or only rule, which is factually misleading. The mention of 'question word (usually do or did)' is also inaccurate — 'do' and 'did' are auxiliary verbs, not question words. Issue FC-001 remains unresolved.",
+                "improvement_tip": "Explicitly cover all major yes/no question patterns: (1) auxiliary verb inversion (Be, Have, Modal verbs: 'Is she tired?', 'Have you eaten?', 'Can he drive?'), and (2) do/does/did insertion for simple present and past without an auxiliary ('Does she like tea?', 'Did they leave?'). Clearly distinguish between these two patterns with labeled examples."
+            },
+            {
+                "model": "gpt-4o-mini",
+                "family": "openai",
+                "dimension": "Clarity & Communication",
+                "profile": "teacher",
+                "score": 2,
+                "rationale": "The response still lacks clarity regarding when to use auxiliary verbs versus 'do', which is essential for understanding yes/no question formation. While additional examples are provided, the explanation remains incomplete and does not fully address the previous issues, particularly in terms of factual correctness and depth.",
+                "improvement_tip": "Provide a clearer distinction between sentences that require auxiliary verbs and those that use 'do', along with specific examples illustrating both cases."
+            },
+            {
+                "model": "claude-haiku-4-5-20251001",
+                "family": "anthropic",
+                "dimension": "Grammar & Naturalness",
+                "profile": "editor",
+                "score": 4,
+                "rationale": "The response is grammatically sound with correct sentence structure, proper verb conjugation, and natural phrasing throughout. The explanation flows logically and the examples are well-formed. Minor redundancy in the example annotations (repeating the question after 'Yes/No:') is slightly awkward but does not impede comprehension.",
+                "improvement_tip": "Remove the redundant repetition in example annotations—change 'Do you like pizza? (Yes/No: Do you like pizza?)' to simply 'Do you like pizza?' to improve naturalness and reduce clutter."
+            },
+            {
+                "model": "gemini-2.5-flash-lite",
+                "family": "google",
+                "dimension": "Task Match & Adequacy",
+                "profile": "analyst",
+                "score": 2,
+                "rationale": "The response fails to address the core issues from the prior history, specifically regarding the explanation of when to use auxiliary verbs versus 'do' and providing multiple simple patterns with clear examples. The explanation remains superficial, and the added examples do not offer new patterns or clarify the underlying rules.",
+                "improvement_tip": "Provide distinct patterns for questions with and without auxiliary verbs, clearly explaining the role of 'do/does/did' when no other auxiliary is present. Include a wider variety of simple sentence structures and corresponding yes/no questions to illustrate these patterns."
+            }
+        ],
+        "top_improvements": [
+            "Explicitly cover all major yes/no question patterns with labeled examples.",
+            "Provide a clearer distinction between sentences that require auxiliary verbs and those that use 'do'.",
+            "Remove redundant repetition in example annotations to improve naturalness."
+        ],
+        "confidence": "low",
+        "score_variance": 0.75
+    },
+    "ledger_snapshot": {
+        "issues": [
+            {
+                "issue_id": "FC-001",
+                "dimension": "Factual Correctness",
+                "description": "Incomplete explanation of yes/no question formation patterns.",
+                "first_seen_round": 1,
+                "last_seen_round": 3,
+                "status": "open",
+                "recurrence_count": 3
+            },
+            {
+                "issue_id": "CC-001",
+                "dimension": "Clarity & Communication",
+                "description": "Lack of detail on when to use auxiliary verbs versus 'do'.",
+                "first_seen_round": 1,
+                "last_seen_round": 3,
+                "status": "open",
+                "recurrence_count": 3
+            },
+            {
+                "issue_id": "DC-001",
+                "dimension": "Depth & Completeness",
+                "description": "Failure to provide multiple simple patterns and clear examples for yes/no question formation.",
+                "first_seen_round": 1,
+                "last_seen_round": 3,
+                "status": "open",
+                "recurrence_count": 3
+            }
+        ],
+        "round_summaries": [
+            "The round revealed strengths in clarity but significant gaps in factual correctness and completeness.",
+            "The response remains inadequate, with unresolved issues in factual correctness and clarity.",
+            "Persistent issues in factual correctness and clarity hindered overall improvement this round."
+        ]
+    }
+}

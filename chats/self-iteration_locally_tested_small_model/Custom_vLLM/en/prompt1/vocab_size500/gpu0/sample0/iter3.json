@@ -1,0 +1,108 @@
+{
+    "sample_number": 0,
+    "round_number": 3,
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in English.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "TASK:\n            How do you form basic yes/no questions in English? Show simple patterns and examples.\n\n            PREVIOUS BEST DRAFT (score: 3.0/5.0):\n            ---\n            To form basic yes/no questions in English, you can use the auxiliary verb (do, did, have, has) at the beginning of the sentence and place the rest of the question word order at the end. Here are some examples:\n\n- Yes/no question: Did you go to the store?\n- Yes/no question: Has she finished her homework?\n\nIn the first example, \"did\" is the auxiliary verb, and \"you go to the store\" is placed at the end.\nIn the second example, \"has\" is the auxiliary verb, and \"she finished her homework\" is placed at the end.\n            ---\n\n            REVISION INSTRUCTIONS:\n            Rewrite the draft above to address the following issues.\n            Preserve what was already working well. Do not simply patch — rewrite\n            sections where issues are deep.\n\n\nThe following issues MUST be fixed in this revision:\n  ✗ [FC-001] Factual Correctness: Incomplete and slightly misleading description of auxiliary verbs and question formation. (flagged 2 times)\n  ✗ [CC-001] Clarity & Communication: Unclear structure and presentation of the explanation. (flagged 2 times)\n  ✗ [CC-002] Clarity & Communication: Awkward phrasing that contradicts the actual pattern of forming questions. (flagged 2 times)\n  ✗ [DC-001] Depth & Completeness: Insufficient examples and explanation of patterns for different tenses and 'be' verbs. (flagged 2 times)\n\n            Produce the improved version now. Output only the revised text, no preamble.",
+    "generated_text": "To form basic yes/no questions in English, you can use the auxiliary verb (do, did, have, has) at the beginning of the sentence and place the rest of the question word order at the end. Here are some examples:\n\n- Did you go to the store? Yes/No: Yes, I went.\n- Has she finished her homework? Yes/No: Yes, she has.\n\nFor questions with 'be' verbs (am, is, are, was, were), the process is the same:\n\n- Are you coming to the party? Yes/No: Yes, I am.\n- Was she at the office yesterday? Yes/No: Yes, she was.",
+    "generator_name": "Custom_vLLM",
+    "language": "en",
+    "perplexity": 1.7542953335504219,
+    "vocab_size": 500,
+    "review": {
+        "overall_score": 2.98,
+        "letter_grade": "C",
+        "model": "gpt-4o-mini",
+        "family": "openai",
+        "summary": "This round shows a slight improvement in clarity and grammatical correctness, but significant issues remain in factual accuracy and depth of explanation. The misleading claims about auxiliary verbs persist, and the structure is still unclear. Overall, the response continues to require substantial revisions to fully address the prompt and improve understanding.",
+        "critic_scores": [
+            {
+                "model": "claude-sonnet-4-6",
+                "family": "anthropic",
+                "dimension": "Factual Correctness",
+                "profile": "sceptic",
+                "score": 2,
+                "rationale": "The response still contains the misleading claim that question formation works the same way for 'be' verbs as for auxiliary verbs like 'do/did/have/has' — but the actual patterns differ: with 'be' verbs, the verb itself inverts with the subject (no separate auxiliary needed), whereas with action verbs, a do-support auxiliary is introduced. The opening description ('place the rest of the question word order at the end') is factually imprecise and does not accurately describe subject-auxiliary inversion. Additionally, the auxiliary verb list omits 'will,' 'would,' 'can,' 'could,' 'should,' and 'modal' auxiliaries, making the factual coverage incomplete and potentially misleading.",
+                "improvement_tip": "Clearly distinguish the two main patterns: (1) subject-auxiliary inversion for 'be' verbs and modal/perfect auxiliaries (e.g., 'She is happy' → 'Is she happy?'), and (2) do-support insertion for simple present/past action verbs (e.g., 'She likes coffee' → 'Does she like coffee?'), explicitly stating that the main verb does NOT move — only the auxiliary does."
+            },
+            {
+                "model": "gpt-4o-mini",
+                "family": "openai",
+                "dimension": "Clarity & Communication",
+                "profile": "teacher",
+                "score": 3,
+                "rationale": "The response provides a clearer structure than previous drafts and includes examples with 'be' verbs, but it still lacks a concise explanation of how auxiliary verbs function in question formation. Additionally, the phrasing remains slightly awkward, particularly in the explanation of the question structure.",
+                "improvement_tip": "Rephrase the explanation to clearly state that auxiliary verbs are placed at the beginning of the question, followed by the subject and main verb, and ensure that the examples illustrate this structure more effectively."
+            },
+            {
+                "model": "claude-haiku-4-5-20251001",
+                "family": "anthropic",
+                "dimension": "Grammar & Naturalness",
+                "profile": "editor",
+                "score": 4,
+                "rationale": "The revised response demonstrates solid grammatical correctness with clear, natural sentence construction throughout. All sentences are well-formed, and the examples flow logically. The addition of 'be' verb examples and yes/no responses improves readability. Minor inconsistency: the phrasing 'place the rest of the question word order at the end' remains slightly awkward and could be more precise, but this does not impede comprehension.",
+                "improvement_tip": "Replace 'place the rest of the question word order at the end' with 'invert the subject and main verb' to be more grammatically precise and natural in linguistic terminology."
+            },
+            {
+                "model": "gemini-2.5-flash-lite",
+                "family": "google",
+                "dimension": "Task Match & Adequacy",
+                "profile": "analyst",
+                "score": 2,
+                "rationale": "The response attempts to address the prompt by providing examples of yes/no questions and including 'be' verbs. However, it fails to fix the core issues from previous rounds, particularly regarding the incomplete and misleading description of auxiliary verbs and question formation (FC-001, CC-002). The explanation of word order remains awkward and inaccurate, and the depth of explanation and examples is still insufficient (DC-001). The structure is also still unclear (CC-001).",
+                "improvement_tip": "Rewrite the explanation to clearly define the role of auxiliary verbs and the 'be' verb in question formation, providing a consistent pattern for each. Ensure examples accurately reflect the grammatical structure being explained and cover a wider range of tenses and verb types."
+            }
+        ],
+        "top_improvements": [
+            "Clearly distinguish between question formation patterns for 'be' verbs and action verbs.",
+            "Rephrase explanations to enhance clarity and accuracy regarding auxiliary verbs.",
+            "Provide a more comprehensive set of examples covering various tenses and verb types."
+        ],
+        "confidence": "medium",
+        "score_variance": 0.688
+    },
+    "ledger_snapshot": {
+        "issues": [
+            {
+                "issue_id": "FC-001",
+                "dimension": "Factual Correctness",
+                "description": "Incomplete and slightly misleading description of auxiliary verbs and question formation.",
+                "first_seen_round": 1,
+                "last_seen_round": 3,
+                "status": "open",
+                "recurrence_count": 3
+            },
+            {
+                "issue_id": "CC-001",
+                "dimension": "Clarity & Communication",
+                "description": "Unclear structure and presentation of the explanation.",
+                "first_seen_round": 1,
+                "last_seen_round": 3,
+                "status": "open",
+                "recurrence_count": 3
+            },
+            {
+                "issue_id": "CC-002",
+                "dimension": "Clarity & Communication",
+                "description": "Awkward phrasing that contradicts the actual pattern of forming questions.",
+                "first_seen_round": 1,
+                "last_seen_round": 3,
+                "status": "improved",
+                "recurrence_count": 3
+            },
+            {
+                "issue_id": "DC-001",
+                "dimension": "Depth & Completeness",
+                "description": "Insufficient examples and explanation of patterns for different tenses and 'be' verbs.",
+                "first_seen_round": 1,
+                "last_seen_round": 3,
+                "status": "open",
+                "recurrence_count": 3
+            }
+        ],
+        "round_summaries": [
+            "The response demonstrated a basic understanding of forming yes/no questions but requires significant clarification and expansion.",
+            "The response remains largely unchanged, with critical issues in factual correctness and clarity still unresolved.",
+            "Factual correctness and depth issues persist, despite some improvements in clarity."
+        ]
+    }
+}

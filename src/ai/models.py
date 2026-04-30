@@ -220,10 +220,10 @@ class Custom_vLLM:
 
         if not self.beam_tree.finished:
             print("Did not finish before seqence maximum.")
-            self.output = [obj.sequence for obj in self.beam_tree.beams]
-            self.beam_average_logprobs = [
-                obj.logprob / len(obj.ids) for obj in self.beam_tree.beams
-            ]
+            # Find the beam with the best (highest) logprob
+            best_beam = max(self.beam_tree.beams, key=lambda b: b.logprob)
+            self.output = self.tokenizer.decode(best_beam.ids, skip_special_tokens=True)
+            self.beam_average_logprobs = best_beam.logprob / len(best_beam.ids)
 
         self._calculate_perplexity()
 
@@ -306,7 +306,7 @@ class Vanilla_ChatGPT:
         self,
         system_prompt: str,
         user_prompt: str,
-        sampling_params: SamplingParams | None = None,
+        sampling_params: SamplingParams,
         max_sequence_length: int = 200,
         use_word_constraint: bool = False,
         word_constraint_type: WordConstraintType | None = None,
@@ -331,6 +331,9 @@ class Vanilla_ChatGPT:
         response = self.client.responses.create(
             model=self.model,
             input=prompt,
+            temperature=sampling_params.temperature,
+            # top_k=sampling_params.top_k, # does not exist in this API
+            top_p=sampling_params.top_p,
             # seed=sampling_params.seed,
             max_output_tokens=max_sequence_length,
             include=["message.output_text.logprobs"],

@@ -1,0 +1,88 @@
+{
+    "sample_number": 0,
+    "round_number": 1,
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in English.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "Explain the difference between the present simple and present continuous tense in English, with easy examples.",
+    "generated_text": "The present simple is used for actions that happen regularly or are true all the time, in a general sense. Examples: \"I eat breakfast at 7 every morning.\" \"She goes to work by bus.\"\n\nThe present continuous is used for actions that are happening now or at this moment. Examples: \"I am eating lunch right now.\" \"She is going to the store.\"",
+    "generator_name": "Custom_vLLM",
+    "language": "en",
+    "perplexity": 1.706567548479414,
+    "vocab_size": 2000,
+    "review": {
+        "overall_score": 4.33,
+        "letter_grade": "B",
+        "model": "gpt-4o-mini",
+        "family": "openai",
+        "summary": "This round demonstrates strong performance with a weighted aggregate score of 4.33/5.0, indicating a solid understanding of the grammatical concepts discussed. While the factual correctness and clarity are commendable, there are minor omissions that could enhance the depth of the explanations. Overall, the response is well-structured and communicates the key differences effectively.",
+        "critic_scores": [
+            {
+                "model": "claude-sonnet-4-6",
+                "family": "anthropic",
+                "dimension": "Factual Correctness",
+                "profile": "sceptic",
+                "score": 4,
+                "rationale": "The core grammatical claims are accurate: the present simple is correctly described as used for habitual/regular actions and general truths, and the present continuous is correctly described as used for actions happening at the moment of speaking. The examples provided are appropriate and illustrative. Minor omissions exist — the present continuous can also describe temporary situations or future arrangements, and the present simple covers state verbs and scheduled future events — but nothing stated is factually wrong.",
+                "improvement_tip": "Mention that the present continuous can also describe temporary situations (e.g., 'She is living in Paris this year') and planned future events (e.g., 'We are meeting tomorrow'), and that the present simple covers state verbs (e.g., 'I know the answer') to give a more complete and accurate picture."
+            },
+            {
+                "model": "gpt-4o-mini",
+                "family": "openai",
+                "dimension": "Clarity & Communication",
+                "profile": "teacher",
+                "score": 4,
+                "rationale": "The response clearly explains the difference between the present simple and present continuous tenses, providing relevant examples for each. The structure is logical, making it easy for the reader to follow the distinctions being made.",
+                "improvement_tip": "Consider adding a brief summary or comparison sentence at the end to reinforce the key differences between the two tenses."
+            },
+            {
+                "model": "claude-haiku-4-5-20251001",
+                "family": "anthropic",
+                "dimension": "Grammar & Naturalness",
+                "profile": "editor",
+                "score": 5,
+                "rationale": "The response demonstrates flawless grammar with clear, well-structured sentences and natural flow throughout. Each explanation is concise and logically organized, with examples that seamlessly illustrate the concepts. The language is appropriately formal yet accessible, with no grammatical errors or awkward phrasing.",
+                "improvement_tip": "No grammatical improvements needed; consider adding a brief contrast sentence (e.g., 'The key difference is timing: simple describes habits or facts, while continuous describes actions in progress') to enhance pedagogical clarity."
+            },
+            {
+                "model": "gemini-2.5-flash-lite",
+                "family": "google",
+                "dimension": "Task Match & Adequacy",
+                "profile": "analyst",
+                "score": 4,
+                "rationale": "The response correctly identifies the core differences between the present simple and present continuous tenses and provides relevant, easy-to-understand examples for each. It directly addresses the user's request for an explanation and examples.",
+                "improvement_tip": "Consider adding a brief mention of the use of present continuous for future arrangements to provide a more complete picture."
+            }
+        ],
+        "top_improvements": [
+            "Include the use of present continuous for temporary situations and future arrangements.",
+            "Add a brief summary or comparison sentence to reinforce key differences.",
+            "Mention the coverage of state verbs in present simple for a more complete picture."
+        ],
+        "confidence": "medium",
+        "score_variance": 0.188
+    },
+    "ledger_snapshot": {
+        "issues": [
+            {
+                "issue_id": "FC-001",
+                "dimension": "Factual Correctness",
+                "description": "Minor omissions regarding the uses of present continuous and present simple.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "improved",
+                "recurrence_count": 1
+            },
+            {
+                "issue_id": "CC-001",
+                "dimension": "Clarity & Communication",
+                "description": "Lacks a summary or comparison sentence to reinforce key differences.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "improved",
+                "recurrence_count": 1
+            }
+        ],
+        "round_summaries": [
+            "The response effectively explains tense differences but could benefit from additional details."
+        ]
+    }
+}

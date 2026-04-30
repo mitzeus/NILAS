@@ -1,0 +1,99 @@
+{
+    "sample_number": 5,
+    "round_number": 3,
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in English.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "TASK:\n            How do you form basic yes/no questions in English? Show simple patterns and examples.\n\n            PREVIOUS BEST DRAFT (score: 3.0/5.0):\n            ---\n            To form basic yes/no questions in English, you can use the auxiliary verb (do, did, have, has) at the beginning of the sentence and place the rest of the question word order at the end. Here are some examples:\n\n- Yes/no question: Did you go to the store?\n- Yes/no question: Has she finished her homework?\n\nIn the first example, \"did\" is the auxiliary verb, and \"you go to the store\" is placed at the end.\nIn the second example, \"has\" is the auxiliary verb, and \"she finished her homework\" is placed at the end.\n            ---\n\n            REVISION INSTRUCTIONS:\n            Rewrite the draft above to address the following issues.\n            Preserve what was already working well. Do not simply patch — rewrite\n            sections where issues are deep.\n\n\nThe following issues MUST be fixed in this revision:\n  ✗ [FC-001] Factual Correctness: Incomplete explanation of yes/no question formation, omitting modal auxiliaries and misrepresenting question structure. (flagged 2 times)\n  ✗ [CC-001] Clarity & Communication: Explanation lacks clarity and organization; needs a clearer introduction and structure. (flagged 2 times)\n  ✗ [DC-001] Depth & Completeness: Insufficient depth in explaining patterns for different tenses and the use of 'be' verbs. (flagged 2 times)\n\n            Produce the improved version now. Output only the revised text, no preamble.",
+    "generated_text": "To form basic yes/no questions in English, you can use the auxiliary verb (do, did, have, has) at the beginning of the sentence and place the rest of the question word order at the end. Here are some examples:\n\n- Did you go to the store? (Using \"did\" as the auxiliary)\n- Has she finished her homework? (Using \"has\" as the auxiliary)\n\nFor questions with \"be\" verbs (am, is, are, was, were), the structure is similar but uses \"do\" as the auxiliary:\n\n- Are you coming to the party? (Using \"do\" as the auxiliary)\n- Was she at the office yesterday?",
+    "generator_name": "Custom_vLLM",
+    "language": "en",
+    "perplexity": 2.179253938722938,
+    "vocab_size": 500,
+    "review": {
+        "overall_score": 2.65,
+        "letter_grade": "C",
+        "model": "gpt-4o-mini",
+        "family": "openai",
+        "summary": "This round's evaluations indicate persistent issues with factual correctness and clarity in the explanation of yes/no question formation. The critical error regarding the use of 'do' as an auxiliary for 'be' verbs remains unresolved, leading to confusion. While the grammatical structure has improved, the overall clarity and completeness of the response still require significant enhancement. The feedback suggests a need for clearer organization and a more comprehensive explanation of auxiliary verbs.",
+        "critic_scores": [
+            {
+                "model": "claude-sonnet-4-6",
+                "family": "anthropic",
+                "dimension": "Factual Correctness",
+                "profile": "sceptic",
+                "score": 2,
+                "rationale": "The response contains a critical factual error: it states that 'be' verb questions use 'do' as the auxiliary, which is incorrect — 'be' verbs are themselves auxiliaries and are simply inverted to the front of the sentence (e.g., 'Are you coming?' uses 'are' as the auxiliary, not 'do'). The example 'Are you coming to the party?' is then mislabeled as using 'do' as the auxiliary, directly contradicting the correct structure. Modal auxiliaries (can, will, should, must, etc.) are still entirely omitted, leaving FC-001 unresolved. The basic pattern description also remains incomplete and partially misleading.",
+                "improvement_tip": "Correct the 'be' verb section to explain that 'be' verbs are inverted directly to sentence-initial position (Subject + Be → Be + Subject), and add a dedicated section on modal auxiliaries (can, will, should, must, etc.) showing that they follow the same inversion pattern: 'Can you swim?' / 'Will she come?'"
+            },
+            {
+                "model": "gpt-4o-mini",
+                "family": "openai",
+                "dimension": "Clarity & Communication",
+                "profile": "teacher",
+                "score": 2,
+                "rationale": "The response is somewhat hard to follow due to a lack of clear organization and an incomplete explanation of yes/no question formation. The introduction does not effectively set the stage for the examples provided, and the structure does not clearly distinguish between different types of auxiliary verbs, particularly the use of 'be' verbs. Additionally, the examples could be better integrated into the explanation.",
+                "improvement_tip": "Begin with a clear introduction that outlines the types of auxiliary verbs used in yes/no questions, then provide distinct sections or bullet points for each type, ensuring that the examples are clearly linked to their respective explanations."
+            },
+            {
+                "model": "claude-haiku-4-5-20251001",
+                "family": "anthropic",
+                "dimension": "Grammar & Naturalness",
+                "profile": "editor",
+                "score": 4,
+                "rationale": "The revised text is grammatically sound with clear, natural sentence construction throughout. Sentences flow logically and are easy to follow. However, there is one significant naturalness issue: the explanation states that 'be' verb questions use 'do' as the auxiliary, which is factually incorrect and creates confusion—'be' verbs invert directly without 'do'. This misstatement undermines the naturalness of the instructional voice, even though the grammar itself is correct.",
+                "improvement_tip": "Correct the 'be' verb explanation: remove the phrase '(Using \"do\" as the auxiliary)' from the 'be' verb examples, and clarify that 'be' verbs invert directly without an auxiliary (e.g., 'Are you coming?' not 'Do are you coming?'). This will restore both factual accuracy and instructional clarity."
+            },
+            {
+                "model": "gemini-2.5-flash-lite",
+                "family": "google",
+                "dimension": "Task Match & Adequacy",
+                "profile": "analyst",
+                "score": 2,
+                "rationale": "The response still fails to address the core issues from previous rounds. It continues to omit modal auxiliaries and misrepresent the question structure, particularly by incorrectly stating that 'do' is used as an auxiliary with 'be' verbs. The explanation remains incomplete regarding different tenses and the proper use of 'be' verbs in questions.",
+                "improvement_tip": "To form yes/no questions, place the auxiliary verb (or modal verb, or 'be' verb) at the beginning of the sentence, followed by the subject, and then the main verb (in its base form for most auxiliaries). For 'be' verbs, they act as their own auxiliary, so no 'do' is needed. Provide clear examples for each case (auxiliaries like 'do/did/have/has', modals like 'can/will', and 'be' verbs)."
+            }
+        ],
+        "top_improvements": [
+            "Correct the explanation of 'be' verbs to clarify that they invert directly without using 'do'.",
+            "Organize the response with a clear introduction and distinct sections for each type of auxiliary verb.",
+            "Provide comprehensive examples for all types of auxiliary verbs, including modals and 'be' verbs."
+        ],
+        "confidence": "low",
+        "score_variance": 0.75
+    },
+    "ledger_snapshot": {
+        "issues": [
+            {
+                "issue_id": "FC-001",
+                "dimension": "Factual Correctness",
+                "description": "Incomplete explanation of yes/no question formation, omitting modal auxiliaries and misrepresenting question structure.",
+                "first_seen_round": 1,
+                "last_seen_round": 3,
+                "status": "open",
+                "recurrence_count": 3
+            },
+            {
+                "issue_id": "CC-001",
+                "dimension": "Clarity & Communication",
+                "description": "Explanation lacks clarity and organization; needs a clearer introduction and structure.",
+                "first_seen_round": 1,
+                "last_seen_round": 3,
+                "status": "open",
+                "recurrence_count": 3
+            },
+            {
+                "issue_id": "DC-001",
+                "dimension": "Depth & Completeness",
+                "description": "Insufficient depth in explaining patterns for different tenses and the use of 'be' verbs.",
+                "first_seen_round": 1,
+                "last_seen_round": 3,
+                "status": "open",
+                "recurrence_count": 3
+            }
+        ],
+        "round_summaries": [
+            "The response received a score of 3.00/5.0, indicating room for improvement in factual correctness and clarity.",
+            "Factual correctness and clarity issues remain unaddressed, impacting the overall quality of the explanation.",
+            "Factual correctness and clarity issues remain largely unresolved, with critical errors persisting in the explanation."
+        ]
+    }
+}
