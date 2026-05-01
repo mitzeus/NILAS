@@ -9,6 +9,8 @@ from src.corrector.multiagentic_judge.run import EvaluationConfig
 from src.helper.typing import WordConstraintType
 
 import traceback
+from tqdm.notebook import tqdm
+from multiprocessing import Barrier
 
 
 async def process_work_items(
@@ -25,7 +27,9 @@ async def process_work_items(
 ):
     from src.corrector.multiagentic_judge.run import run_self_iteration
 
-    for lang, prompt, prompt_i, sample_id, batch_size in work_items:
+    for lang, prompt, prompt_i, sample_id, batch_size in tqdm(
+        work_items, position=gpu_id, desc=f"[GPU {gpu_id}]", leave=True
+    ):
         # Each iteration:
         # 1. blocks on vLLM generate()
         # 2. fans out async API calls in parallel
@@ -78,6 +82,7 @@ def gpu_worker(
     config: EvaluationConfig,
     custom_sampling_params: SamplingParams,
     max_response_token_length: int,
+    barrier,
 ):
     os.environ["CUDA_VISIBLE_DEVICES"] = str(gpu_id)
 
@@ -99,6 +104,8 @@ def gpu_worker(
         max_logprobs=logprobs + 20,
         trust_remote_code=True,
     )
+
+    barrier.wait()
 
     # Build one Custom_vLLM per language
     generator_map = {
@@ -166,6 +173,8 @@ def run_parallel(
     custom_sampling_params: SamplingParams,
     max_response_token_length: int,
 ):
+    barrier = Barrier(num_gpus)
+
     # get all units of work
     all_work: list[tuple] = []
 
@@ -214,6 +223,7 @@ def run_parallel(
                 config=config,
                 custom_sampling_params=custom_sampling_params,
                 max_response_token_length=max_response_token_length,
+                barrier=barrier,
             ),
         )
         p.start()

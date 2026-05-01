@@ -14,6 +14,7 @@ from dotenv import load_dotenv
 import re
 import json
 import textwrap
+from tqdm import tqdm
 
 # from langchain_core.memory import ConversationBufferMemory
 
@@ -475,7 +476,7 @@ async def _run_judge(
         data = json.loads(raw)
         return CriticScore(model=model_name, family=family, profile=profile, **data)
     except:
-        print(
+        tqdm.write(
             f"[GPU {gpu_id}] Could not contact critic {model_name} ({family}). Skipping..."
         )
         response = {
@@ -592,7 +593,9 @@ async def _run_synthesis(
 
         return data, updated_ledger
     except Exception as exc:
-        print(f"[GPU {gpu_id}] Could not contact or parse synthesis. Skipping... {exc}")
+        tqdm.write(
+            f"[GPU {gpu_id}] Could not contact or parse synthesis. Skipping... {exc}"
+        )
         data = {
             "summary": "Could not contact synthesis. Ignore this review.",
             "top_improvements": ["", "", ""],
@@ -778,114 +781,24 @@ async def run_self_iteration(
     convergence_reason = None
 
     if gpu_id is not None and isinstance(gpu_id, int):
-        save_path = f"chats/self-iteration/{generator.__class__.__name__}/{language}/prompt{question_nr}/vocab_size{word_batch_size}/gpu{gpu_id}/sample{sample_nr}"
+        save_path = f"chats/self-iteration/{generator.__class__.__name__}/{language}/prompt{question_nr}/vocab_size{word_batch_size}/sample{sample_nr}"
     else:
         save_path = f"chats/self-iteration/{generator.__class__.__name__}/{language}/prompt{question_nr}/vocab_size{word_batch_size}/sample{sample_nr}"
     os.makedirs(save_path, exist_ok=True)
 
-    print("Started. Generating initial response.") if verbose is not None else None
-    output, perplexity = generator(
-        system_prompt,
-        prompt,
-        sampling_params,
-        max_response_token_length,
-        use_word_constraint,
-        word_constraint_type,
-        prompt_allowed_words=prompt_allowed_words,
-        verbose=verbose,
-    )
+    if os.path.exists(os.path.join(save_path, "init.json")):
+        tqdm.write(f"{save_path}/init.json already exists. Skipping...")
 
-    starting_point = {
-        "system_prompt": process_vocab_to_prompt(
-            system_prompt,
-            generator.allowed_words,
-            language_map[language],
-            prompt_allowed_words,
-        ),
-        "prompt": prompt,
-        "generated_text": output,
-        "generator_name": generator.__class__.__name__,
-        "language": language,
-        "perplexity": perplexity,
-        "vocab_size": word_batch_size,
-        "sample_number": sample_nr,
-    }
-
-    with open(f"{save_path}/init.json", "w", encoding="utf-8") as f:
-        json.dump(starting_point, f, indent=4)
-
-    print("Initial Response generated and saved.") if verbose is not None else None
-
-    # starting improvement loop
-    for round_num in range(1, config.max_rounds + 1):
-        feedback = ledger.to_prompt_block() if round_num > 1 else None
-
-        print("Starting Evaluation...") if verbose is not None else None
-        review, updated_ledger = await evaluate_round(
-            gpu_id=gpu_id,
-            llm_output=output,
-            context=prompt,
-            ledger=ledger,
-            round_number=round_num,
-            config=config,
-        )
+        with open(f"{save_path}/init.json", "r", encoding="utf-8") as f:
+            data = json.load(f)
+            output, perplexity = (
+                data["generated_text"],
+                data["perplexity"],
+            )
+    else:
         (
-            print("Critics & Synthesis Done. Awaiting round result...")
-            if verbose is not None
-            else None
-        )
-
-        ledger = updated_ledger  # update with news
-
-        round_result = RoundResult(
-            sample_number=sample_nr,
-            round_number=round_num,
-            system_prompt=process_vocab_to_prompt(
-                system_prompt,
-                generator.allowed_words,
-                language_map[language],
-                prompt_allowed_words,
-            ),
-            prompt=prompt,
-            generated_text=output,
-            generator_name=generator.__class__.__name__,
-            language=language,
-            perplexity=perplexity,
-            vocab_size=word_batch_size,
-            review=review,
-            ledger_snapshot=ledger.model_copy(deep=True),
-        )
-        rounds.append(round_result)
-        (
-            print(f"Round {round_num} completed. Saving...")
-            if verbose is not None
-            else None
-        )
-
-        # save round
-        with open(f"{save_path}/iter{round_num}.json", "w", encoding="utf-8") as f:
-            f.write(round_result.model_dump_json(indent=4))
-
-        # save generated tree if generator has one
-        has_beam_tree = getattr(generator, "beam_tree", None)
-        if has_beam_tree:
-            generator.beam_tree.visualize_tree(f"{round_num}_tree", path=f"{save_path}")
-
-        print(f"Round {round_num} Saved.") if verbose is not None else None
-
-        converged, convergence_reason = check_convergence(review, config, round_num)
-
-        if converged:
-            break
-
-        # generate
-        ctx = build_generator_context(round_num, prompt, rounds, ledger)
-
-        prompt = ctx.to_prompt()
-
-        (
-            print(f"Generating new round response (round {round_num})")
-            if verbose is not None
+            print("Started. Generating initial response.")
+            if verbose is "sequence"
             else None
         )
         output, perplexity = generator(
@@ -899,19 +812,138 @@ async def run_self_iteration(
             verbose=verbose,
         )
 
-    best_round = max(rounds, key=lambda r: r.review.overall_score)
+        starting_point = {
+            "system_prompt": process_vocab_to_prompt(
+                system_prompt,
+                generator.allowed_words,
+                language_map[language],
+                prompt_allowed_words,
+            ),
+            "prompt": prompt,
+            "generated_text": output,
+            "generator_name": generator.__class__.__name__,
+            "language": language,
+            "perplexity": perplexity,
+            "vocab_size": word_batch_size,
+            "sample_number": sample_nr,
+        }
 
-    with open(f"{save_path}/best.json", "w", encoding="utf-8") as f:
-        f.write(best_round.model_dump_json(indent=4))
+        with open(f"{save_path}/init.json", "w", encoding="utf-8") as f:
+            json.dump(starting_point, f, indent=4)
 
-    print("Round response generated and saved.") if verbose is not None else None
+        (
+            print("Initial Response generated and saved.")
+            if verbose is "sequence"
+            else None
+        )
 
-    final_result = IterativeEvaluationResult(
-        rounds=rounds,
-        final_output=best_round.generated_text,
-        final_score=best_round.review.overall_score,
-        converged=converged,
-        convergence_reason=convergence_reason,
-    )
+    if os.path.exists(os.path.join(save_path, f"best.json")):
+        tqdm.write(
+            f"best.json at {save_path} already exists. Skipping improvement loop..."
+        )
+    else:
+        # starting improvement loop
+        for round_num in range(1, config.max_rounds + 1):
 
-    return final_result
+            feedback = ledger.to_prompt_block() if round_num > 1 else None
+
+            print("Starting Evaluation...") if verbose is "sequence" else None
+            review, updated_ledger = await evaluate_round(
+                gpu_id=gpu_id,
+                llm_output=output,
+                context=prompt,
+                ledger=ledger,
+                round_number=round_num,
+                config=config,
+            )
+            (
+                print("Critics & Synthesis Done. Awaiting round result...")
+                if verbose is "sequence"
+                else None
+            )
+
+            ledger = updated_ledger  # update with news
+
+            round_result = RoundResult(
+                sample_number=sample_nr,
+                round_number=round_num,
+                system_prompt=process_vocab_to_prompt(
+                    system_prompt,
+                    generator.allowed_words,
+                    language_map[language],
+                    prompt_allowed_words,
+                ),
+                prompt=prompt,
+                generated_text=output,
+                generator_name=generator.__class__.__name__,
+                language=language,
+                perplexity=perplexity,
+                vocab_size=word_batch_size,
+                review=review,
+                ledger_snapshot=ledger.model_copy(deep=True),
+            )
+            rounds.append(round_result)
+            (
+                print(f"Round {round_num} completed. Saving...")
+                if verbose is "sequence"
+                else None
+            )
+
+            # save round
+            with open(f"{save_path}/iter{round_num}.json", "w", encoding="utf-8") as f:
+                f.write(round_result.model_dump_json(indent=4))
+
+            # save generated tree if generator has one
+            has_beam_tree = getattr(generator, "beam_tree", None)
+            if has_beam_tree:
+                generator.beam_tree.visualize_tree(
+                    f"{round_num}_tree", path=f"{save_path}"
+                )
+
+            print(f"Round {round_num} Saved.") if verbose is "sequence" else None
+
+            converged, convergence_reason = check_convergence(review, config, round_num)
+
+            if converged:
+                break
+
+            # generate
+            ctx = build_generator_context(round_num, prompt, rounds, ledger)
+
+            prompt = ctx.to_prompt()
+
+            (
+                print(f"Generating new round response (round {round_num})")
+                if verbose is "sequence"
+                else None
+            )
+            output, perplexity = generator(
+                system_prompt,
+                prompt,
+                sampling_params,
+                max_response_token_length,
+                use_word_constraint,
+                word_constraint_type,
+                prompt_allowed_words=prompt_allowed_words,
+                verbose=verbose,
+            )
+
+        best_round = max(rounds, key=lambda r: r.review.overall_score)
+
+        with open(f"{save_path}/best.json", "w", encoding="utf-8") as f:
+            f.write(best_round.model_dump_json(indent=4))
+
+        print("Round response generated and saved.") if verbose is "sequence" else None
+
+        final_result = IterativeEvaluationResult(
+            rounds=rounds,
+            final_output=best_round.generated_text,
+            final_score=best_round.review.overall_score,
+            converged=converged,
+            convergence_reason=convergence_reason,
+        )
+
+    tqdm.write(f"{save_path} is done.") if verbose is not None else None
+
+    # return final_result
+    return True  # success

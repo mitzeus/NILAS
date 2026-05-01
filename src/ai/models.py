@@ -196,7 +196,7 @@ class Custom_vLLM:
                 )
 
                 if self.beam_tree.finished:
-                    print("Fully finished.")
+                    # print("Fully finished.")
                     self.output = self.tokenizer.decode(
                         self.beam_tree.best_beam.ids, skip_special_tokens=True
                     )
@@ -219,7 +219,7 @@ class Custom_vLLM:
                 )
 
         if not self.beam_tree.finished:
-            print("Did not finish before seqence maximum.")
+            # print("Did not finish before seqence maximum.")
             # Find the beam with the best (highest) logprob
             best_beam = max(self.beam_tree.beams, key=lambda b: b.logprob)
             self.output = self.tokenizer.decode(best_beam.ids, skip_special_tokens=True)

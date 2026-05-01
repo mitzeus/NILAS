@@ -399,7 +399,7 @@ class BeamSearch:
 
         # check if finished, else rank
         if self.finished:
-            print("No more paths could be found. Finished.")
+            # print("No more paths could be found. Finished.")
             return self.best_beam, self.best_completed_beams
 
         # rank and keep top beam size
