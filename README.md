@@ -1,6 +1,6 @@
 # Nuimio Intelligent Language Acquisition System (NILAS)
 
-<div style="display: flex; align-items: center; gap: 20px;">
+<div style="display: flex; align-items: center; justify-content: center; gap: 20px;">
   <img src="./assets/logo-nuimio-full.png" height="100" />
   <img src="./assets/logo-nuimio-education-text.png" height="100" />
 </div>
