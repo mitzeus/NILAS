@@ -5,7 +5,7 @@
     <img src="./assets/logo-nuimio-full.png" width="400" /><br/>
   </a>
   <a href="https://nuimio.com">
-    <img src="./assets/logo-nuimio-education-text.png" width="200" />
+    <img src="./assets/logo-nuimio-education-text.png" width="200" /> <br/>
   </a>
   Click the icons to read more
 </p>
