@@ -1,4 +1,4 @@
-# Nuimio Intelligent Language Assistant System (NILAS)
+# Nuimio Intelligent Language Acquisition System (NILAS)
 
 #### Developed by Dennis Mitzéus as a bachelor thesis project for the Bachelor Program "Applied Artificial Intelligence" (2026), and is created as a collaboration in the role as CEO & Lead Software Engineer at Finition, developed for Nuimio.
 
@@ -6,7 +6,7 @@
 
 ## About
 
-NILAS (Nuimio Intelligence Language Agent System) is a subsystem developed for the award-winning language platform [Nuimio](https://nuimio.com). The project aims to enable seamless integration of AI & Machine Learning into the current algorithmic nature of Nuimio. It uses a flexible architecture built on iterative improvements using a varied set of closed-source models for increased performance.
+NILAS (Nuimio Intelligent Language Acquisition System) is a subsystem developed for the award-winning language platform [Nuimio](https://nuimio.com). The project aims to enable seamless integration of AI & Machine Learning into the current algorithmic nature of Nuimio. It uses a flexible architecture built on iterative improvements using a varied set of closed-source models for increased performance.
 
 NILAS aims to simplify language learning by working together with you to perfect your individual language learning journey. NILAS enables for straight forward use of transforming users' questions and weaknesses into clear Call-to-Action, which enables instant feedback in activities, clear customized goals, and an effective path forward towards fluency.
 
