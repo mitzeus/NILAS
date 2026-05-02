@@ -7,7 +7,7 @@
   <a href="https://nuimio.com">
     <img src="./assets/logo-nuimio-education-text.png" width="200" /> <br/>
   </a>
-  <p style="font-size: 9;">Click the icons to read more</p>
+  <p style="font-size: 9rem;">Click the icons to read more</p>
 </p>
 
 #### Developed by Dennis Mitzéus as a bachelor thesis project for the Bachelor Program "Applied Artificial Intelligence" (2026), and is created as a collaboration in the role as CEO & Lead Software Engineer at Finition, developed for Nuimio.
