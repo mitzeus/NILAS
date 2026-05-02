@@ -1,6 +1,8 @@
 # Nuimio Intelligent Language Acquisition System (NILAS)
 
-<img src="./assets/logo-nuimio-full.png" width="400" /> <img src="./assets/logo-nuimio-education-text.png" width="400" /> 
+<img src="./assets/logo-nuimio-full.png" width="400" /> 
+
+<img src="./assets/logo-nuimio-education-text.png" width="200" /> 
 
 #### Developed by Dennis Mitzéus as a bachelor thesis project for the Bachelor Program "Applied Artificial Intelligence" (2026), and is created as a collaboration in the role as CEO & Lead Software Engineer at Finition, developed for Nuimio.
 
