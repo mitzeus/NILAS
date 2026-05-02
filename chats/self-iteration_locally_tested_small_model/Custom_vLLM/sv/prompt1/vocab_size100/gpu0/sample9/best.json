@@ -1,0 +1,97 @@
+{
+    "sample_number": 9,
+    "round_number": 1,
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in Swedish.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "How do you use definite and indefinite forms of nouns in Swedish? Give simple examples.",
+    "generated_text": "Definite form: Man säger att \"barnet\" är bäst.\nIndefinite form: Man säger att \"ett barn\" är bäst.",
+    "generator_name": "Custom_vLLM",
+    "language": "sv",
+    "perplexity": 2.2389166061994077,
+    "vocab_size": 100,
+    "review": {
+        "overall_score": 3.2,
+        "letter_grade": "C",
+        "model": "gpt-4o-mini",
+        "family": "openai",
+        "summary": "This round highlighted significant issues in factual correctness and clarity, particularly regarding the explanation of definite and indefinite forms in Swedish. Critics noted that while examples were provided, the underlying rules were not adequately explained, leading to potential misunderstandings. The overall score reflects these concerns, indicating a need for improved depth and completeness in the response.",
+        "critic_scores": [
+            {
+                "model": "claude-sonnet-4-6",
+                "family": "anthropic",
+                "dimension": "Factual Correctness",
+                "profile": "sceptic",
+                "score": 2,
+                "rationale": "The response provides grammatically valid Swedish examples but fails to accurately or adequately explain how definite and indefinite forms work in Swedish. Swedish definiteness is marked by a suffix on the noun (e.g., 'barn' → 'barnet' for neuter nouns), not just by the presence or absence of an article, and this crucial distinction is never explained. The response also omits the indefinite article for common-gender nouns ('en' words vs. 'ett' words), and provides no explanation of the rule itself — making the factual content incomplete and potentially misleading.",
+                "improvement_tip": "Explicitly explain that Swedish marks definiteness with a suffix added to the noun (e.g., 'en bil' → 'bilen', 'ett barn' → 'barnet'), distinguish between 'en' and 'ett' noun genders, and provide paired examples showing both indefinite and definite forms with a clear label for each."
+            },
+            {
+                "model": "gpt-4o-mini",
+                "family": "openai",
+                "dimension": "Clarity & Communication",
+                "profile": "teacher",
+                "score": 3,
+                "rationale": "The response provides examples of both definite and indefinite forms of nouns in Swedish, but it lacks context and explanation that would help the reader understand the rules governing their use. The examples are clear, but the overall structure could be improved for better comprehension.",
+                "improvement_tip": "Include a brief explanation of the rules for using definite and indefinite forms before presenting the examples."
+            },
+            {
+                "model": "claude-haiku-4-5-20251001",
+                "family": "anthropic",
+                "dimension": "Grammar & Naturalness",
+                "profile": "editor",
+                "score": 5,
+                "rationale": "The response demonstrates flawless grammar and natural Swedish usage. Both sentences are grammatically correct, with proper noun declension (barnet vs. ett barn), appropriate verb conjugation (säger), and idiomatic phrasing. The parallel structure makes the comparison clear and easy to follow.",
+                "improvement_tip": "While the response is excellent, adding a brief English translation or explanation of what each form means would enhance clarity for learners unfamiliar with Swedish, though this falls outside the grammar dimension."
+            },
+            {
+                "model": "gemini-2.5-flash-lite",
+                "family": "google",
+                "dimension": "Task Match & Adequacy",
+                "profile": "analyst",
+                "score": 1,
+                "rationale": "The response provides two very brief examples but fails to explain *how* to use definite and indefinite forms of nouns in Swedish. It does not explain the rules or provide sufficient context for the examples to be useful.",
+                "improvement_tip": "Explain the general rules for forming definite and indefinite nouns in Swedish, including the role of gender and number, before providing simple examples."
+            }
+        ],
+        "top_improvements": [
+            "Explicitly explain that Swedish marks definiteness with a suffix added to the noun.",
+            "Distinguish between 'en' and 'ett' noun genders and provide paired examples.",
+            "Include a brief explanation of the rules for using definite and indefinite forms before presenting examples."
+        ],
+        "confidence": "medium",
+        "score_variance": 2.188
+    },
+    "ledger_snapshot": {
+        "issues": [
+            {
+                "issue_id": "FC-001",
+                "dimension": "Factual Correctness",
+                "description": "Inadequate explanation of how definite and indefinite forms work in Swedish, missing crucial details about noun suffixes and gender distinctions.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "open",
+                "recurrence_count": 1
+            },
+            {
+                "issue_id": "CC-001",
+                "dimension": "Clarity & Communication",
+                "description": "Lacks context and explanation for the examples provided, making it difficult for readers to understand the rules governing noun usage.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "open",
+                "recurrence_count": 1
+            },
+            {
+                "issue_id": "DC-001",
+                "dimension": "Depth & Completeness",
+                "description": "Fails to provide sufficient context or rules for using definite and indefinite forms, leading to inadequate task match.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "open",
+                "recurrence_count": 1
+            }
+        ],
+        "round_summaries": [
+            "The response showed significant gaps in factual correctness and clarity regarding Swedish noun forms."
+        ]
+    }
+}

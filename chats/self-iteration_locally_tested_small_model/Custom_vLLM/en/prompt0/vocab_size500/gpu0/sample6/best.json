@@ -1,0 +1,90 @@
+{
+    "sample_number": 6,
+    "round_number": 3,
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in English.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "TASK:\n            Explain the difference between the present simple and present continuous tense in English, with easy examples.\n\n            PREVIOUS BEST DRAFT (score: 2.8/5.0):\n            ---\n            The present simple tense is used for actions that happen regularly or are habitual, in a non-specific time frame. Examples: \"I eat breakfast at 7 every morning.\" \"She goes to the gym five times a week.\"\n\nThe present continuous tense is used for actions that are happening now or at a specific time in the past. Examples: \"I am reading a book right now.\" \"She was studying for her exam last night.\"\n            ---\n\n            REVISION INSTRUCTIONS:\n            Rewrite the draft above to address the following issues.\n            Preserve what was already working well. Do not simply patch — rewrite\n            sections where issues are deep.\n\n\nThe following issues MUST be fixed in this revision:\n  ✗ [FC-001] Factual Correctness: Incorrect definition of the present continuous tense, including reference to past actions. (flagged 2 times)\n  ✗ [CC-001] Clarity & Communication: Lack of clarity in defining the present continuous tense and insufficient variety in examples. (flagged 2 times)\n\n            Produce the improved version now. Output only the revised text, no preamble.",
+    "generated_text": "The present simple tense is used for actions that happen regularly or are habitual, in a non-specific time frame. Examples: \"I eat breakfast at 7 every morning.\" \"She goes to the gym five times a week.\"\n\nThe present continuous tense is used for actions that are happening now or at a specific time in the present. Examples: \"I am reading a book right now.\" \"She is studying for her exam right now.\"",
+    "generator_name": "Custom_vLLM",
+    "language": "en",
+    "perplexity": 2.101900353109121,
+    "vocab_size": 500,
+    "review": {
+        "overall_score": 4.0,
+        "letter_grade": "B",
+        "model": "gpt-4o-mini",
+        "family": "openai",
+        "summary": "This round shows significant improvement in factual correctness, with the critical error regarding the definition of the present continuous tense resolved. Clarity and communication have also improved, but there are still areas for enhancement, particularly in the variety of examples and the structure of the explanation. Overall, the response is now more accurate and clearer than in previous rounds.",
+        "critic_scores": [
+            {
+                "model": "claude-sonnet-4-6",
+                "family": "anthropic",
+                "dimension": "Factual Correctness",
+                "profile": "sceptic",
+                "score": 4,
+                "rationale": "The critical error from previous rounds (FC-001) has been resolved: the definition of the present continuous tense no longer references past actions and correctly states it is used for actions happening 'now or at a specific time in the present.' Both example sentences are grammatically correct and consistent with the definition. A minor omission is that the present continuous can also describe temporary situations or future arrangements, but the core definition provided is accurate and not misleading.",
+                "improvement_tip": "Expand the definition of the present continuous to mention that it can also describe temporary ongoing situations (e.g., 'She is living in Paris this year') and planned future events (e.g., 'We are meeting tomorrow'), which are well-established uses of this tense."
+            },
+            {
+                "model": "gpt-4o-mini",
+                "family": "openai",
+                "dimension": "Clarity & Communication",
+                "profile": "teacher",
+                "score": 3,
+                "rationale": "The response provides a clearer definition of the present continuous tense by stating it refers to actions happening 'now or at a specific time in the present.' However, the examples provided are limited and could benefit from more variety to enhance understanding. Additionally, the explanation could be structured more effectively to highlight the differences between the two tenses.",
+                "improvement_tip": "Include a broader range of examples for both tenses and consider using a comparative structure to clearly delineate the differences between the present simple and present continuous."
+            },
+            {
+                "model": "claude-haiku-4-5-20251001",
+                "family": "anthropic",
+                "dimension": "Grammar & Naturalness",
+                "profile": "editor",
+                "score": 5,
+                "rationale": "The revised text is grammatically flawless with excellent sentence structure and natural flow. All verb tenses are correctly formed and consistently applied. The language is clear, accessible, and reads smoothly without any awkward phrasing or errors.",
+                "improvement_tip": "No grammatical improvements needed. Consider adding a transitional phrase between the two paragraphs (e.g., 'In contrast,') to enhance cohesion, though this is stylistic rather than a grammatical issue."
+            },
+            {
+                "model": "gemini-2.5-flash-lite",
+                "family": "google",
+                "dimension": "Task Match & Adequacy",
+                "profile": "analyst",
+                "score": 4,
+                "rationale": "The response correctly addresses the core task of differentiating between present simple and present continuous tenses. It fixes the factual error regarding past actions for the present continuous and provides clearer examples. However, it could benefit from a slightly more explicit contrast between the two tenses and perhaps one more example for each to ensure full clarity.",
+                "improvement_tip": "Consider adding a sentence that directly contrasts the 'habitual' nature of the present simple with the 'temporary/ongoing' nature of the present continuous to further highlight the difference."
+            }
+        ],
+        "top_improvements": [
+            "Expand the definition of the present continuous to include temporary situations and future arrangements.",
+            "Include a broader range of examples for both tenses to enhance understanding.",
+            "Use a comparative structure to clearly delineate the differences between the present simple and present continuous."
+        ],
+        "confidence": "medium",
+        "score_variance": 0.5
+    },
+    "ledger_snapshot": {
+        "issues": [
+            {
+                "issue_id": "FC-001",
+                "dimension": "Factual Correctness",
+                "description": "Incorrect definition of the present continuous tense, including reference to past actions.",
+                "first_seen_round": 1,
+                "last_seen_round": 3,
+                "status": "resolved",
+                "recurrence_count": 2
+            },
+            {
+                "issue_id": "CC-001",
+                "dimension": "Clarity & Communication",
+                "description": "Lack of clarity in defining the present continuous tense and insufficient variety in examples.",
+                "first_seen_round": 1,
+                "last_seen_round": 3,
+                "status": "improved",
+                "recurrence_count": 3
+            }
+        ],
+        "round_summaries": [
+            "The round revealed critical factual errors in the explanation of the present continuous tense, necessitating significant revisions.",
+            "Factual inaccuracies and clarity issues persist, leading to low scores.",
+            "Factual correctness has improved significantly, but clarity and communication still require further refinement."
+        ]
+    }
+}

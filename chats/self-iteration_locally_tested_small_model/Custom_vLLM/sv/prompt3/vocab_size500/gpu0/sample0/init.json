@@ -1,0 +1,10 @@
+{
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in Swedish.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "Explain how to use common present tense verbs in Swedish with examples.",
+    "generated_text": "F\u00f6r att anv\u00e4nda de vanliga de sena tidsverbena i svenska med exempel:\n\n1. Ta: Jag tar en te.\n2. G\u00e5: Han g\u00e5r till skolan.\n3. Skriva: Jag skriver en bok.\n4. Svara: Du svarar p\u00e5 e-post.\n5. Ta hand med: Vi tar hand om honom.\n6. V\u00e4nta: Jag v\u00e4ntar p\u00e5 bilen.\n7. G\u00e5 p\u00e5: Han g\u00e5r p\u00e5 mat.\n8. Ta: Jag tar en bok.\n9. V\u00e4nta p\u00e5: Jag v\u00e4ntar p\u00e5 bilen.\n10. Ta hand med: Vi tar hand om honom.",
+    "generator_name": "Custom_vLLM",
+    "language": "sv",
+    "perplexity": 1.891586518199624,
+    "vocab_size": 500,
+    "sample_number": 0
+}

@@ -1,0 +1,99 @@
+{
+    "sample_number": 1,
+    "round_number": 3,
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in English.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "TASK:\n            How do you form basic yes/no questions in English? Show simple patterns and examples.\n\n            PREVIOUS BEST DRAFT (score: 3.0/5.0):\n            ---\n            To form basic yes/no questions in English, you can use the auxiliary verb (do, did, have, has) at the beginning of the sentence and place the rest of the question word order at the end. Here are some examples:\n\n- Yes/no question: Did you go to the store?\n- Yes/no question: Has she finished her homework?\n\nIn the first example, \"did\" is the auxiliary verb, and \"you go to the store\" is placed at the end.\nIn the second example, \"has\" is the auxiliary verb, and \"she finished her homework\" is placed at the end.\n            ---\n\n            REVISION INSTRUCTIONS:\n            Rewrite the draft above to address the following issues.\n            Preserve what was already working well. Do not simply patch — rewrite\n            sections where issues are deep.\n\n\nThe following issues MUST be fixed in this revision:\n  ✗ [FC-001] Factual Correctness: Incomplete description of auxiliary verbs for forming yes/no questions. (flagged 2 times)\n  ✗ [CC-001] Clarity & Communication: Confusing phrasing and lack of clear structure in the explanation. (flagged 2 times)\n  ✗ [DC-001] Depth & Completeness: Omission of examples using other auxiliary verbs like 'be' and modals. (flagged 2 times)\n\n            Produce the improved version now. Output only the revised text, no preamble.",
+    "generated_text": "To form basic yes/no questions in English, you can use the auxiliary verb (do, did, have, has, be, can, will) at the beginning of the sentence and place the rest of the question word order at the end. Here are some examples:\n\n- Yes/no question: Did you go to the store? (Using \"did\")\n- Yes/no question: Has she finished her homework? (Using \"has\")\n- Yes/no question: Is the book on the table? (Using \"is\")\n- Yes/no question: Can you answer the question?",
+    "generator_name": "Custom_vLLM",
+    "language": "en",
+    "perplexity": 1.8922102758408965,
+    "vocab_size": 500,
+    "review": {
+        "overall_score": 3.75,
+        "letter_grade": "B",
+        "model": "gpt-4o-mini",
+        "family": "openai",
+        "summary": "This round shows a positive trend in factual correctness and clarity, with scores improving from previous rounds. However, issues remain regarding the completeness of the explanation and the precision of the phrasing used. The feedback indicates that while some improvements have been made, further refinements are necessary to fully resolve the outstanding issues.",
+        "critic_scores": [
+            {
+                "model": "claude-sonnet-4-6",
+                "family": "anthropic",
+                "dimension": "Factual Correctness",
+                "profile": "sceptic",
+                "score": 3,
+                "rationale": "The revised output correctly identifies a broader set of auxiliary verbs (do, did, have, has, be, can, will) used to form yes/no questions, which addresses the core of FC-001. However, the description 'place the rest of the question word order at the end' is awkward and slightly misleading — the actual rule is subject-verb inversion (auxiliary moves to front, subject follows), not simply appending a 'question word order.' Additionally, the list omits other common modals like 'would,' 'should,' and 'could,' though this is a minor omission rather than an error.",
+                "improvement_tip": "Clarify the structural rule by explicitly stating the inversion pattern: [Auxiliary verb] + [Subject] + [Base verb/rest of sentence]? For example, 'Are you ready?' follows the pattern: Is/Are + Subject + complement. This makes the factual mechanism precise and avoids the misleading phrase 'question word order.'"
+            },
+            {
+                "model": "gpt-4o-mini",
+                "family": "openai",
+                "dimension": "Clarity & Communication",
+                "profile": "teacher",
+                "score": 4,
+                "rationale": "The revised text presents a clearer structure by explicitly stating the use of auxiliary verbs and providing multiple examples. However, while the phrasing is generally clearer than before, it could still benefit from a more organized presentation of the examples to enhance readability.",
+                "improvement_tip": "Consider formatting the examples in a bulleted list with a brief explanation of the auxiliary verb used for each question to improve clarity further."
+            },
+            {
+                "model": "claude-haiku-4-5-20251001",
+                "family": "anthropic",
+                "dimension": "Grammar & Naturalness",
+                "profile": "editor",
+                "score": 4,
+                "rationale": "The revised response demonstrates solid grammar with correct sentence construction and natural phrasing throughout. The auxiliary verbs are properly positioned, and the examples follow standard English question formation patterns. Minor awkwardness exists in the phrase 'place the rest of the question word order at the end,' which is slightly imprecise, but overall the text flows naturally and is easily understood.",
+                "improvement_tip": "Replace 'place the rest of the question word order at the end' with 'invert the subject and main verb after the auxiliary' for more precise and natural grammatical terminology."
+            },
+            {
+                "model": "gemini-2.5-flash-lite",
+                "family": "google",
+                "dimension": "Task Match & Adequacy",
+                "profile": "analyst",
+                "score": 4,
+                "rationale": "The response correctly identifies the core task of forming yes/no questions and provides examples. It addresses the previous feedback by including more auxiliary verbs ('be', 'can') and providing examples for them. However, it still omits modals like 'will' and doesn't fully explain the structure beyond 'auxiliary verb + rest of the question'.",
+                "improvement_tip": "Expand the explanation to include the full basic structure (Auxiliary Verb + Subject + Main Verb + Object/Complement) and provide examples for all mentioned auxiliary verbs and modals."
+            }
+        ],
+        "top_improvements": [
+            "Clarify the structural rule by explicitly stating the inversion pattern.",
+            "Format examples in a bulleted list with explanations for clarity.",
+            "Expand the explanation to include the full basic structure of question formation."
+        ],
+        "confidence": "medium",
+        "score_variance": 0.188
+    },
+    "ledger_snapshot": {
+        "issues": [
+            {
+                "issue_id": "FC-001",
+                "dimension": "Factual Correctness",
+                "description": "Incomplete description of auxiliary verbs for forming yes/no questions.",
+                "first_seen_round": 1,
+                "last_seen_round": 3,
+                "status": "improved",
+                "recurrence_count": 3
+            },
+            {
+                "issue_id": "CC-001",
+                "dimension": "Clarity & Communication",
+                "description": "Confusing phrasing and lack of clear structure in the explanation.",
+                "first_seen_round": 1,
+                "last_seen_round": 3,
+                "status": "improved",
+                "recurrence_count": 3
+            },
+            {
+                "issue_id": "DC-001",
+                "dimension": "Depth & Completeness",
+                "description": "Omission of examples using other auxiliary verbs like 'be' and modals.",
+                "first_seen_round": 1,
+                "last_seen_round": 3,
+                "status": "open",
+                "recurrence_count": 3
+            }
+        ],
+        "round_summaries": [
+            "The explanation of yes/no question formation was mostly correct but lacked completeness and clarity.",
+            "Factual correctness and clarity issues persist, with no resolution on previously noted problems.",
+            "Improvements noted in clarity and factual correctness, but issues with depth and precision persist."
+        ]
+    }
+}

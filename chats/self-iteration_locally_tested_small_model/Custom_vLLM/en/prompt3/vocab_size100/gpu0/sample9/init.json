@@ -1,0 +1,10 @@
+{
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in English.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "How do prepositions like \u201cin,\u201d \u201con,\u201d and \u201cat\u201d work in basic English sentences?",
+    "generated_text": "Prepositions like \"in,\" \"on,\" and \"at\" indicate the relationship between the parts of a sentence. \n\n- \"In\" is used for larger spaces like rooms or time periods like years.\n- \"On\" is used for specific days of the week or times like noon.\n- \"At\" is used for more precise times like a specific time of the day or a point in time.\n\nUsage examples:\n- \"The book is in the drawer.\" (in)\n- \"It's on the table.\" (on)\n- \"She's at the park.\" (at)",
+    "generator_name": "Custom_vLLM",
+    "language": "en",
+    "perplexity": 6.068812484062261,
+    "vocab_size": 100,
+    "sample_number": 9
+}

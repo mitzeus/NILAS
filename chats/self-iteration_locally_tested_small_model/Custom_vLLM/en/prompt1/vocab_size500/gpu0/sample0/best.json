@@ -1,0 +1,106 @@
+{
+    "sample_number": 0,
+    "round_number": 1,
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in English.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "How do you form basic yes/no questions in English? Show simple patterns and examples.",
+    "generated_text": "To form basic yes/no questions in English, you can use the auxiliary verb (do, did, have, has) at the beginning of the sentence and place the rest of the question word order at the end. Here are some examples:\n\n- Yes/no question: Did you go to the store?\n- Yes/no question: Has she finished her homework?\n\nIn the first example, \"did\" is the auxiliary verb, and \"you go to the store\" is placed at the end.\nIn the second example, \"has\" is the auxiliary verb, and \"she finished her homework\" is placed at the end.",
+    "generator_name": "Custom_vLLM",
+    "language": "en",
+    "perplexity": 2.091914894102623,
+    "vocab_size": 500,
+    "review": {
+        "overall_score": 3.0,
+        "letter_grade": "C",
+        "model": "gpt-4o-mini",
+        "family": "openai",
+        "summary": "This round's evaluations highlighted several areas for improvement, particularly in factual correctness and clarity. Critics pointed out incomplete explanations regarding the use of auxiliary verbs and the need for clearer organization and examples. Overall, the response received a consistent score of 3/5 across dimensions, indicating a solid foundation but significant room for enhancement.",
+        "critic_scores": [
+            {
+                "model": "claude-sonnet-4-6",
+                "family": "anthropic",
+                "dimension": "Factual Correctness",
+                "profile": "sceptic",
+                "score": 3,
+                "rationale": "The core explanation is broadly correct — auxiliary verbs are moved to the front to form yes/no questions — but the description is incomplete and slightly misleading. The output omits modal auxiliaries (can, will, should, etc.) and the verb 'to be' used as a main verb (e.g., 'Are you ready?'), which are equally fundamental patterns. The phrase 'place the rest of the question word order at the end' is awkward and imprecise; the actual rule is subject-verb inversion (auxiliary + subject + base verb). The examples given are accurate, but the claim that the list of auxiliaries is limited to 'do, did, have, has' is an oversimplification that could mislead learners.",
+                "improvement_tip": "Expand the explanation to include 'be' as a main verb and modal auxiliaries (will, can, should, etc.), and clarify the inversion rule as: move the auxiliary verb before the subject (e.g., 'She is ready' → 'Is she ready?'), rather than vaguely saying the rest is 'placed at the end.'"
+            },
+            {
+                "model": "gpt-4o-mini",
+                "family": "openai",
+                "dimension": "Clarity & Communication",
+                "profile": "teacher",
+                "score": 3,
+                "rationale": "The response provides a basic explanation of how to form yes/no questions in English, but the structure is somewhat unclear. The explanation could benefit from a more organized presentation and clearer examples that directly illustrate the patterns mentioned.",
+                "improvement_tip": "Reorganize the response to first outline the general rule for forming yes/no questions, followed by a clearer set of examples that directly correlate with the rule."
+            },
+            {
+                "model": "claude-haiku-4-5-20251001",
+                "family": "anthropic",
+                "dimension": "Grammar & Naturalness",
+                "profile": "editor",
+                "score": 3,
+                "rationale": "The response is grammatically correct and mostly natural, but contains a significant clarity issue. The phrase 'place the rest of the question word order at the end' is awkwardly worded and contradicts the actual pattern shown (the auxiliary verb goes at the *beginning*, not the end). This imprecision undermines the explanation despite correct grammar in individual sentences.",
+                "improvement_tip": "Revise the opening explanation to: 'To form basic yes/no questions, move the auxiliary verb to the beginning of the sentence, followed by the subject and main verb.' This directly mirrors the pattern demonstrated in your examples and eliminates confusion."
+            },
+            {
+                "model": "gemini-2.5-flash-lite",
+                "family": "google",
+                "dimension": "Task Match & Adequacy",
+                "profile": "analyst",
+                "score": 3,
+                "rationale": "The response correctly identifies the use of auxiliary verbs at the beginning of a sentence to form yes/no questions. However, it only provides two examples and doesn't fully explain the patterns for different tenses or the use of 'be' verbs.",
+                "improvement_tip": "Expand the explanation to include patterns for 'be' verbs (e.g., 'Is he happy?') and demonstrate how auxiliary verbs change with different tenses (e.g., 'Do you like pizza?' vs. 'Did you like pizza?')."
+            }
+        ],
+        "top_improvements": [
+            "Expand the explanation to include 'be' as a main verb and modal auxiliaries.",
+            "Reorganize the response to outline the general rule for forming yes/no questions clearly.",
+            "Revise the opening explanation to directly reflect the correct pattern for forming questions."
+        ],
+        "confidence": "medium",
+        "score_variance": 0.0
+    },
+    "ledger_snapshot": {
+        "issues": [
+            {
+                "issue_id": "FC-001",
+                "dimension": "Factual Correctness",
+                "description": "Incomplete and slightly misleading description of auxiliary verbs and question formation.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "open",
+                "recurrence_count": 1
+            },
+            {
+                "issue_id": "CC-001",
+                "dimension": "Clarity & Communication",
+                "description": "Unclear structure and presentation of the explanation.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "open",
+                "recurrence_count": 1
+            },
+            {
+                "issue_id": "CC-002",
+                "dimension": "Clarity & Communication",
+                "description": "Awkward phrasing that contradicts the actual pattern of forming questions.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "open",
+                "recurrence_count": 1
+            },
+            {
+                "issue_id": "DC-001",
+                "dimension": "Depth & Completeness",
+                "description": "Insufficient examples and explanation of patterns for different tenses and 'be' verbs.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "open",
+                "recurrence_count": 1
+            }
+        ],
+        "round_summaries": [
+            "The response demonstrated a basic understanding of forming yes/no questions but requires significant clarification and expansion."
+        ]
+    }
+}

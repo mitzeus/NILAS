@@ -1,0 +1,88 @@
+{
+    "sample_number": 6,
+    "round_number": 1,
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in English.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "How do you form basic yes/no questions in English? Show simple patterns and examples.",
+    "generated_text": "To form basic yes/no questions in English, you switch the word order and add \"do\" at the beginning of the simple sentence. Here are some examples:\n\n- Simple sentence: \"The cat is sleeping.\"\n- Yes/no question: \"Is the cat sleeping?\"\n\n- Simple sentence: \"She likes apples.\"\n- Yes/no question: \"Does she like apples?\"\n\n- Simple sentence: \"They are going to the store.\"\n- Yes/no question: \"Are they going to the store?\"",
+    "generator_name": "Custom_vLLM",
+    "language": "en",
+    "perplexity": 1.310041304082815,
+    "vocab_size": 2000,
+    "review": {
+        "overall_score": 3.88,
+        "letter_grade": "B",
+        "model": "gpt-4o-mini",
+        "family": "openai",
+        "summary": "This round's evaluations highlighted a significant issue with factual correctness regarding the explanation of yes/no question formation, particularly in conflating two distinct grammatical patterns. While clarity and communication were rated positively, the need for a more precise explanation was emphasized. Overall, the response received a solid score, but improvements are necessary to enhance accuracy and clarity.",
+        "critic_scores": [
+            {
+                "model": "claude-sonnet-4-6",
+                "family": "anthropic",
+                "dimension": "Factual Correctness",
+                "profile": "sceptic",
+                "score": 3,
+                "rationale": "The examples given are all correct and accurately demonstrate yes/no question formation. However, the opening explanation is partially inaccurate: it states you 'switch the word order and add do at the beginning,' but this only applies to sentences with auxiliary verbs like 'be' or 'have' — for those, you simply invert the subject and auxiliary (no 'do' needed), as correctly shown in examples 1 and 3. The 'do-support' rule only applies to sentences without an auxiliary verb, as in example 2. The blanket description conflates two distinct grammatical patterns.",
+                "improvement_tip": "Revise the opening explanation to distinguish between two cases: (1) sentences with auxiliary verbs (be, have, will, etc.) where you simply invert the subject and auxiliary, and (2) sentences with only a main verb where you add 'do/does/did' before the subject and use the base form of the main verb."
+            },
+            {
+                "model": "gpt-4o-mini",
+                "family": "openai",
+                "dimension": "Clarity & Communication",
+                "profile": "teacher",
+                "score": 4,
+                "rationale": "The response provides a clear explanation of how to form yes/no questions in English, with relevant examples that illustrate the concept effectively. The structure is logical, moving from a simple explanation to examples, making it easy for the reader to follow.",
+                "improvement_tip": "Consider adding a brief introductory sentence to summarize the main rule before presenting the examples for even greater clarity."
+            },
+            {
+                "model": "claude-haiku-4-5-20251001",
+                "family": "anthropic",
+                "dimension": "Grammar & Naturalness",
+                "profile": "editor",
+                "score": 5,
+                "rationale": "The response is grammatically flawless with excellent clarity and natural flow. Sentences are well-structured, examples are parallel and easy to follow, and the explanation progresses logically from rule to demonstration. The language is appropriately formal yet conversational, making it accessible to learners.",
+                "improvement_tip": "No grammatical improvements needed; consider adding a brief note about auxiliary verbs (do/does/did) to deepen understanding of the underlying pattern."
+            },
+            {
+                "model": "gemini-2.5-flash-lite",
+                "family": "google",
+                "dimension": "Task Match & Adequacy",
+                "profile": "analyst",
+                "score": 2,
+                "rationale": "The response provides examples of forming yes/no questions, but it incorrectly states that the primary method involves adding 'do' at the beginning. It then proceeds to show examples that use auxiliary verbs like 'is' and 'are' for inversion, which is a different rule. The explanation is therefore misleading and incomplete.",
+                "improvement_tip": "Clarify the two main methods for forming yes/no questions: inversion of auxiliary verbs (is, are, have, etc.) and the use of 'do/does/did' with main verbs. Provide distinct examples for each method."
+            }
+        ],
+        "top_improvements": [
+            "Revise the opening explanation to clearly distinguish between sentences with auxiliary verbs and those with main verbs.",
+            "Add a brief introductory sentence summarizing the main rule before presenting examples.",
+            "Include a note about auxiliary verbs to deepen understanding of the underlying pattern."
+        ],
+        "confidence": "medium",
+        "score_variance": 1.25
+    },
+    "ledger_snapshot": {
+        "issues": [
+            {
+                "issue_id": "FC-001",
+                "dimension": "Factual Correctness",
+                "description": "The explanation conflates two distinct grammatical patterns for forming yes/no questions.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "open",
+                "recurrence_count": 1
+            },
+            {
+                "issue_id": "CC-001",
+                "dimension": "Clarity & Communication",
+                "description": "The response could benefit from a brief introductory sentence summarizing the main rule before examples.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "open",
+                "recurrence_count": 1
+            }
+        ],
+        "round_summaries": [
+            "Factual correctness issues were identified, necessitating clarifications in the explanation of yes/no question formation."
+        ]
+    }
+}

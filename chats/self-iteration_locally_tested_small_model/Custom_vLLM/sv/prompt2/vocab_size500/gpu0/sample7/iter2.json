@@ -1,0 +1,98 @@
+{
+    "sample_number": 7,
+    "round_number": 2,
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in Swedish.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "How are yes/no questions formed in basic Swedish grammar?",
+    "generated_text": "Istället för \"ja\", säger du \"så\".",
+    "generator_name": "Custom_vLLM",
+    "language": "sv",
+    "perplexity": 2.379185913076548,
+    "vocab_size": 500,
+    "review": {
+        "overall_score": 1.98,
+        "letter_grade": "D",
+        "model": "gpt-4o-mini",
+        "family": "openai",
+        "summary": "This round has shown a concerning lack of improvement in factual correctness, clarity, and depth regarding the formation of yes/no questions in Swedish. The critical factual error about the word for 'yes' remains unresolved, leading to confusion and inadequate communication. The overall performance continues to reflect significant issues that need addressing for future rounds.",
+        "critic_scores": [
+            {
+                "model": "claude-sonnet-4-6",
+                "family": "anthropic",
+                "dimension": "Factual Correctness",
+                "profile": "sceptic",
+                "score": 1,
+                "rationale": "The response contains a critical factual error that remains unresolved from the previous round. In Swedish, 'ja' is indeed the standard word for 'yes' — the claim that 'så' replaces 'ja' is simply incorrect. Furthermore, the response does not address the actual question about how yes/no questions are formed in Swedish (which involves inverting the subject and verb, similar to other Germanic languages).",
+                "improvement_tip": "Correct the factual error immediately: 'ja' means 'yes' in Swedish. Then address the actual question by explaining that yes/no questions in Swedish are formed by placing the verb before the subject (subject-verb inversion), e.g., 'Du talar svenska' (You speak Swedish) becomes 'Talar du svenska?' (Do you speak Swedish?)."
+            },
+            {
+                "model": "gpt-4o-mini",
+                "family": "openai",
+                "dimension": "Clarity & Communication",
+                "profile": "teacher",
+                "score": 1,
+                "rationale": "The response is extremely confusing and incoherent, as it incorrectly states that 'så' is used instead of 'ja' for 'yes' in Swedish, which does not address the user's question about forming yes/no questions. This failure to provide accurate information and the lack of explanation results in a complete breakdown of communication.",
+                "improvement_tip": "Provide a clear and accurate explanation of how yes/no questions are formed in Swedish, including the correct use of 'ja' and examples to illustrate the structure."
+            },
+            {
+                "model": "claude-haiku-4-5-20251001",
+                "family": "anthropic",
+                "dimension": "Grammar & Naturalness",
+                "profile": "editor",
+                "score": 4,
+                "rationale": "The sentence is grammatically correct and follows natural Swedish syntax. The structure 'Istället för X, säger du Y' is idiomatic and well-formed. However, the response is extremely brief and does not adequately address the user's question about yes/no question *formation*, which requires explanation of word order or intonation patterns rather than just vocabulary substitution.",
+                "improvement_tip": "Expand the response to include how yes/no questions are structurally formed in Swedish (e.g., through inversion or intonation), not just vocabulary choices. For example: 'I Swedish, yes/no questions are typically formed by inverting the subject and verb, or by using rising intonation with a statement word order.'"
+            },
+            {
+                "model": "gemini-2.5-flash-lite",
+                "family": "google",
+                "dimension": "Task Match & Adequacy",
+                "profile": "analyst",
+                "score": 1,
+                "rationale": "The response completely fails to address the user's question about forming yes/no questions in Swedish. Instead, it provides a single, incorrect statement about how to say 'yes' in Swedish, which was not asked for and is factually wrong.",
+                "improvement_tip": "Focus on directly answering the user's question about grammatical structure for forming questions, rather than providing isolated vocabulary or incorrect grammatical rules."
+            }
+        ],
+        "top_improvements": [
+            "Correct the factual error regarding the word for 'yes' in Swedish.",
+            "Clearly explain how yes/no questions are formed in Swedish, including subject-verb inversion.",
+            "Expand the response to provide a complete explanation of the grammatical structure."
+        ],
+        "confidence": "low",
+        "score_variance": 1.688
+    },
+    "ledger_snapshot": {
+        "issues": [
+            {
+                "issue_id": "FC-001",
+                "dimension": "Factual Correctness",
+                "description": "Incorrectly states that 'så' is used instead of 'ja' for 'yes' in Swedish.",
+                "first_seen_round": 1,
+                "last_seen_round": 2,
+                "status": "open",
+                "recurrence_count": 2
+            },
+            {
+                "issue_id": "CC-001",
+                "dimension": "Clarity & Communication",
+                "description": "Response does not clearly address how yes/no questions are formed in Swedish.",
+                "first_seen_round": 1,
+                "last_seen_round": 2,
+                "status": "open",
+                "recurrence_count": 2
+            },
+            {
+                "issue_id": "DC-001",
+                "dimension": "Depth & Completeness",
+                "description": "Fails to provide a complete explanation of yes/no question formation in Swedish.",
+                "first_seen_round": 1,
+                "last_seen_round": 2,
+                "status": "open",
+                "recurrence_count": 2
+            }
+        ],
+        "round_summaries": [
+            "The response was factually incorrect and unclear, failing to address the user's question about yes/no question formation in Swedish.",
+            "No improvements were made this round, and critical issues remain unresolved."
+        ]
+    }
+}

@@ -1,0 +1,10 @@
+{
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in English.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "Explain the difference between the present simple and present continuous tense in English, with easy examples.",
+    "generated_text": "The present simple tense is used for actions that happen regularly or are habitual, in a non-specific time frame. Examples: \"I eat breakfast at 7 every morning.\" \"She goes to the gym five times a week.\"\n\nThe present continuous tense is used for actions that are happening now or at a specific time in the past. Examples: \"I am reading a book right now.\" \"She was studying for her exam last night.\"",
+    "generator_name": "Custom_vLLM",
+    "language": "en",
+    "perplexity": 2.705310281388251,
+    "vocab_size": 500,
+    "sample_number": 5
+}

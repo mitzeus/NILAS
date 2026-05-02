@@ -1,0 +1,10 @@
+{
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in Swedish.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "How do you use definite and indefinite forms of nouns in Swedish? Give simple examples.",
+    "generated_text": "Definite form: Man s\u00e4ger att \"barnet\" \u00e4r b\u00e4st.\nIndefinite form: Man s\u00e4ger att \"ett barn\" \u00e4r b\u00e4st.",
+    "generator_name": "Custom_vLLM",
+    "language": "sv",
+    "perplexity": 2.2389166061994077,
+    "vocab_size": 100,
+    "sample_number": 1
+}

@@ -1,0 +1,99 @@
+{
+    "sample_number": 1,
+    "round_number": 3,
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in Swedish.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "TASK:\n            How do you use definite and indefinite forms of nouns in Swedish? Give simple examples.\n\n            PREVIOUS BEST DRAFT (score: 3.2/5.0):\n            ---\n            Definite form: Man säger att \"barnet\" är bäst.\nIndefinite form: Man säger att \"ett barn\" är bäst.\n            ---\n\n            REVISION INSTRUCTIONS:\n            Rewrite the draft above to address the following issues.\n            Preserve what was already working well. Do not simply patch — rewrite\n            sections where issues are deep.\n\n\nThe following issues MUST be fixed in this revision:\n  ✗ [FC-001] Factual Correctness: Inadequate explanation of Swedish definite and indefinite noun forms and their grammatical rules. (flagged 2 times)\n  ✗ [CC-001] Clarity & Communication: Lack of context and explanation accompanying examples of definite and indefinite forms. (flagged 2 times)\n  ✗ [DC-001] Depth & Completeness: Insufficient depth in explaining the grammatical rules for noun forms in Swedish. (flagged 2 times)\n\n            Produce the improved version now. Output only the revised text, no preamble.",
+    "generated_text": "Definite form: Man säger att \"barnets\" är bäst.\nIndefinite form: Man säger att \"ett barn\" är bäst.\n\nDefinite and indefinite forms of nouns in Swedish are used to indicate whether the noun is specific or not. \"Barnet\" (the child) is definite, while \"ett barn\" (a child) is indefinite.",
+    "generator_name": "Custom_vLLM",
+    "language": "sv",
+    "perplexity": 3.80146110368907,
+    "vocab_size": 100,
+    "review": {
+        "overall_score": 2.65,
+        "letter_grade": "C",
+        "model": "gpt-4o-mini",
+        "family": "openai",
+        "summary": "This round has seen a continuation of issues from previous evaluations, particularly in factual correctness, clarity, and depth of explanation regarding Swedish noun forms. The introduction of a new factual error ('barnets' instead of 'barnet') has compounded existing problems, leading to a lower overall score. Despite some grammatical strengths noted, the core issues remain unresolved, indicating a need for more comprehensive revisions.",
+        "critic_scores": [
+            {
+                "model": "claude-sonnet-4-6",
+                "family": "anthropic",
+                "dimension": "Factual Correctness",
+                "profile": "sceptic",
+                "score": 2,
+                "rationale": "The response introduces a new factual error: 'barnets' is the definite genitive form (meaning 'the child's'), not simply the definite form of 'barn'. The correct definite form is 'barnet'. Additionally, the explanation of the grammatical rules remains inadequate — there is no mention of how definiteness is marked by suffixes (-en/-et for common/neuter gender), no explanation of the two grammatical genders (utrum/neutrum) that determine which indefinite article (en/ett) and which definite suffix to use, and no coverage of plural definite forms. The core issue FC-001 flagged in prior rounds remains unresolved and a new error has been introduced.",
+                "improvement_tip": "Correct 'barnets' back to 'barnet', and add a clear explanation of the suffix system: en-words (utrum) take '-en' in definite singular (e.g., 'en bil' → 'bilen') and ett-words (neutrum) take '-et' (e.g., 'ett barn' → 'barnet'), with brief notes on plural definite forms as well."
+            },
+            {
+                "model": "gpt-4o-mini",
+                "family": "openai",
+                "dimension": "Clarity & Communication",
+                "profile": "teacher",
+                "score": 2,
+                "rationale": "The response attempts to clarify the difference between definite and indefinite forms in Swedish but lacks sufficient context and explanation. The examples provided are not well-integrated into an overall explanation of the grammatical rules, leading to confusion. Additionally, the use of 'barnets' instead of 'barnet' in the definite example is incorrect and could mislead the reader.",
+                "improvement_tip": "Provide a more detailed explanation of the rules governing definite and indefinite forms, including how they are applied in sentences, and ensure that examples accurately reflect these rules."
+            },
+            {
+                "model": "claude-haiku-4-5-20251001",
+                "family": "anthropic",
+                "dimension": "Grammar & Naturalness",
+                "profile": "editor",
+                "score": 4,
+                "rationale": "The response is grammatically sound with natural Swedish examples and clear English explanations. Sentence structure flows well and is easy to follow. The only minor issue is the inconsistency in the first example: \"barnets\" (possessive, 'the child's') doesn't align with the intended meaning of 'the child' (which should be \"barnet\"), creating a subtle semantic mismatch rather than a grammatical error.",
+                "improvement_tip": "Correct the first example to use \"barnet\" instead of \"barnets\" to ensure the definite form example accurately demonstrates 'the child' rather than 'the child's,' maintaining parallel clarity with the indefinite example."
+            },
+            {
+                "model": "gemini-2.5-flash-lite",
+                "family": "google",
+                "dimension": "Task Match & Adequacy",
+                "profile": "analyst",
+                "score": 2,
+                "rationale": "The response still fails to adequately explain the grammatical rules for definite and indefinite noun forms in Swedish. It also continues to lack sufficient context and depth in its explanations, merely stating that one is definite and the other indefinite without detailing how or why.",
+                "improvement_tip": "Provide a clear explanation of how definite and indefinite forms are created (e.g., adding suffixes for definite, using articles for indefinite) and offer more illustrative examples that demonstrate these rules in action."
+            }
+        ],
+        "top_improvements": [
+            "Correct 'barnets' back to 'barnet' and clarify the suffix system for definite forms.",
+            "Provide a detailed explanation of the rules governing definite and indefinite forms, including examples.",
+            "Enhance the depth of explanation regarding how definite and indefinite forms are created and used."
+        ],
+        "confidence": "low",
+        "score_variance": 0.75
+    },
+    "ledger_snapshot": {
+        "issues": [
+            {
+                "issue_id": "FC-001",
+                "dimension": "Factual Correctness",
+                "description": "Inadequate explanation of Swedish definite and indefinite noun forms and their grammatical rules.",
+                "first_seen_round": 1,
+                "last_seen_round": 3,
+                "status": "open",
+                "recurrence_count": 3
+            },
+            {
+                "issue_id": "CC-001",
+                "dimension": "Clarity & Communication",
+                "description": "Lack of context and explanation accompanying examples of definite and indefinite forms.",
+                "first_seen_round": 1,
+                "last_seen_round": 3,
+                "status": "open",
+                "recurrence_count": 3
+            },
+            {
+                "issue_id": "DC-001",
+                "dimension": "Depth & Completeness",
+                "description": "Insufficient depth in explaining the grammatical rules for noun forms in Swedish.",
+                "first_seen_round": 1,
+                "last_seen_round": 3,
+                "status": "open",
+                "recurrence_count": 3
+            }
+        ],
+        "round_summaries": [
+            "The response received low scores due to incomplete factual explanations and insufficient clarity.",
+            "The response remains inadequate in addressing the core grammatical rules for Swedish noun forms, with all prior issues still open.",
+            "The response continues to struggle with factual correctness and clarity, resulting in a lower score this round."
+        ]
+    }
+}

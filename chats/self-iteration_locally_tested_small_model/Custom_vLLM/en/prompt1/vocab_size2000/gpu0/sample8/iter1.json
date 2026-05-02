@@ -1,0 +1,88 @@
+{
+    "sample_number": 8,
+    "round_number": 1,
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in English.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "How do you form basic yes/no questions in English? Show simple patterns and examples.",
+    "generated_text": "To form basic yes/no questions in English, you switch the word order and add \"do\" at the beginning of the simple sentence. Here are some examples:\n\n- Simple sentence: \"The cat is sleeping.\"\n- Yes/no question: \"Is the cat sleeping?\"\n\n- Simple sentence: \"She likes apples.\"\n- Yes/no question: \"Does she like apples?\"\n\n- Simple sentence: \"They are going to the store.\"\n- Yes/no question: \"Are they going to the store?\"",
+    "generator_name": "Custom_vLLM",
+    "language": "en",
+    "perplexity": 1.310069968625269,
+    "vocab_size": 2000,
+    "review": {
+        "overall_score": 3.88,
+        "letter_grade": "B",
+        "model": "gpt-4o-mini",
+        "family": "openai",
+        "summary": "This round highlighted a significant issue with factual correctness regarding the formation of yes/no questions, particularly the conflation of rules for sentences with auxiliary verbs and those without. While clarity and communication were generally well-received, there remains room for improvement in explicitly addressing auxiliary verbs. The overall score reflects a solid response, but the identified issues need to be addressed for better accuracy and clarity in future iterations.",
+        "critic_scores": [
+            {
+                "model": "claude-sonnet-4-6",
+                "family": "anthropic",
+                "dimension": "Factual Correctness",
+                "profile": "sceptic",
+                "score": 3,
+                "rationale": "The examples given are all correct and accurately demonstrate yes/no question formation. However, the opening explanation is partially inaccurate: it states you 'switch the word order and add do at the beginning,' but this only applies to sentences with auxiliary verbs like 'be' or 'have' — in those cases you invert the subject and auxiliary without adding 'do.' The 'do-support' rule applies specifically to simple present/past sentences without an auxiliary verb. Conflating these two distinct patterns into one rule is a factual oversimplification that could mislead learners.",
+                "improvement_tip": "Separate the two main patterns explicitly: (1) for sentences with an auxiliary verb (be, have, will, etc.), invert the subject and auxiliary (e.g., 'She is sleeping' → 'Is she sleeping?'); (2) for simple present/past sentences without an auxiliary, add 'do/does/did' before the subject (e.g., 'She likes apples' → 'Does she like apples?')."
+            },
+            {
+                "model": "gpt-4o-mini",
+                "family": "openai",
+                "dimension": "Clarity & Communication",
+                "profile": "teacher",
+                "score": 4,
+                "rationale": "The response provides a clear explanation of how to form yes/no questions in English, with well-structured examples that illustrate the concept effectively. The only minor issue is the lack of an explicit mention of the auxiliary verb 'do' in the first example, which could enhance clarity.",
+                "improvement_tip": "Include a brief explanation of the auxiliary verbs used in the examples to improve understanding for readers unfamiliar with the concept."
+            },
+            {
+                "model": "claude-haiku-4-5-20251001",
+                "family": "anthropic",
+                "dimension": "Grammar & Naturalness",
+                "profile": "editor",
+                "score": 5,
+                "rationale": "The response is grammatically flawless with clear, natural phrasing throughout. Sentence structure is varied and appropriate, with proper use of auxiliary verbs and subject-verb inversion. The examples are well-formatted and easy to follow, demonstrating excellent pedagogical clarity without any errors or awkward constructions.",
+                "improvement_tip": "No improvements needed; this is an exemplary response. If expanding further, consider adding a brief note about auxiliary verb placement (e.g., 'do/does' vs. 'be' verbs) to deepen understanding."
+            },
+            {
+                "model": "gemini-2.5-flash-lite",
+                "family": "google",
+                "dimension": "Task Match & Adequacy",
+                "profile": "analyst",
+                "score": 2,
+                "rationale": "The response provides examples of forming yes/no questions, but it incorrectly states that you 'switch the word order and add \"do\" at the beginning'. This rule only applies to questions with main verbs other than 'to be' or modal verbs. The examples provided demonstrate this confusion, as the first example uses 'is' (a form of 'to be') and the third uses 'are' (also 'to be'), neither of which require adding 'do'.",
+                "improvement_tip": "Clarify the rules for forming yes/no questions, distinguishing between sentences with auxiliary verbs (like 'be', 'have', 'do', modals) and those with main verbs that require 'do' support."
+            }
+        ],
+        "top_improvements": [
+            "Separate the rules for questions with auxiliary verbs and those requiring 'do' support.",
+            "Include a brief explanation of auxiliary verbs in the examples.",
+            "Clarify the distinction between different types of verbs in the context of question formation."
+        ],
+        "confidence": "medium",
+        "score_variance": 1.25
+    },
+    "ledger_snapshot": {
+        "issues": [
+            {
+                "issue_id": "FC-001",
+                "dimension": "Factual Correctness",
+                "description": "Inaccurate explanation of yes/no question formation conflating rules for auxiliary verbs and main verbs.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "open",
+                "recurrence_count": 1
+            },
+            {
+                "issue_id": "CC-001",
+                "dimension": "Clarity & Communication",
+                "description": "Lack of explicit mention of auxiliary verbs in examples, which could enhance clarity.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "open",
+                "recurrence_count": 1
+            }
+        ],
+        "round_summaries": [
+            "Factual correctness issues were identified, particularly regarding the explanation of yes/no question formation."
+        ]
+    }
+}

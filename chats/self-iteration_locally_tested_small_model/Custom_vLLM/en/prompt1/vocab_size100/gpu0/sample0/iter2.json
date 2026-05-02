@@ -1,0 +1,98 @@
+{
+    "sample_number": 0,
+    "round_number": 2,
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in English.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "How do you form basic yes/no questions in English? Show simple patterns and examples.",
+    "generated_text": "To form basic yes/no questions in English, you invert the subject and the auxiliary verb (if any) to the front of the sentence. If there's no auxiliary verb, you add \"do\" to the front. The rest of the sentence follows after the question word (usually \"do\" or \"did\" followed by the rest of the question).\n\nExamples:\n- Do you like pizza? (Yes/No: Do you like pizza?)\n- Did you go to the store? (Yes/No: Did you go to the store?)",
+    "generator_name": "Custom_vLLM",
+    "language": "en",
+    "perplexity": 3.890211887841944,
+    "vocab_size": 100,
+    "review": {
+        "overall_score": 2.75,
+        "letter_grade": "C",
+        "model": "gpt-4o-mini",
+        "family": "openai",
+        "summary": "This round shows a continued struggle with factual correctness, particularly regarding the explanation of auxiliary verbs and their role in forming yes/no questions. Clarity and communication issues persist, especially in the opening sentence, which remains awkward and redundant. While some improvements were noted, such as a better understanding of the task requirements, the overall quality remains low, indicating a need for further refinement in both factual accuracy and clarity.",
+        "critic_scores": [
+            {
+                "model": "claude-sonnet-4-6",
+                "family": "anthropic",
+                "dimension": "Factual Correctness",
+                "profile": "sceptic",
+                "score": 2,
+                "rationale": "The response contains several factual inaccuracies and omissions. It incorrectly states that 'do' is added when there is no auxiliary verb, but fails to mention that modal verbs (can, will, should, must, etc.) and the verb 'to be' also serve as auxiliary verbs that invert with the subject — e.g., 'Are you ready?' or 'Can she swim?' The claim that questions follow 'the question word (usually do or did)' is misleading, as 'do/did' are not question words but auxiliary verbs. The examples provided only cover the 'do/did' pattern, leaving the response factually incomplete and potentially misleading about how yes/no questions are formed across the full range of English constructions.",
+                "improvement_tip": "Explicitly list all major auxiliary verb types used in yes/no questions — 'be' (Are you tired?), modals (Can you help?), 'have' (Have you eaten?), and 'do/does/did' for simple tenses — and provide a clear pattern table such as: [Auxiliary + Subject + Base Verb + ?] to cover all cases accurately."
+            },
+            {
+                "model": "gpt-4o-mini",
+                "family": "openai",
+                "dimension": "Clarity & Communication",
+                "profile": "teacher",
+                "score": 3,
+                "rationale": "The response is generally understandable, but it suffers from minor awkwardness and redundancy in the opening sentence, which affects clarity. Additionally, it does not adequately address the requirement for simple patterns and transformations for yes/no questions, leaving some gaps in communication.",
+                "improvement_tip": "Revise the opening sentence for conciseness and clarity, and include a more detailed explanation of the transformation process for yes/no questions, particularly regarding auxiliary verbs."
+            },
+            {
+                "model": "claude-haiku-4-5-20251001",
+                "family": "anthropic",
+                "dimension": "Grammar & Naturalness",
+                "profile": "editor",
+                "score": 3,
+                "rationale": "The response is grammatically correct and mostly natural, but contains awkward phrasing and redundancy that disrupts flow. The opening sentence is wordy—'The rest of the sentence follows after the question word (usually \"do\" or \"did\" followed by the rest of the question)' is confusing and circular. The examples are clear, but the explanation could be more concise and direct.",
+                "improvement_tip": "Simplify the opening explanation by removing redundancy. Replace 'The rest of the sentence follows after the question word (usually \"do\" or \"did\" followed by the rest of the question)' with something like 'The main verb and remaining words follow.' This improves clarity and naturalness without sacrificing accuracy."
+            },
+            {
+                "model": "gemini-2.5-flash-lite",
+                "family": "google",
+                "dimension": "Task Match & Adequacy",
+                "profile": "analyst",
+                "score": 3,
+                "rationale": "The response correctly identifies the core mechanism for forming yes/no questions (inversion with auxiliary verbs or adding 'do'). However, it fails to provide a clear pattern for sentences *without* auxiliary verbs and the examples are redundant, showing the original sentence and then the question form of the same sentence without explaining the transformation.",
+                "improvement_tip": "Provide a clear, distinct pattern for sentences that do not initially contain an auxiliary verb, and show the transformation from a statement to a yes/no question for each example."
+            }
+        ],
+        "top_improvements": [
+            "Explicitly list all major auxiliary verb types used in yes/no questions.",
+            "Revise the opening sentence for conciseness and clarity.",
+            "Provide clear, distinct patterns for sentences without auxiliary verbs."
+        ],
+        "confidence": "medium",
+        "score_variance": 0.188
+    },
+    "ledger_snapshot": {
+        "issues": [
+            {
+                "issue_id": "FC-001",
+                "dimension": "Factual Correctness",
+                "description": "Explanation of yes/no questions is incomplete and misleading, omitting other auxiliary verbs.",
+                "first_seen_round": 1,
+                "last_seen_round": 2,
+                "status": "open",
+                "recurrence_count": 2
+            },
+            {
+                "issue_id": "CC-001",
+                "dimension": "Clarity & Communication",
+                "description": "Minor awkwardness and redundancy in the opening sentence reduce clarity.",
+                "first_seen_round": 1,
+                "last_seen_round": 2,
+                "status": "open",
+                "recurrence_count": 2
+            },
+            {
+                "issue_id": "DC-001",
+                "dimension": "Depth & Completeness",
+                "description": "Fails to provide simple patterns and clear transformations for yes/no questions.",
+                "first_seen_round": 1,
+                "last_seen_round": 2,
+                "status": "open",
+                "recurrence_count": 2
+            }
+        ],
+        "round_summaries": [
+            "The response received a solid score but requires significant improvements in factual completeness and clarity.",
+            "Factual inaccuracies and clarity issues persist, with no significant resolution of previous problems."
+        ]
+    }
+}

@@ -1,11 +1,12 @@
 import pandas as pd
 import numpy as np
+from numpy.typing import NDArray
 import os
 
 from src.preprocessing.probabilities import class_prior, hamilton
 
 
-def convert_frequency_to_WPM(frequencies: np.array[int], round_to: int = 2):
+def convert_frequency_to_WPM(frequencies: NDArray[np.int_], round_to: int = 2):
     """
     Converts raw frequency to Words per Million (WPM) metric.
 
@@ -21,6 +22,48 @@ def convert_frequency_to_WPM(frequencies: np.array[int], round_to: int = 2):
     frequencies_wpm = np.round((frequencies / total_size) * 1000000, round_to)
 
     return frequencies_wpm
+
+
+def _redistribute_hamilton_shortfall(
+    discrete_amounts: pd.Series, data: pd.DataFrame, pos_str: str
+) -> pd.Series:
+    """
+    Ensure discrete allocations do not exceed available items per PoS.
+
+    If a PoS class has fewer available items than Hamilton requested,
+    the unfulfilled amount is redistributed among other classes that still
+    have available capacity.
+    """
+    available_counts = data[pos_str].value_counts()
+    adjusted = discrete_amounts.copy()
+    deficit = 0
+
+    for word_class, amount in adjusted.items():
+        available = int(available_counts.get(word_class, 0))
+        if amount > available:
+            deficit += amount - available
+            adjusted.loc[word_class] = available
+
+    if deficit <= 0:
+        return adjusted
+
+    capacities = (
+        available_counts.reindex(adjusted.index).fillna(0).astype(int) - adjusted
+    )
+    capacities = capacities[capacities > 0]
+    if capacities.empty:
+        return adjusted
+
+    while deficit > 0 and not capacities.empty:
+        # Allocate to the class with the most remaining capacity first.
+        largest_capacity_class = capacities.idxmax()
+        adjusted.loc[largest_capacity_class] += 1
+        capacities.loc[largest_capacity_class] -= 1
+        deficit -= 1
+        if capacities.loc[largest_capacity_class] <= 0:
+            capacities = capacities.drop(largest_capacity_class)
+
+    return adjusted
 
 
 def create_sorted_flashcard_set(
@@ -74,6 +117,7 @@ def create_sorted_flashcard_set(
 
     # # Pick top words
     discrete_amounts, hamilton_fig = hamilton(percentages=percentages, limit=limit)
+    discrete_amounts = _redistribute_hamilton_shortfall(discrete_amounts, data, pos_str)
 
     # Put together df
     candidate_indexes = []
@@ -100,3 +144,46 @@ def create_sorted_flashcard_set(
 
     # return df, prob dist. fig., hamilton fig.
     return df, class_prior_fig, hamilton_fig
+
+
+def sample_word_sublist(df: pd.DataFrame, vocab_size: int) -> pd.DataFrame:
+    required_cols = {"word", "pos", "frequency"}
+    if not required_cols.issubset(df.columns):
+        raise ValueError(f"DataFrame must contain columns {required_cols}")
+
+    if len(df) < vocab_size:
+        raise ValueError("Dataframe words are less than proposed vocab size extraction")
+
+    if vocab_size <= 0:
+        return df.iloc[0:0].copy()
+
+    pos_counts = df["pos"].value_counts()
+    total_count = len(df)
+
+    quotas = (pos_counts / total_count) * vocab_size
+
+    base_alloc = np.floor(quotas).astype(int)
+
+    remainder = quotas - base_alloc
+    remaining = vocab_size - base_alloc.sum()
+
+    if remaining > 0:
+        extra = remainder.sort_values(ascending=False).index[:remaining]
+        for pos in extra:
+            base_alloc[pos] += 1
+
+    selected_rows = []
+
+    for pos, n in base_alloc.items():
+        subset = df[df["pos"] == pos]
+        subset_sorted = subset.sort_values(by="frequency", ascending=False)
+        selected_rows.append(subset_sorted.head(n))
+
+    result = pd.concat(selected_rows)
+
+    if len(result) != vocab_size:
+        raise RuntimeError(
+            f"Selection failed: expected {vocab_size}, got {len(result)}"
+        )
+
+    return result.reset_index(drop=True)

@@ -1,0 +1,88 @@
+{
+    "sample_number": 4,
+    "round_number": 1,
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in Swedish.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "How are yes/no questions formed in basic Swedish grammar?",
+    "generated_text": "Ja/nej frågor bildas genom att lägga till \"nej\" vid slutet på frågan.",
+    "generator_name": "Custom_vLLM",
+    "language": "sv",
+    "perplexity": 1.8183977305470564,
+    "vocab_size": 500,
+    "review": {
+        "overall_score": 1.98,
+        "letter_grade": "D",
+        "model": "gpt-4o-mini",
+        "family": "openai",
+        "summary": "This round highlighted significant issues with factual correctness regarding the formation of yes/no questions in Swedish. Critics unanimously pointed out the incorrect claim about adding 'nej' to the end of questions, leading to low scores in factual correctness and clarity. Improvement in clarity and communication is necessary to ensure accurate and understandable explanations. Overall, the response requires substantial revisions to align with correct grammatical rules.",
+        "critic_scores": [
+            {
+                "model": "claude-sonnet-4-6",
+                "family": "anthropic",
+                "dimension": "Factual Correctness",
+                "profile": "sceptic",
+                "score": 1,
+                "rationale": "The claim that yes/no questions in Swedish are formed by adding 'nej' at the end of a sentence is critically incorrect. In Swedish, yes/no questions (ja/nej-frågor) are formed through subject-verb inversion (invertering), where the finite verb is placed before the subject, not by appending any word. 'Nej' simply means 'no' and plays no role in question formation.",
+                "improvement_tip": "Correct the explanation to state that Swedish yes/no questions are formed by inverting the subject and the finite verb (e.g., 'Du talar svenska.' → 'Talar du svenska?'), which is the standard inversion rule in Swedish grammar."
+            },
+            {
+                "model": "gpt-4o-mini",
+                "family": "openai",
+                "dimension": "Clarity & Communication",
+                "profile": "teacher",
+                "score": 2,
+                "rationale": "The response is hard to follow due to a significant structural issue; it incorrectly states that 'nej' is added to the end of a question, which is misleading. The explanation lacks detail and does not adequately describe how yes/no questions are actually formed in Swedish grammar.",
+                "improvement_tip": "Provide a clearer explanation of yes/no question formation in Swedish, including examples and correct grammatical structure."
+            },
+            {
+                "model": "claude-haiku-4-5-20251001",
+                "family": "anthropic",
+                "dimension": "Grammar & Naturalness",
+                "profile": "editor",
+                "score": 3,
+                "rationale": "The response is grammatically correct and understandable, with proper Swedish syntax and spelling. However, the explanation itself is somewhat unclear and potentially misleading—it suggests adding 'nej' (no) to the end of a statement to form yes/no questions, which is not accurate Swedish grammar. The phrasing 'lägga till \"nej\" vid slutet på frågan' (add 'no' at the end of the question) is awkwardly constructed and doesn't naturally convey the actual mechanism of Swedish yes/no question formation (which typically involves inversion of subject and verb).",
+                "improvement_tip": "Clarify the actual grammatical rule: yes/no questions in Swedish are formed by inverting the subject and verb (e.g., 'Du är här' → 'Är du här?'), not by adding 'nej' at the end. Rephrase for naturalness: 'Ja/nej-frågor bildas genom att invertera subjektet och verbet.'"
+            },
+            {
+                "model": "gemini-2.5-flash-lite",
+                "family": "google",
+                "dimension": "Task Match & Adequacy",
+                "profile": "analyst",
+                "score": 1,
+                "rationale": "The response incorrectly states that yes/no questions are formed by adding 'nej' (no) at the end of a question. This is not how yes/no questions are formed in Swedish. The correct method involves inverting the subject and verb.",
+                "improvement_tip": "Explain the correct grammatical structure for forming yes/no questions in Swedish, which involves subject-verb inversion, and provide examples."
+            }
+        ],
+        "top_improvements": [
+            "Correct the explanation to accurately reflect Swedish yes/no question formation through subject-verb inversion.",
+            "Provide clear examples to illustrate the correct grammatical structure.",
+            "Rephrase awkward constructions for better naturalness and clarity."
+        ],
+        "confidence": "low",
+        "score_variance": 0.688
+    },
+    "ledger_snapshot": {
+        "issues": [
+            {
+                "issue_id": "FC-001",
+                "dimension": "Factual Correctness",
+                "description": "Incorrect claim about forming yes/no questions by adding 'nej' at the end.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "open",
+                "recurrence_count": 1
+            },
+            {
+                "issue_id": "CC-001",
+                "dimension": "Clarity & Communication",
+                "description": "Explanation is hard to follow and misleading regarding question formation.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "open",
+                "recurrence_count": 1
+            }
+        ],
+        "round_summaries": [
+            "Factual correctness and clarity issues dominated this round, necessitating major revisions."
+        ]
+    }
+}

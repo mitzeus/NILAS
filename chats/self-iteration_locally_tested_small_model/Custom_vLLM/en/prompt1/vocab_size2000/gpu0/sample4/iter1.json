@@ -1,0 +1,97 @@
+{
+    "sample_number": 4,
+    "round_number": 1,
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in English.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "How do you form basic yes/no questions in English? Show simple patterns and examples.",
+    "generated_text": "To form basic yes/no questions in English, you switch the word order and add \"do\" at the beginning of the simple sentence. Here are some examples:\n\n- Simple sentence: \"The cat is sleeping.\"\n- Yes/no question: \"Is the cat sleeping?\"\n\n- Simple sentence: \"She likes apples.\"\n- Yes/no question: \"Does she like apples?\"\n\n- Simple sentence: \"They are going to the store.\"\n- Yes/no question: \"Are they going to the store?\"",
+    "generator_name": "Custom_vLLM",
+    "language": "en",
+    "perplexity": 1.310068564817306,
+    "vocab_size": 2000,
+    "review": {
+        "overall_score": 3.88,
+        "letter_grade": "B",
+        "model": "gpt-4o-mini",
+        "family": "openai",
+        "summary": "This round highlighted a significant issue with factual correctness regarding the explanation of yes/no question formation. Critics noted that the initial explanation oversimplified the rules, potentially misleading learners. While clarity and communication were generally strong, the inaccuracies in the foundational explanation detracted from the overall effectiveness. Moving forward, separating the rules for different verb tenses will enhance understanding.",
+        "critic_scores": [
+            {
+                "model": "claude-sonnet-4-6",
+                "family": "anthropic",
+                "dimension": "Factual Correctness",
+                "profile": "sceptic",
+                "score": 3,
+                "rationale": "The examples given are all correct and accurately demonstrate yes/no question formation. However, the opening explanation is partially inaccurate: it states you 'switch the word order and add do at the beginning,' but this only applies to sentences with auxiliary verbs like 'be' or 'have' — in those cases you invert the subject and auxiliary without adding 'do.' The 'do-support' rule applies specifically to simple present/past sentences without an auxiliary verb. Conflating these two distinct patterns into one rule is a factual oversimplification that could mislead learners.",
+                "improvement_tip": "Separate the two main patterns explicitly: (1) for sentences with an auxiliary verb (be, have, will, etc.), invert the subject and auxiliary (e.g., 'She is sleeping' → 'Is she sleeping?'); (2) for simple present/past sentences without an auxiliary, add 'do/does/did' before the subject (e.g., 'She likes apples' → 'Does she like apples?')."
+            },
+            {
+                "model": "gpt-4o-mini",
+                "family": "openai",
+                "dimension": "Clarity & Communication",
+                "profile": "teacher",
+                "score": 4,
+                "rationale": "The response is generally clear and provides a logical structure by presenting simple sentences followed by their corresponding yes/no questions. However, the initial explanation about switching word order and adding 'do' is slightly misleading, as it does not apply to all examples provided. This could cause confusion for learners.",
+                "improvement_tip": "Clarify that 'do' is used in specific cases, and ensure that the explanation accurately reflects the examples given, perhaps by specifying that 'is' and 'are' are used for questions involving 'to be' verbs."
+            },
+            {
+                "model": "claude-haiku-4-5-20251001",
+                "family": "anthropic",
+                "dimension": "Grammar & Naturalness",
+                "profile": "editor",
+                "score": 5,
+                "rationale": "The response is grammatically flawless with clear, natural phrasing throughout. Sentence structure is varied appropriately, and the explanation flows logically from rule to examples. The formatting with bullet points enhances readability without compromising naturalness.",
+                "improvement_tip": "No improvements needed; this is an exemplary response. If expanding further, consider adding a brief note about auxiliary verbs (do/does/did) to deepen understanding of the underlying pattern."
+            },
+            {
+                "model": "gemini-2.5-flash-lite",
+                "family": "google",
+                "dimension": "Task Match & Adequacy",
+                "profile": "analyst",
+                "score": 2,
+                "rationale": "The response provides examples of forming yes/no questions, but it incorrectly states the general rule. It suggests switching word order and adding 'do' at the beginning, which only applies to certain verb tenses and structures. The examples provided also don't consistently follow the stated rule, leading to confusion.",
+                "improvement_tip": "Clarify the rules for forming yes/no questions based on verb tense and auxiliary verbs (e.g., 'be', 'have', modal verbs) and provide examples for each distinct pattern."
+            }
+        ],
+        "top_improvements": [
+            "Clearly differentiate between rules for questions with auxiliary verbs and those without.",
+            "Ensure that explanations accurately reflect the examples provided.",
+            "Consider adding a brief note about auxiliary verbs to deepen understanding."
+        ],
+        "confidence": "medium",
+        "score_variance": 1.25
+    },
+    "ledger_snapshot": {
+        "issues": [
+            {
+                "issue_id": "FC-001",
+                "dimension": "Factual Correctness",
+                "description": "Initial explanation oversimplifies the rules for forming yes/no questions, potentially misleading learners.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "open",
+                "recurrence_count": 1
+            },
+            {
+                "issue_id": "CC-001",
+                "dimension": "Clarity & Communication",
+                "description": "Misleading explanation about switching word order and adding 'do' could cause confusion for learners.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "open",
+                "recurrence_count": 1
+            },
+            {
+                "issue_id": "DC-001",
+                "dimension": "Depth & Completeness",
+                "description": "Lack of clarity on the rules for forming yes/no questions based on verb tense and auxiliary verbs.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "open",
+                "recurrence_count": 1
+            }
+        ],
+        "round_summaries": [
+            "Factual correctness issues were identified, particularly in the explanation of yes/no question formation."
+        ]
+    }
+}

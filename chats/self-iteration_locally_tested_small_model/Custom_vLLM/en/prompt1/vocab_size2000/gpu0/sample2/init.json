@@ -1,0 +1,10 @@
+{
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in English.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "How do you form basic yes/no questions in English? Show simple patterns and examples.",
+    "generated_text": "To form basic yes/no questions in English, you switch the word order and add \"do\" at the beginning of the simple sentence. Here are some examples:\n\n- Simple sentence: \"The cat is sleeping.\"\n- Yes/no question: \"Is the cat sleeping?\"\n\n- Simple sentence: \"She likes apples.\"\n- Yes/no question: \"Does she like apples?\"\n\n- Simple sentence: \"They are going to the store.\"\n- Yes/no question: \"Are they going to the store?\"",
+    "generator_name": "Custom_vLLM",
+    "language": "en",
+    "perplexity": 1.310122787714848,
+    "vocab_size": 2000,
+    "sample_number": 2
+}

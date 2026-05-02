@@ -1,667 +1,353 @@
-import pandas as pd
-import json
-import spacy
-import re
+import numpy as np
+
+from src.ai.beam_search import BeamSearch
+from src.ai.tools import (
+    build_chat_with_token_ids,
+    generate_token,
+    find_optimal_beams,
+    get_max_token_length_of_vocab,
+    process_vocab_to_prompt,
+)
+from vllm.inputs import TokensPrompt
+from typing import Literal, Optional
+from vllm import SamplingParams
+from typing import Union
+
+from src.helper.typing import WordConstraintType, Verbosity
+
+language_map = {"en": "English", "sv": "Swedish", "es": "Spanish", "kr": "Korean"}
 
 
-class Prompt_Preprocessor:
-    def __init__(self):
-        pass
+class Custom_vLLM:
+    def __init__(
+        self,
+        model: object,
+        tokenizer: object,
+        lemmatizer: object,
+        language: str,
+        allowed_words: list[str],
+        beam_size: int = 1,
+        word_soft_constraint_penalty: float = 2.5,
+        alpha: float = 0.6,
+    ):
+        self.output = ""
+        self.perplexity = None
+
+        self.beam_average_logprobs = None
+
+        self.model = model
+        self.tokenizer = tokenizer
+        self.eos_token_id = tokenizer.eos_token_id
+        self.lemmatizer = lemmatizer
+        self.language = language_map[language]
+        self.allowed_words = allowed_words
+        self.beam_size = beam_size
+        self.word_soft_constraint_penalty = word_soft_constraint_penalty
+        self.alpha = alpha
+
+        self.beam_tree = BeamSearch(
+            beam_size=self.beam_size,
+            allowed_words=self.allowed_words,
+            tokenizer=self.tokenizer,
+            allowed_word_penalty=self.word_soft_constraint_penalty,
+            alpha=self.alpha,
+        )
+
+    def _calculate_perplexity(self):
+        """
+        Calculates perplexity, either for the best selected beam if finished, or for each of the non-finished beam candidates
+        """
+        if isinstance(self.beam_average_logprobs, list):
+            self.perplexity = [np.exp(-logprob) for logprob in self.beam_logprobs]
+        elif isinstance(self.beam_average_logprobs, float):
+            self.perplexity = np.exp(-self.beam_average_logprobs)
+        else:
+            raise TypeError(
+                f"beam_average_logprob is invalid type. Expected `list` | `int`, got {type(self.beam_average_logprobs)}"
+            )
+
+    def _reset(self):
+        self.output = ""
+        self.perplexity = None
+        self.beam_average_logprobs = None
+        self.beam_tree.reset()
 
     def __call__(
         self,
-        prompt: str,
-        flashcards: pd.DataFrame,
-        target_language: str = None,
-        preferred_language: str = None,
-        level: str = None,
-    ) -> str:
-        engineered_prompt = f"""
-        User Question:
-            {prompt}
-
-            User Flashcards (Known Words):
-            {flashcards}
-
-
-        """.strip()
-
-        engineered_prompt += (
-            f"\n Target Language: {target_language}" if target_language != None else ""
-        )
-        engineered_prompt += f"\n User Level: {level}" if level != None else ""
-        engineered_prompt += (
-            f"\n Preferred Language: {preferred_language}"
-            if preferred_language != None
-            else ""
-        )
-
-        return engineered_prompt
-
-
-process_prompt = Prompt_Preprocessor()
-
-
-class Conversation_Model:
-    def __init__(
-        self,
-        system_message: str,
-        model_client: object,
-        model_name: str,
-        temperature: float = 0.3,
-        max_output_tokens: int = 1000,
-        tokenwise_generation: bool = False,
-        store: bool = False,
-        keep_history: bool = True,
-        save_history_to_file: bool = True,
+        system_prompt: str,
+        user_prompt: str,
+        sampling_params: SamplingParams,
+        max_sequence_length: int = 200,
+        use_word_constraint: bool = False,
+        word_constraint_type: WordConstraintType = "hard",
+        prompt_allowed_words: bool = False,
+        verbose: Verbosity = "sequence",
     ):
-        self.model_client = model_client
-        self.model_name = model_name
-        self.temperature = temperature
-        self.max_output_tokens = max_output_tokens
-        self.store = store
-        self.keep_history = keep_history
-        self.save_history_to_file = save_history_to_file
-        if self.save_history_to_file:
-            self.file_save_name = (
-                f"chats/chat_{pd.Timestamp.now().strftime('%Y%m%d_%H%M%S')}.json"
-            )
-        self.system_message = system_message
+        self._reset()  # reset everything before generating
 
-        self.flashcards = None
-        self.history = [
-            {
-                "role": "system",
-                "content": self.system_message,
-            }
-        ]
-        # self.history = [
-        #     {
-        #         "role": "system",
-        #         "content": [{"type": "input_text", "text": self.system_message}],
-        #     }
-        # ]
-        self.single_token_sequence_length = 0
-
-    def _save_history(self):
-        with open(self.file_save_name, "w") as f:
-            json_history = json.dumps(self.history, indent=4)
-            f.write(json_history)
-
-    def import_word_library(self, flashcards: pd.DataFrame):
-        # Takes dataframe with columns: [freq	level	affix	word]
-
-        flashcards_string = """"""
-
-        for _, row in flashcards.iterrows():
-            flashcards_string += f"{row["word"]}\n"
-
-        self.flashcards = flashcards_string
-
-    def determine_level(self) -> str:
-        # TODO: implement method to determine user level based on flashcards CEFR level and amount of words in flashcard library
-        pass
-
-        # TODO add a "build_partial_sequence" bool that when true will when generated append onto an assistant
-        # TODO part instead of completing it until it's set again and locks the final output for using beam_search
-
-    def generate_tokenwise(
-        self,
-        prompt: str,
-        generated_sequence: str,
-        top_logprobs: int = 20,
-        n_tokens: int = 1,
-        new_prompt: bool = False,
-        target_language: str = None,
-        preferred_language: str = None,
-        level: str = None,
-    ) -> tuple[object, object | list[object], str | list[str], bool]:
-        """
-        Tokenwise generation. Generates only one token at a time. Used for implementation with other tokenwise algorithms.
-
-        Args:
-            prompt: Original prompt
-            generaged_sequence: The partial or empty generated sequence (should be updated for every call)
-            top_logprobs: Specifies how many top logprobs to get from the model response
-            n_tokens: how many tokens to generate for each function call. `1` is recommended for per-token operations
-            target_language: Language which the model will interperet as being the language user wants to learn
-            preferred_language: Language which the model will interperet as your preferred language to receive response in
-            level: User language level (For example CEFR: A1, A2, B1, B2, C1, C2)
-
-
-        Returns:
-            object: Response object from OpenAI responses API
-            object | list[object]: top logprobs object extracted from OpenAI responses API, or list of top logprobs if `n_tokens > 1`.
-            str | list[str]: Single generated token or if `n_tokens > 1`, a list of tokens
-            bool: If the model is finished and is done generating the full sequence
-        """
-        if self.flashcards == None:
-            print(
-                "WARNING: No word library has been imported. No flashcard limitations are set."
-            )
-
-        preprocessed_prompt = process_prompt(
-            prompt=prompt,
-            flashcards=self.flashcards,
-            target_language=target_language,
-            preferred_language=preferred_language,
-            level=level,
+        system_prompt = process_vocab_to_prompt(
+            system_prompt, self.allowed_words, self.language, prompt_allowed_words
         )
 
-        # if self.keep_history and new_prompt == True:
-        #     self.history += [
-        #         {
-        #             "role": "user",
-        #             "content": preprocessed_prompt,
-        #         }
-        #     ]
-        # else:
-        #     self.history = [
-        #         {
-        #             "role": "system",
-        #             "content": self.system_message,
-        #         },
-        #         {
-        #             "role": "user",
-        #             "content": preprocessed_prompt,
-        #         },
-        #     ]
-
-        if new_prompt == True:
-            self.history += [
-                {
-                    "role": "user",
-                    "content": preprocessed_prompt,
-                }
-            ]
-
-        # if (
-        #     generated_sequence
-        # ):  # appends previously generated sequence to build on one token at a time
-        #     # print("adding")
-        #     # if self.history[-1]["role"] == "assistant":
-        #     #     self.history[-1]["content"] = generated_sequence
-
-        #     # else:
-        #     #     self.history += [
-        #     #         {
-        #     #             "role": "assistant",
-        #     #             "content": generated_sequence,
-        #     #         }
-        #     #     ]
-        #     pass
-        # else:
-        #     self.single_token_sequence_length = 0
-
-        if self.history[-1]["role"] == "assistant":
-            self.history[-1]["content"] = generated_sequence
-
-        else:
-            self.history += [
-                {
-                    "role": "assistant",
-                    "content": generated_sequence,
-                }
-            ]
-
-        # print(self.history)
-
-        # response = self.model_client.ChatCompletion.create(
-        #     model=self.model_name,
-        #     messages=self.history,
-        #     temperature=self.temperature,
-        #     max_completion_tokens=n_tokens,
-        #     logprobs=True,
-        #     store=self.store,
-        #     top_logprobs=top_logprobs,
-        # )
-
-        print(self.history[-1]["content"])
-
-        response = self.model_client.completions.create(
-            model=self.model_name,
-            prompt="\n".join(f"{m['role']}: {m['content']}" for m in self.history),
-            temperature=self.temperature,
-            max_tokens=n_tokens,
-            # logprobs=True,
-            # store=self.store,
-            # top_logprobs=top_logprobs,
-            logprobs=top_logprobs,
+        max_possible_token_length_of_vocab = get_max_token_length_of_vocab(
+            self.allowed_words, self.tokenizer
         )
 
-        self.single_token_sequence_length += n_tokens
-
-        choice = response.choices[0]
-
-        is_finished = self._check_if_generation_is_finished(
-            choice, self.max_output_tokens, self.single_token_sequence_length
+        original_token_ids = build_chat_with_token_ids(
+            system_prompt, user_prompt, self.tokenizer
         )
+        token_ids_for_beams = [
+            [] for _ in range(self.beam_tree.beam_size)
+        ]  # Use this to keep track of token IDs for each beam
+        prompts_token_ids = [
+            original_token_ids.copy() for _ in range(self.beam_tree.beam_size)
+        ]  # Use this to build original + generated token
 
-        # response_top_logprobs = (
-        #     [choice.logprobs.content[i].top_logprobs for i in range(n_tokens)]
-        #     if n_tokens > 1
-        #     else choice.logprobs.content[0].top_logprobs
-        # )
+        for seq_step in range(max_sequence_length):
+            if verbose == "full" or verbose == "sequence":
+                print(f"Sequence step: {seq_step + 1}")
+            # Generate one token per seq step (in the beam tree it is processing full breath and each token is one step in depth)
 
-        # generated_response = (
-        #     [choice.logprobs.content[i].token for i in range(n_tokens)]
-        #     if n_tokens > 1
-        #     else choice.logprobs.content[0].token
-        # )
-        response_top_logprobs = (
-            [choice.logprobs.top_logprobs[i] for i in range(n_tokens)]
-            if n_tokens > 1
-            else choice.logprobs.top_logprobs[0]
-        )
-
-        generated_response = (
-            [choice.logprobs.tokens[i] for i in range(n_tokens)]
-            if n_tokens > 1
-            else choice.logprobs.tokens[0]
-        )
-
-        # response_top_logprobs = choice.logprobs.content[0].top_logprobs
-
-        # generated_response = choice.logprobs.content[0].token
-
-        return response, response_top_logprobs, generated_response, is_finished
-
-    def _check_if_generation_is_finished(self, choice, max_tokens, generated_tokens_nr):
-        """
-        Used by `generate_tokenwise` to check if n token generation has finished or reached maximum allowed token amount.
-
-        Args:
-            choice: OpenAI responses API object with first choice extracted (`n=1` in the API)
-            max_tokens: Maximum allowed tokens to generate
-            generated_tokens_nr: Current number of generated tokens in the generated sequence
-
-        Returns:
-            bool: If the model is finished and is done generating the full sequence
-        """
-        FINISH_TOKENS = ["<|endoftext|>", "<|im_end|>"]
-
-        want_to_finish = False
-
-        if choice.finish_reason == "stop":
-            want_to_finish = True
-
-        # if choice.logprobs.content[-1].token in FINISH_TOKENS:
-        #     want_to_finish = True
-
-        # if generated_tokens_nr >= max_tokens:
-        #     want_to_finish = True
-
-        return want_to_finish
-
-    def ask(
-        self,
-        prompt: str,
-        target_language: str = None,
-        preferred_language: str = None,
-        level: str = None,
-    ) -> tuple[object, str]:
-        """
-        Ask function for model.
-
-        Args:
-            prompt: User prompt
-            target_language: Language which the model will interperet as being the language user wants to learn
-            preferred_language: Language which the model will interperet as your preferred language to receive response in
-            level: User language level (For example CEFR: A1, A2, B1, B2, C1, C2)
-
-        Returns:
-            object: Response object from OpenAI responses API
-            str: Output text from the response object
-        """
-        if self.flashcards == None:
-            print(
-                "WARNING: No word library has been imported. No flashcard limitations are set."
-            )
-
-        preprocessed_prompt = process_prompt(
-            prompt=prompt,
-            flashcards=self.flashcards,
-            target_language=target_language,
-            preferred_language=preferred_language,
-            level=level,
-        )
-
-        if self.keep_history:
-            self.history += [
-                {
-                    "role": "user",
-                    "content": [{"type": "input_text", "text": preprocessed_prompt}],
-                }
-            ]
-        else:
-            self.history = [
-                {
-                    "role": "system",
-                    "content": [{"type": "input_text", "text": self.system_message}],
-                },
-                {
-                    "role": "user",
-                    "content": [{"type": "input_text", "text": preprocessed_prompt}],
-                },
-            ]
-
-        response = self.model_client.responses.create(
-            model=self.model_name,
-            input=self.history,
-            temperature=self.temperature,
-            max_output_tokens=self.max_output_tokens,
-            store=self.store,
-        )
-
-        if self.keep_history:
-            self.history += [
-                {
-                    "role": "assistant",
-                    "content": [{"type": "output_text", "text": response.output_text}],
-                }
-            ]
-        else:
-            self.history = [
-                {
-                    "role": "assistant",
-                    "content": [{"type": "output_text", "text": response.output_text}],
-                }
-            ]
-
-        if self.save_history_to_file:
-            self._save_history()
-
-        return response, response.output_text
-
-
-class Conversation:
-    def __init__(
-        self,
-        id: str,
-        question_id: int,
-        sample_id: int,
-        nr_vocab: int,
-        question: str,
-        response: str,
-        word_limits: str = None,
-    ):
-        self.id = id
-        self.question_id = question_id
-        self.sample_id = sample_id
-        self.nr_vocab = nr_vocab
-        self.question = question
-        self.response = response
-        self.word_limits = word_limits
-
-        self.lexical = self.Lexical(self)
-        self.naturalness = self.Naturalness(self)
-
-    class Lexical:
-        def __init__(self, parent):
-            self.parent = parent
-
-    class Naturalness:
-        def __init__(self, parent):
-            self.parent = parent
-
-
-class Corrector:
-    """
-    The corrector is a module that implements improvement and evaluation steps.
-    It handles checking measurements of the output with respect to lexical con-
-    straints and naturalness, then sends feedback back to the model for iterative
-    improvement.
-    """
-
-    def __init__(self):
-        """
-        ## Args:
-            None
-
-        ## Returns:
-            None
-        """
-        # Define subcomponents of corrector
-        self.lexical = self.Lexical(self)
-        self.naturalness = self.Naturalness(self)
-
-        # Attributes
-        self.conversation_data = None
-        self.flashcards = None
-
-    def fit(self, conversation_data: list[dict], flashcards: list[str] = None):
-        """
-        Fits LLM conversation history to corrector model, enabling usage of improvement and evaluation methods.
-
-        ## Args:
-            `conversation_data (list[dict])`: Conversation history from an API model.
-
-            `flashcards (str)`: String of words separated by `\\n`
-
-        ## Returns:
-            None
-        """
-        self.conversation_data = conversation_data
-        self.flashcards = flashcards
-
-    class Lexical:
-        """
-        All methods related to lexical constraint processing.
-        """
-
-        def __init__(self, parent):
-            self.parent = parent
-
-        def llm_classification(
-            self, model_client: object, model_name: str, system_message: str
-        ) -> str:
-            """
-            Classifies each word in a string as new or old given `self.flashcards` using a separate LLM model.
-
-            All results DataFrames are appended to Conversation object: `conversation.lexical.llm_classification`.
-
-            ## Args:
-                `model_client (object)`: Object for model client to use
-                `model_name (str)`: Model name to use in the client
-                `system_message (str)`: System Message used for model instructions
-
-            ## Returns:
-                `list[pd.DataFrame]`: List of Dataframe with columns "word" and "is_new" for each word in the string
-
-            """
-            conversations = self.parent.conversation_data
-
-            list_of_dfs = []
-
-            for conversation in conversations:
-
-                response = conversation.response.split("/?VOCABULARY?/")
-                response = response[0]
-
-                full_prompt = f"""
-                The sentence is:
-                "{response}"
-
-                Flashcard List:
-                {self.parent.flashcards}
-                """
-
-                rated_response = model_client.responses.create(
-                    model=model_name,
-                    input=[
-                        {
-                            "role": "system",
-                            "content": [{"type": "input_text", "text": system_message}],
-                        },
-                        {
-                            "role": "user",
-                            "content": [{"type": "input_text", "text": full_prompt}],
-                        },
-                    ],
-                    temperature=0.1,
-                    max_output_tokens=10000,
-                    store=False,
+            if self.beam_tree.initialized == False:
+                # Generate the beam root
+                (
+                    print(f"Generating for {self.beam_tree.beam_size} beams.")
+                    if verbose == "full"
+                    else None
                 )
 
-                # print(rated_response.output_text)
+                logprobs_dict, sampled_token_id, greedy_token_id = generate_token(
+                    original_token_ids, self.model, sampling_params
+                )
 
-                # assumes this version:
-                # Varje,0
-                # dag,0
-                # vaknar,0
+                (
+                    print(f"Generated. Now finding optimal beams...")
+                    if verbose == "full"
+                    else None
+                )
 
-                word_status_pairs = rated_response.output_text.split("\n")
+                beam_objects = find_optimal_beams(
+                    logprobs_dict,
+                    self.beam_tree,
+                    original_token_ids,
+                    self.allowed_words,
+                    self.model,
+                    sampling_params,
+                    self.tokenizer,
+                    self.lemmatizer,
+                    self.eos_token_id,
+                    max_possible_token_length=max_possible_token_length_of_vocab,
+                    use_word_constraint=use_word_constraint,
+                    word_soft_constraint_penalty=self.word_soft_constraint_penalty,
+                    word_constraint_type=word_constraint_type,
+                )
 
-                df = pd.DataFrame(columns=["word", "is_new"])
-                words = []
-                is_news = []
+                print("Found optimal beams.") if verbose == "full" else None
 
-                for word_status_pair in word_status_pairs:
-                    word_status_pair_splitted = word_status_pair.split(
-                        ","
-                    )  # split word and status
+                for i, beam in enumerate(beam_objects):
+                    prompts_token_ids[i] = (
+                        original_token_ids.copy() + beam.ids
+                    )  # add the last chosen token ids to the respective generated token id list (original + generated)
 
-                    if len(word_status_pair_splitted) != 2:
-                        continue
+                (
+                    print(
+                        "Now appended chosen tokens. Continuing to next sequence step...\n"
+                    )
+                    if verbose == "full"
+                    else None
+                )
 
-                    words.append(word_status_pair_splitted[0])
-                    is_news.append(int(word_status_pair_splitted[1]))
+            else:
+                # Continue generating for N beams
+                (
+                    print(f"Generating for {self.beam_tree.beam_size} beams.")
+                    if verbose == "full"
+                    else None
+                )
 
-                df["word"] = words
-                df["is_new"] = is_news
+                logprobs_dicts, sampled_token_ids, greedy_token_ids = generate_token(
+                    prompts_token_ids,
+                    self.model,
+                    sampling_params,  # now inputting list of prompt + generated token ids for each beam
+                )
 
-                conversation.lexical.llm_classification = df
+                (
+                    print(f"Generated. Now finding optimal beams...")
+                    if verbose == "full"
+                    else None
+                )
 
-                list_of_dfs.append(df)
+                beam_objects = (
+                    find_optimal_beams(  # will find best beams over all branches
+                        logprobs_dicts,
+                        self.beam_tree,
+                        prompts_token_ids,
+                        self.allowed_words,
+                        self.model,
+                        sampling_params,
+                        self.tokenizer,
+                        self.lemmatizer,
+                        self.eos_token_id,
+                        max_possible_token_length=max_possible_token_length_of_vocab,
+                        use_word_constraint=use_word_constraint,
+                        word_soft_constraint_penalty=self.word_soft_constraint_penalty,
+                        word_constraint_type=word_constraint_type,
+                    )
+                )
 
-            return list_of_dfs
+                if self.beam_tree.finished:
+                    # print("Fully finished.")
+                    self.output = self.tokenizer.decode(
+                        self.beam_tree.best_beam.ids, skip_special_tokens=True
+                    )
+                    self.beam_average_logprobs = (
+                        self.beam_tree.best_beam.logprob
+                    ) / len(self.beam_tree.best_beam.ids)
+                    break
 
-        def raw_checking(self):
-            """
-            Processes model output using traditional NLP methods
-            and compares the used vocabulary with the allowed vocabulary
-            lists. Each word is then marked according to if it is an existing or new
-            word and checks both if all new words are marked correctly and if the
-            output followed CI constraint
+                print("Found optimal beams.") if verbose == "full" else None
 
-            ## Args:
-                None
+                for i, beam in enumerate(beam_objects):
+                    prompts_token_ids[i] = original_token_ids.copy() + beam.ids
 
-            ## Returns:
-                `pd.DataFrame`
-            """
-            # TODO implement checking using traditional methods
+                (
+                    print(
+                        "Now appended chosen tokens. Continuing to next sequence step...\n"
+                    )
+                    if verbose == "full"
+                    else None
+                )
 
-            # Lemmatization and NLP proecessing from scratch
-            # SpaCy is a popular library for lemmatization
+        if not self.beam_tree.finished:
+            # print("Did not finish before seqence maximum.")
+            # Find the beam with the best (highest) logprob
+            best_beam = max(self.beam_tree.beams, key=lambda b: b.logprob)
+            self.output = self.tokenizer.decode(best_beam.ids, skip_special_tokens=True)
+            self.beam_average_logprobs = best_beam.logprob / len(best_beam.ids)
 
-            # There is also a version using spaCy to train yourself, but as we have POS tags, that's what will be used
-            # SpaCy also has support for Spanish, Swedish and Korean
+        self._calculate_perplexity()
 
-            # Available Models
-            # Korean: ko_core_news_lg (large),  ko_core_news_sm (small)
-            # Spanish: es_dep_news_trf (large), es_core_news_sm (small)
-            # Swedish: sv_core_news_lg (large), sv_core_news_sm (small)
-
-            conversations = self.parent.conversation_data
-
-            list_of_dfs = []
-
-            for conversation in conversations:
-
-                # Extract only text
-                text = conversation.response.split("/?VOCABULARY?/")
-                text = text[0]
-
-                # preprocess
-                text = text.lower()
-                text = re.sub(r"[^\w\s]|\n", "", text)  # removes special letters
-
-                nlp = spacy.load("sv_core_news_lg")  # for Swedish
-
-                word_list = []
-                lemma_list = []
-                score_list = []
-
-                doc = nlp(text)
-                # print(doc.text)
-                for token in doc:
-                    # print(token.text, "->", token.lemma_)
-                    lemma = token.lemma_
-
-                    if token.lemma_ in self.parent.flashcards:
-                        score_list.append(0)
-                    else:
-                        score_list.append(1)
-
-                    word_list.append(token.text)
-                    lemma_list.append(lemma)
-
-                df = pd.DataFrame(columns=["word", "lemma", "score"])
-                df["word"] = word_list
-                df["lemma"] = lemma_list
-                df["score"] = score_list
-
-                conversation.lexical.raw_checking = df
-
-                list_of_dfs.append(df)
-
-            return list_of_dfs
-
-    class Naturalness:
-        """
-        All methods related to Naturalness processing.
-        """
-
-        def __init__(self, parent):
-            self.parent = parent
-
-        def perplexity(self):
-            """
-            Computes perplexity given a word sequence.
-
-            ## Args:
-                None
-
-            ## Returns:
-                `float`
-            """
-            # TODO implement perplexity
-            pass
-
-        def llmaaj(self, model: object, args: dict):
-            """
-            Lets other LLMs judge and rate areas of the model
-            output and propose improvements. Several different LLMs would allow
-            for more advanced reasoning and result in a more nuanced final rating
-            and critics.
-
-            ## Args:
-                `model (object)`: Object for model to use
-                `args (dict)`: arguments that will be passed to model
+        return self.output, self.perplexity
 
 
-            ## Returns:
-                `pd.DataFrame`: Ratings of each category
+class Vanilla_vLLM:
+    def __init__(
+        self,
+        model: object,
+        tokenizer: object,
+        language: str,
+        allowed_words: list[str],
+    ):
+        self.output = ""
+        self.perplexity = None
+        self.sequence_logprobs = []
 
-                `str`: Prompt for improving model output
-            """
-            # TODO Implement LLM as a Judge
-            pass
+        self.model = model
+        self.tokenizer = tokenizer
+        self.language = language_map[language]
+        self.allowed_words = allowed_words
 
-        def human_compare(self, human_corpus: str):
-            """
-            Calculates distributions of key measurements of
-            both the model output and a human-written corpus and com-
-            pares how similar the distributions are using KL-Divergence
+    def _calculate_perplexity(self):
+        self.perplexity = np.exp(-np.mean(self.sequence_logprobs))
 
-            ## Args:
-                `human_corpus (str)`: Human-written corpus/text that the method will compare the generated output to
+    def __call__(
+        self,
+        system_prompt: str,
+        user_prompt: str,
+        sampling_params: SamplingParams,
+        max_sequence_length: int = 200,
+        use_word_constraint: bool = False,
+        word_constraint_type: WordConstraintType | None = None,
+        prompt_allowed_words: bool = False,
+        verbose: Verbosity = None,
+    ) -> tuple[str, float]:
+
+        system_prompt = process_vocab_to_prompt(
+            system_prompt, self.allowed_words, self.language, prompt_allowed_words
+        )
+
+        original_token_ids = build_chat_with_token_ids(
+            system_prompt, user_prompt, self.tokenizer
+        )
+
+        outputs = self.model.generate(
+            TokensPrompt(prompt_token_ids=original_token_ids),
+            sampling_params=sampling_params,
+            use_tqdm=True if verbose is "full" else False,
+        )
+
+        self.output = outputs[0].outputs[0].text
+        for token in outputs[0].outputs[0].logprobs:
+            for chosen in token.values():
+                self.sequence_logprobs.append(chosen.logprob)
+
+        self._calculate_perplexity()
+
+        return self.output, self.perplexity
 
 
-            ## Returns:
-                `pd.DataFrame`: DataFrame of Distribution distances based on category
+class Vanilla_ChatGPT:
+    def __init__(
+        self, client: object, model: str, language: str, allowed_words: list[str]
+    ):
+        self.output = ""
+        self.perplexity = None
+        self.sequence_logprobs = None
 
-            """
-            # TODO Implement Text Distribution Comparison using human corpus
-            pass
+        self.client = client
+        self.model = model
+        self.language = language_map[language]
+        self.allowed_words = allowed_words
+
+    def _calculate_perplexity(self):
+        self.perplexity = np.exp(-np.mean(self.sequence_logprobs))
+
+    def __call__(
+        self,
+        system_prompt: str,
+        user_prompt: str,
+        sampling_params: SamplingParams,
+        max_sequence_length: int = 200,
+        use_word_constraint: bool = False,
+        word_constraint_type: WordConstraintType | None = None,
+        prompt_allowed_words: bool = False,
+        verbose: Verbosity = None,
+    ):
+
+        system_prompt = process_vocab_to_prompt(
+            system_prompt, self.allowed_words, self.language, prompt_allowed_words
+        )
+        # print(system_prompt)
+
+        prompt = [
+            {
+                "role": "system",
+                "content": [{"type": "input_text", "text": system_prompt}],
+            },
+            {"role": "user", "content": [{"type": "input_text", "text": user_prompt}]},
+        ]
+
+        print("ChatGPT processing...") if verbose is True else None
+        response = self.client.responses.create(
+            model=self.model,
+            input=prompt,
+            temperature=sampling_params.temperature,
+            # top_k=sampling_params.top_k, # does not exist in this API
+            top_p=sampling_params.top_p,
+            # seed=sampling_params.seed,
+            max_output_tokens=max_sequence_length,
+            include=["message.output_text.logprobs"],
+        )
+        print("ChatGPT Done.") if verbose is True else None
+
+        self.output = response.output_text
+        self.sequence_logprobs = [
+            token_info.logprob for token_info in response.output[0].content[0].logprobs
+        ]
+
+        self._calculate_perplexity()  # do this before finishing
+
+        return self.output, self.perplexity
+
+
+Generators = Union[Custom_vLLM, Vanilla_vLLM, Vanilla_ChatGPT]

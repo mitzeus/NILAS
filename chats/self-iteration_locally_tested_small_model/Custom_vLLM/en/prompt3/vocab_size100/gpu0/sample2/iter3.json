@@ -1,0 +1,99 @@
+{
+    "sample_number": 2,
+    "round_number": 3,
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in English.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "TASK:\n            How do prepositions like “in,” “on,” and “at” work in basic English sentences?\n\n            PREVIOUS BEST DRAFT (score: 3.9/5.0):\n            ---\n            Prepositions like \"in,\" \"on,\" and \"at\" indicate the relationship between the parts of a sentence. \n\n- \"In\" is used for larger spaces like rooms or time periods like years.\n- \"On\" is used for specific days of the week or times like noon.\n- \"At\" is used for more precise times like a specific time of the day or a point in time.\n\nUsage examples:\n- \"The book is in the drawer.\" (in)\n- \"It's on the table.\" (on)\n- \"She's at the park.\" (at)\n            ---\n\n            REVISION INSTRUCTIONS:\n            Rewrite the draft above to address the following issues.\n            Preserve what was already working well. Do not simply patch — rewrite\n            sections where issues are deep.\n\n\nThe following issues MUST be fixed in this revision:\n  ✗ [FC-001] Factual Correctness: Inaccurate descriptions of prepositions 'in,' 'on,' and 'at,' including misleading examples. (flagged 2 times)\n  ✗ [CC-001] Clarity & Communication: Initial sentence lacks specificity about the relationships indicated by the prepositions. (flagged 2 times)\n  ✗ [DC-001] Depth & Completeness: Examples provided do not consistently illustrate the rules for preposition usage. (flagged 2 times)\n\n            Produce the improved version now. Output only the revised text, no preamble.",
+    "generated_text": "Prepositions like \"in,\" \"on,\" and \"at\" show the relationship between parts of a sentence. \n\n- \"In\" is used for larger spaces like rooms or time periods like years.\n- \"On\" is used for specific days of the week or times like noon.\n- \"At\" is used for more precise times like a specific time of the day or a point in time.\n\nUsage examples:\n- \"The book is in the drawer.\" (in)\n- \"It's on the table.\" (on)\n- \"She's at the park.\" (at)",
+    "generator_name": "Custom_vLLM",
+    "language": "en",
+    "perplexity": 4.140796606656602,
+    "vocab_size": 100,
+    "review": {
+        "overall_score": 2.55,
+        "letter_grade": "C",
+        "model": "gpt-4o-mini",
+        "family": "openai",
+        "summary": "This round shows a concerning lack of improvement, with the weighted aggregate score remaining low at 2.55/5.0. The issues identified in previous rounds, particularly regarding factual correctness and clarity, persist without resolution. The feedback indicates that the descriptions of prepositions continue to be inaccurate and incomplete, leading to confusion. Overall, there is a clear need for a comprehensive rewrite to address these ongoing issues.",
+        "critic_scores": [
+            {
+                "model": "claude-sonnet-4-6",
+                "family": "anthropic",
+                "dimension": "Factual Correctness",
+                "profile": "sceptic",
+                "score": 2,
+                "rationale": "The descriptions of the prepositions remain factually inaccurate and incomplete. 'In' is described only for rooms and years, omitting its use for surfaces enclosed in containers, cities, countries, and months. 'On' is incorrectly limited to days of the week and 'times like noon' — noon is not a typical example for 'on'; 'on' is primarily used for surfaces and days (e.g., 'on Monday'), not times. 'At' is described as for 'precise times' but the example 'She's at the park' illustrates a location, not a time — contradicting the stated rule. These persistent errors (FC-001) have not been corrected from prior rounds.",
+                "improvement_tip": "Rewrite each rule to cover both time AND place usage accurately: 'in' = enclosed spaces and longer time periods (months, years, seasons); 'on' = surfaces and specific days/dates; 'at' = precise points in time (at 5 p.m.) AND specific locations (at the park, at the corner). Ensure every example directly illustrates the rule stated for that preposition."
+            },
+            {
+                "model": "gpt-4o-mini",
+                "family": "openai",
+                "dimension": "Clarity & Communication",
+                "profile": "teacher",
+                "score": 2,
+                "rationale": "The initial sentence still lacks specificity regarding the types of relationships indicated by the prepositions, making it hard to grasp their function. Additionally, the descriptions of 'in,' 'on,' and 'at' remain inaccurate and do not fully clarify their usage, leading to confusion. The examples provided do not consistently illustrate the rules for preposition usage, which further detracts from clarity.",
+                "improvement_tip": "Revise the definitions of 'in,' 'on,' and 'at' to provide clearer, more accurate explanations, and ensure that the examples directly correspond to those definitions."
+            },
+            {
+                "model": "claude-haiku-4-5-20251001",
+                "family": "anthropic",
+                "dimension": "Grammar & Naturalness",
+                "profile": "editor",
+                "score": 4,
+                "rationale": "The response is grammatically sound with correct sentence structure, proper punctuation, and natural phrasing throughout. The bullet-point format flows logically, and the examples are clearly presented. Minor stylistic variations (e.g., 'show' vs. 'indicate') maintain readability without introducing errors.",
+                "improvement_tip": "While grammar is solid, consider varying sentence structure slightly—for example, combining some bullet points or using transitional phrases like 'For instance' before examples to enhance flow and reduce repetitiveness."
+            },
+            {
+                "model": "gemini-2.5-flash-lite",
+                "family": "google",
+                "dimension": "Task Match & Adequacy",
+                "profile": "analyst",
+                "score": 1,
+                "rationale": "The response failed to address any of the critical issues flagged in the prompt, including factual correctness, clarity, and depth of examples. The output is identical to the previous draft, indicating no revision or improvement was made.",
+                "improvement_tip": "Thoroughly review the flagged issues and rewrite the content to accurately reflect the rules for using 'in,' 'on,' and 'at,' providing clearer explanations and more illustrative examples."
+            }
+        ],
+        "top_improvements": [
+            "Rewrite each rule to cover both time AND place usage accurately.",
+            "Revise the definitions of 'in,' 'on,' and 'at' to provide clearer, more accurate explanations.",
+            "Thoroughly review the flagged issues and rewrite the content to accurately reflect the rules for using 'in,' 'on,' and 'at.'"
+        ],
+        "confidence": "low",
+        "score_variance": 1.188
+    },
+    "ledger_snapshot": {
+        "issues": [
+            {
+                "issue_id": "FC-001",
+                "dimension": "Factual Correctness",
+                "description": "Inaccurate descriptions of prepositions 'in,' 'on,' and 'at,' including misleading examples.",
+                "first_seen_round": 1,
+                "last_seen_round": 3,
+                "status": "open",
+                "recurrence_count": 3
+            },
+            {
+                "issue_id": "CC-001",
+                "dimension": "Clarity & Communication",
+                "description": "Initial sentence lacks specificity about the relationships indicated by the prepositions.",
+                "first_seen_round": 1,
+                "last_seen_round": 3,
+                "status": "open",
+                "recurrence_count": 3
+            },
+            {
+                "issue_id": "DC-001",
+                "dimension": "Depth & Completeness",
+                "description": "Examples provided do not consistently illustrate the rules for preposition usage.",
+                "first_seen_round": 1,
+                "last_seen_round": 3,
+                "status": "open",
+                "recurrence_count": 3
+            }
+        ],
+        "round_summaries": [
+            "Factual correctness issues were identified, necessitating revisions for better alignment with examples.",
+            "Factual inaccuracies and clarity issues persist, leading to a low score this round.",
+            "No significant improvements were made this round, with critical issues remaining unaddressed."
+        ]
+    }
+}

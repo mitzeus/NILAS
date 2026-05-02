@@ -1,0 +1,98 @@
+{
+    "sample_number": 9,
+    "round_number": 2,
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in English.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "How do you form basic yes/no questions in English? Show simple patterns and examples.",
+    "generated_text": "To form basic yes/no questions in English, you can use the auxiliary verb (do, did, have, has) at the beginning of the sentence and place the rest of the question word order at the end. Here are some examples:\n\n- Yes/no question: Did you go to the store?\n- Yes/no question: Has she finished her homework?\n\nIn the first example, \"did\" is the auxiliary verb, and \"you go to the store\" is placed at the end.\nIn the second example, \"has\" is the auxiliary verb, and \"she finished her homework\" is placed at the end.",
+    "generator_name": "Custom_vLLM",
+    "language": "en",
+    "perplexity": 2.092040743406918,
+    "vocab_size": 500,
+    "review": {
+        "overall_score": 2.75,
+        "letter_grade": "C",
+        "model": "gpt-4o-mini",
+        "family": "openai",
+        "summary": "This round's evaluations indicate persistent issues with factual correctness and clarity, particularly regarding the explanation of auxiliary verbs in yes/no questions. While some grammatical aspects were noted as flowing naturally, the overall structure and detail remain inadequate. The response did not adequately address previously identified issues, leading to a low aggregate score and a need for significant revisions.",
+        "critic_scores": [
+            {
+                "model": "claude-sonnet-4-6",
+                "family": "anthropic",
+                "dimension": "Factual Correctness",
+                "profile": "sceptic",
+                "score": 2,
+                "rationale": "The response contains several factual inaccuracies and misleading oversimplifications (FC-001 remains unresolved). The claim that you place 'the rest of the question word order at the end' is garbled and inaccurate — the subject-verb inversion rule is not correctly explained. Critically, the response omits the 'be' verb as an auxiliary (e.g., 'Is she happy?'), ignores modal verbs (can, will, should, etc.), and fails to mention that with 'do/does/did,' the main verb reverts to its base form — a key grammatical fact. The description of the pattern in the examples ('she finished her homework is placed at the end') is misleading because it implies the original word order is preserved, when in fact subject-auxiliary inversion has occurred.",
+                "improvement_tip": "Explicitly state the inversion rule (auxiliary verb + subject + base-form main verb) and cover all major auxiliary categories: 'be' verbs, 'do/does/did,' 'have/has/had,' and modal verbs, with one clear example for each."
+            },
+            {
+                "model": "gpt-4o-mini",
+                "family": "openai",
+                "dimension": "Clarity & Communication",
+                "profile": "teacher",
+                "score": 2,
+                "rationale": "The response is hard to follow due to a confusing structure and unclear explanation of how yes/no questions are formed. The examples do not clearly illustrate the role of auxiliary verbs, and the sentence structure is misleading, particularly the phrase 'placed at the end' which is inaccurate.",
+                "improvement_tip": "Clearly explain the role of auxiliary verbs in forming yes/no questions and ensure that the sentence structure is accurately described, possibly by using a more straightforward pattern format."
+            },
+            {
+                "model": "claude-haiku-4-5-20251001",
+                "family": "anthropic",
+                "dimension": "Grammar & Naturalness",
+                "profile": "editor",
+                "score": 4,
+                "rationale": "The response is grammatically correct and flows naturally overall. Sentence structure is clear and easy to follow. However, there is one awkward phrasing issue: 'place the rest of the question word order at the end' is slightly unnatural—'word order' should be 'of the sentence' or simply 'the rest of the sentence.' The examples and explanations are otherwise well-formed and readable.",
+                "improvement_tip": "Revise 'place the rest of the question word order at the end' to 'place the rest of the sentence after the auxiliary verb' for more natural phrasing."
+            },
+            {
+                "model": "gemini-2.5-flash-lite",
+                "family": "google",
+                "dimension": "Task Match & Adequacy",
+                "profile": "analyst",
+                "score": 3,
+                "rationale": "The response correctly identifies the core mechanism for forming yes/no questions (auxiliary verb first) and provides two simple examples. However, it is slightly under-detailed as it only mentions 'do, did, have, has' without explaining when to use each, and it doesn't cover questions without auxiliary verbs (e.g., 'Is he here?').",
+                "improvement_tip": "Expand the explanation to include the use of 'be' verbs (is, am, are, was, were) as auxiliary verbs in question formation and briefly mention the pattern for questions that don't require 'do/did'."
+            }
+        ],
+        "top_improvements": [
+            "Explicitly state the inversion rule for auxiliary verbs in question formation.",
+            "Clearly explain the role of auxiliary verbs and provide accurate examples.",
+            "Expand the explanation to cover all major auxiliary categories and question patterns."
+        ],
+        "confidence": "low",
+        "score_variance": 0.688
+    },
+    "ledger_snapshot": {
+        "issues": [
+            {
+                "issue_id": "FC-001",
+                "dimension": "Factual Correctness",
+                "description": "Incomplete explanation of auxiliary verbs and misleading oversimplification.",
+                "first_seen_round": 1,
+                "last_seen_round": 2,
+                "status": "open",
+                "recurrence_count": 2
+            },
+            {
+                "issue_id": "CC-001",
+                "dimension": "Clarity & Communication",
+                "description": "Confusing structure and unclear explanation of sentence formation.",
+                "first_seen_round": 1,
+                "last_seen_round": 2,
+                "status": "open",
+                "recurrence_count": 2
+            },
+            {
+                "issue_id": "DC-001",
+                "dimension": "Depth & Completeness",
+                "description": "Insufficient detail on patterns for different tenses and modal verbs.",
+                "first_seen_round": 1,
+                "last_seen_round": 2,
+                "status": "open",
+                "recurrence_count": 2
+            }
+        ],
+        "round_summaries": [
+            "Critics noted several clarity and completeness issues that need addressing for better understanding.",
+            "Factual inaccuracies and clarity issues persist, with no improvement in the identified problems."
+        ]
+    }
+}

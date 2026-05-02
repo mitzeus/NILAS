@@ -1,0 +1,98 @@
+{
+    "sample_number": 3,
+    "round_number": 2,
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in English.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "How do you form basic yes/no questions in English? Show simple patterns and examples.",
+    "generated_text": "To form basic yes/no questions in English, you switch the word order and add \"do\" at the beginning of the simple sentence. Here are some examples:\n\n- Simple sentence: \"The cat is sleeping.\"\n- Yes/no question: \"Is the cat sleeping?\"\n\n- Simple sentence: \"She likes apples.\"\n- Yes/no question: \"Does she like apples?\"\n\n- Simple sentence: \"They are going to the store.\"\n- Yes/no question: \"Are they going to the store?\"",
+    "generator_name": "Custom_vLLM",
+    "language": "en",
+    "perplexity": 1.3100984029788265,
+    "vocab_size": 2000,
+    "review": {
+        "overall_score": 3.08,
+        "letter_grade": "C",
+        "model": "gpt-4o-mini",
+        "family": "openai",
+        "summary": "This round's evaluations indicate that the issues from the previous round remain largely unresolved, particularly regarding factual correctness and depth of coverage on auxiliary verbs. While clarity has seen some improvement, significant gaps in the explanation persist, particularly in distinguishing between different types of auxiliary verbs. The overall score reflects these ongoing challenges, suggesting a need for further refinement in the response.",
+        "critic_scores": [
+            {
+                "model": "claude-sonnet-4-6",
+                "family": "anthropic",
+                "dimension": "Factual Correctness",
+                "profile": "sceptic",
+                "score": 2,
+                "rationale": "Issue FC-001 remains unresolved: the opening explanation inaccurately states that yes/no questions are formed by switching word order AND adding 'do' at the beginning, but this rule only applies to simple present/past sentences without an auxiliary verb (e.g., 'She likes apples' → 'Does she like apples?'). For sentences already containing a 'be' verb or other auxiliary (e.g., 'The cat is sleeping' → 'Is the cat sleeping?'), you simply invert the subject and auxiliary — no 'do' is added. The blanket rule given is therefore misleading and contradicted by two of the three examples provided. Additionally, the response still omits other common auxiliary verbs (can, will, have, should, etc.), leaving the explanation incomplete.",
+                "improvement_tip": "Split the explanation into two clear rules: (1) for sentences with 'be' or another auxiliary verb, invert the subject and auxiliary (e.g., 'She is happy' → 'Is she happy?'); (2) for simple present/past sentences without an auxiliary, add 'do/does/did' before the subject (e.g., 'She likes apples' → 'Does she like apples?'). Then add examples covering modals like 'can' and 'will' to address the missing auxiliary verbs."
+            },
+            {
+                "model": "gpt-4o-mini",
+                "family": "openai",
+                "dimension": "Clarity & Communication",
+                "profile": "teacher",
+                "score": 3,
+                "rationale": "The response provides a basic explanation of forming yes/no questions but lacks clarity in distinguishing the role of auxiliary verbs and does not cover common auxiliary verbs like 'have', 'can', and 'will'. The examples given are relevant but do not fully illustrate the concept of switching word order as it relates to all types of auxiliary verbs.",
+                "improvement_tip": "Include a brief introductory sentence that explains the role of auxiliary verbs in forming yes/no questions and provide examples that incorporate a wider range of auxiliary verbs."
+            },
+            {
+                "model": "claude-haiku-4-5-20251001",
+                "family": "anthropic",
+                "dimension": "Grammar & Naturalness",
+                "profile": "editor",
+                "score": 4,
+                "rationale": "The response is grammatically sound with clear, natural sentence construction throughout. Examples are well-formed and easy to follow. The opening explanation is concise and flows logically into the examples. There are no grammatical errors or awkward phrasings that impede comprehension.",
+                "improvement_tip": "Consider adding a transitional phrase before the examples (e.g., 'Here are some common patterns:') to create smoother flow between the explanation and the list, making the response feel even more conversational."
+            },
+            {
+                "model": "gemini-2.5-flash-lite",
+                "family": "google",
+                "dimension": "Task Match & Adequacy",
+                "profile": "analyst",
+                "score": 3,
+                "rationale": "The response correctly identifies the core mechanism of forming yes/no questions by switching word order and using auxiliary verbs. However, it fails to address the prompt's request for 'simple patterns' beyond just the 'do/does' auxiliary, and it omits coverage of other common auxiliary verbs like 'is', 'are', 'can', and 'will' which are crucial for a complete answer.",
+                "improvement_tip": "Expand the response to include patterns and examples for other common auxiliary verbs such as 'is', 'are', 'can', and 'will', in addition to 'do' and 'does'."
+            }
+        ],
+        "top_improvements": [
+            "Split the explanation into distinct rules for different types of sentences.",
+            "Include a brief introduction on the role of auxiliary verbs.",
+            "Expand examples to cover a wider range of auxiliary verbs."
+        ],
+        "confidence": "medium",
+        "score_variance": 0.5
+    },
+    "ledger_snapshot": {
+        "issues": [
+            {
+                "issue_id": "FC-001",
+                "dimension": "Factual Correctness",
+                "description": "Opening explanation inaccurately conflates rules for question formation with auxiliary verbs and simple sentences.",
+                "first_seen_round": 1,
+                "last_seen_round": 2,
+                "status": "open",
+                "recurrence_count": 2
+            },
+            {
+                "issue_id": "DC-001",
+                "dimension": "Depth & Completeness",
+                "description": "Response lacks coverage of common auxiliary verbs like 'have', 'can', 'will', etc.",
+                "first_seen_round": 1,
+                "last_seen_round": 2,
+                "status": "open",
+                "recurrence_count": 2
+            },
+            {
+                "issue_id": "CC-001",
+                "dimension": "Clarity & Communication",
+                "description": "Could benefit from a brief introductory sentence explaining the concept of switching word order and using auxiliary verbs.",
+                "first_seen_round": 1,
+                "last_seen_round": 2,
+                "status": "improved",
+                "recurrence_count": 2
+            }
+        ],
+        "round_summaries": [
+            "The response received mixed evaluations, indicating areas for improvement in factual correctness and completeness.",
+            "Factual correctness and depth issues persist, while clarity has shown some improvement."
+        ]
+    }
+}

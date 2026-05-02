@@ -1,0 +1,10 @@
+{
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in Swedish.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "Explain how to use common present tense verbs in Swedish with examples.",
+    "generated_text": "F\u00f6r att anv\u00e4nda de vanliga g\u00e4stentens ord i svenska kan du se till att anv\u00e4nda ordet \"ha\", \"ska\", \"g\u00f6ra\", \"stanna\", \"komma\", \"vara\", och \"g\u00e5\". H\u00e4r \u00e4r exempel:\n\n- Ha: Hur m\u00e5ste jag g\u00f6ra f\u00f6r att kunna f\u00e5 jobbet? (Jag m\u00e5ste g\u00f6ra s\u00e5 bra som jag kan.)\n- Ska: Hur ska jag g\u00f6ra f\u00f6r att kunna f\u00e5 jobbet? (Jag ska g\u00f6ra s\u00e5 bra som jag kan.)\n- G\u00f6ra: Hur ska jag g\u00f6ra f\u00f6r att kunna f\u00e5 jobbet? (Jag ska g\u00f6ra s\u00e5 bra som jag kan.)\n- Stanna: Hur ska jag g\u00f6ra f\u00f6r att kunna f\u00e5 jobbet? (Jag ska g\u00f6ra s\u00e5 bra som jag kan.)\n- Komma: Hur ska jag g\u00f6ra f\u00f6r att kunna f\u00e5 jobbet? (Jag ska g\u00f6ra s\u00e5 bra som jag kan.)\n- Vara: Hur ska jag g\u00f6ra f\u00f6r att kunna f\u00e5 jobbet? (Jag ska g\u00f6ra s\u00e5 bra som jag kan.)\n- G\u00e5: Hur ska jag g\u00f6ra f\u00f6r att kunna f\u00e5 jobbet? (Jag ska g\u00f6ra s\u00e5 bra som jag kan.)",
+    "generator_name": "Custom_vLLM",
+    "language": "sv",
+    "perplexity": 1.9526039668520174,
+    "vocab_size": 100,
+    "sample_number": 2
+}

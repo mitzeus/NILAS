@@ -1,0 +1,10 @@
+{
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in English.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "Explain how to make simple past tense sentences in English, including regular verb examples.",
+    "generated_text": "To make simple past tense sentences in English, you add \"-ed\" to the base form of a regular verb. For example, \"walk\" becomes \"walked\". The sentence structure is: Subject + Past Verb + Object. Example: \"I walked to the store.\"",
+    "generator_name": "Custom_vLLM",
+    "language": "en",
+    "perplexity": 5.28391331356471,
+    "vocab_size": 100,
+    "sample_number": 4
+}

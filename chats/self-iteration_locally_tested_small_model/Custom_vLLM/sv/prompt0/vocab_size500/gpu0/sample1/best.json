@@ -1,0 +1,106 @@
+{
+    "sample_number": 1,
+    "round_number": 1,
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in Swedish.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "Explain how basic word order works in simple Swedish sentences (subject-verb-object).",
+    "generated_text": "I en grundläggande svensk sentens följer ordensorden ofta så här: [subjekt - verb - objekt].",
+    "generator_name": "Custom_vLLM",
+    "language": "sv",
+    "perplexity": 3.207448259033575,
+    "vocab_size": 500,
+    "review": {
+        "overall_score": 2.8,
+        "letter_grade": "C",
+        "model": "gpt-4o-mini",
+        "family": "openai",
+        "summary": "This round highlighted significant issues in factual correctness and clarity, particularly regarding the explanation of Swedish sentence structure. The omission of the V2 rule and the presence of grammatical errors detracted from the overall quality of the response. While there were some strengths in clarity, the lack of examples and inaccuracies prevented a higher score. Overall, improvements are needed to enhance the factual accuracy and communication of the content.",
+        "critic_scores": [
+            {
+                "model": "claude-sonnet-4-6",
+                "family": "anthropic",
+                "dimension": "Factual Correctness",
+                "profile": "sceptic",
+                "score": 3,
+                "rationale": "The core claim that basic Swedish sentences follow subject-verb-object (SVO) order is factually correct and consistent with standard descriptions of Swedish syntax. However, the response omits the important and well-known V2 (verb-second) rule in Swedish, which means that when an adverbial or other element is fronted, the verb still comes second and the subject shifts after it — a key feature that distinguishes Swedish word order from a simple SVO description. The term 'ordensorden' also appears to be a misspelling or non-standard form of 'ordföljden' (word order), which is a minor but notable inaccuracy.",
+                "improvement_tip": "Add an explanation of the Swedish V2 rule (e.g., 'Igår åt jag lunch' — Yesterday ate I lunch), which is essential for an accurate and complete description of Swedish sentence structure, and correct 'ordensorden' to the standard term 'ordföljden'."
+            },
+            {
+                "model": "gpt-4o-mini",
+                "family": "openai",
+                "dimension": "Clarity & Communication",
+                "profile": "teacher",
+                "score": 4,
+                "rationale": "The response clearly explains the basic word order in Swedish sentences, using a straightforward format. However, it could benefit from a brief example to enhance understanding.",
+                "improvement_tip": "Include a simple example sentence to illustrate the subject-verb-object structure in Swedish."
+            },
+            {
+                "model": "claude-haiku-4-5-20251001",
+                "family": "anthropic",
+                "dimension": "Grammar & Naturalness",
+                "profile": "editor",
+                "score": 2,
+                "rationale": "The response contains a critical grammatical error: 'ordensorden' is not a valid Swedish word (it appears to be a redundant or malformed construction). The phrase should be 'ordföljningen' or 'ordningen'. Additionally, the sentence structure is awkward and unnatural; a native speaker would more naturally say something like 'I en grundläggande svensk mening följer orden vanligtvis ordningen: subjekt - verb - objekt.' The response is difficult to parse due to these issues.",
+                "improvement_tip": "Replace 'ordensorden ofta så här' with 'ordföljningen är vanligtvis' or 'orden ordnas vanligtvis så här' to create a grammatically correct and more natural-sounding Swedish sentence."
+            },
+            {
+                "model": "gemini-2.5-flash-lite",
+                "family": "google",
+                "dimension": "Task Match & Adequacy",
+                "profile": "analyst",
+                "score": 1,
+                "rationale": "The response is in Swedish and only states the basic word order without any explanation or examples, which is insufficient for explaining how it works. The user asked for an explanation, not just a statement of the order.",
+                "improvement_tip": "Provide a clear explanation of the SVO structure in Swedish, including simple example sentences to illustrate the concept."
+            }
+        ],
+        "top_improvements": [
+            "Add an explanation of the Swedish V2 rule to enhance factual correctness.",
+            "Include simple example sentences to illustrate the subject-verb-object structure.",
+            "Correct grammatical errors to improve clarity and naturalness."
+        ],
+        "confidence": "medium",
+        "score_variance": 1.25
+    },
+    "ledger_snapshot": {
+        "issues": [
+            {
+                "issue_id": "FC-001",
+                "dimension": "Factual Correctness",
+                "description": "Omission of the V2 rule in Swedish sentence structure and misspelling of 'ordensorden'.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "open",
+                "recurrence_count": 1
+            },
+            {
+                "issue_id": "CC-001",
+                "dimension": "Clarity & Communication",
+                "description": "Lack of examples to illustrate the subject-verb-object structure in Swedish.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "open",
+                "recurrence_count": 1
+            },
+            {
+                "issue_id": "DC-001",
+                "dimension": "Depth & Completeness",
+                "description": "Insufficient explanation of the SVO structure in Swedish.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "open",
+                "recurrence_count": 1
+            },
+            {
+                "issue_id": "GC-001",
+                "dimension": "Grammar & Naturalness",
+                "description": "Critical grammatical error and awkward sentence structure.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "open",
+                "recurrence_count": 1
+            }
+        ],
+        "round_summaries": [
+            "This round revealed critical issues in factual correctness and clarity, necessitating significant improvements."
+        ]
+    }
+}

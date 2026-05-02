@@ -1,0 +1,107 @@
+{
+    "sample_number": 0,
+    "round_number": 2,
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in Swedish.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "How are yes/no questions formed in basic Swedish grammar?",
+    "generated_text": "Ja/nej frågor bildas genom att lägga till \"nej\" vid slutet på frågan.",
+    "generator_name": "Custom_vLLM",
+    "language": "sv",
+    "perplexity": 1.818384468029232,
+    "vocab_size": 500,
+    "review": {
+        "overall_score": 1.98,
+        "letter_grade": "D",
+        "model": "gpt-4o-mini",
+        "family": "openai",
+        "summary": "This round has seen a deterioration in factual correctness, with a critical error regarding the formation of yes/no questions in Swedish. The previously noted issues have not been addressed, leading to confusion and a lack of clarity in communication. Overall, the response remains inadequate in addressing the user's question effectively, resulting in low scores across dimensions.",
+        "critic_scores": [
+            {
+                "model": "claude-sonnet-4-6",
+                "family": "anthropic",
+                "dimension": "Factual Correctness",
+                "profile": "sceptic",
+                "score": 1,
+                "rationale": "The response contains a critical factual error: yes/no questions in Swedish (ja/nej-frågor) are formed by inverting the subject and verb (subject-verb inversion), not by adding 'nej' at the end of a sentence. Adding 'nej' at the end of a sentence is not a grammatical rule in Swedish at all. The previously flagged issue FC-001 regarding incorrect use of 'så' instead of 'ja' has not been addressed, and a new, equally serious error has been introduced.",
+                "improvement_tip": "Correct the explanation to state that Swedish yes/no questions are formed through subject-verb inversion — the finite verb is placed before the subject (e.g., 'Du talar svenska.' becomes 'Talar du svenska?') — which is the standard rule in Swedish grammar."
+            },
+            {
+                "model": "gpt-4o-mini",
+                "family": "openai",
+                "dimension": "Clarity & Communication",
+                "profile": "teacher",
+                "score": 2,
+                "rationale": "The response is hard to follow due to a significant factual inaccuracy regarding the formation of yes/no questions in Swedish. It incorrectly states that 'nej' is added at the end of the question, which does not accurately represent Swedish grammar. This leads to confusion about the topic.",
+                "improvement_tip": "Clarify the correct structure of yes/no questions in Swedish by stating that they typically begin with the verb followed by the subject, without adding 'nej' at the end."
+            },
+            {
+                "model": "claude-haiku-4-5-20251001",
+                "family": "anthropic",
+                "dimension": "Grammar & Naturalness",
+                "profile": "editor",
+                "score": 3,
+                "rationale": "The response is grammatically correct and follows natural Swedish syntax. However, the content itself is problematic—it incorrectly claims that yes/no questions are formed by adding 'nej' (no) at the end, which is factually wrong and undermines clarity. While the grammar is sound, the unnatural and misleading instruction makes the overall naturalness questionable in context.",
+                "improvement_tip": "Restructure to explain the actual mechanism: 'Ja/nej-frågor bildas genom att invertera ordföljden—verbet placeras före subjektet, t.ex. \"Talar du svenska?\" istället för \"Du talar svenska.\"' This maintains grammatical correctness while conveying accurate information naturally."
+            },
+            {
+                "model": "gemini-2.5-flash-lite",
+                "family": "google",
+                "dimension": "Task Match & Adequacy",
+                "profile": "analyst",
+                "score": 1,
+                "rationale": "The response is factually incorrect and does not answer the user's question about forming yes/no questions in Swedish. It incorrectly states that 'nej' (no) is added to the end of a question to form a yes/no question, which is not how Swedish grammar works. The response is completely irrelevant to the user's request.",
+                "improvement_tip": "To form yes/no questions in Swedish, invert the subject and verb. For example, 'Du talar svenska' (You speak Swedish) becomes 'Talar du svenska?' (Do you speak Swedish?). Do not add 'nej' to the end of a question."
+            }
+        ],
+        "top_improvements": [
+            "Correct the explanation of yes/no question formation in Swedish to reflect subject-verb inversion.",
+            "Clarify that 'nej' is not added at the end of questions in Swedish grammar.",
+            "Ensure that the response directly answers the user's question about forming yes/no questions."
+        ],
+        "confidence": "low",
+        "score_variance": 0.688
+    },
+    "ledger_snapshot": {
+        "issues": [
+            {
+                "issue_id": "FC-001",
+                "dimension": "Factual Correctness",
+                "description": "Incorrectly states that 'så' is used instead of 'ja' in Swedish.",
+                "first_seen_round": 1,
+                "last_seen_round": 2,
+                "status": "open",
+                "recurrence_count": 2
+            },
+            {
+                "issue_id": "CC-001",
+                "dimension": "Clarity & Communication",
+                "description": "Response does not clearly address how yes/no questions are formed in Swedish grammar.",
+                "first_seen_round": 1,
+                "last_seen_round": 2,
+                "status": "open",
+                "recurrence_count": 2
+            },
+            {
+                "issue_id": "FC-002",
+                "dimension": "Factual Correctness",
+                "description": "Incorrectly claims that 'nej' is added at the end of yes/no questions in Swedish.",
+                "first_seen_round": 2,
+                "last_seen_round": 2,
+                "status": "open",
+                "recurrence_count": 1
+            },
+            {
+                "issue_id": "CC-002",
+                "dimension": "Clarity & Communication",
+                "description": "Response is hard to follow due to significant factual inaccuracies regarding yes/no question formation.",
+                "first_seen_round": 2,
+                "last_seen_round": 2,
+                "status": "open",
+                "recurrence_count": 1
+            }
+        ],
+        "round_summaries": [
+            "The response failed to meet basic factual correctness and clarity standards, resulting in low scores.",
+            "Factual correctness and clarity have significantly declined, with critical errors persisting from the previous round."
+        ]
+    }
+}

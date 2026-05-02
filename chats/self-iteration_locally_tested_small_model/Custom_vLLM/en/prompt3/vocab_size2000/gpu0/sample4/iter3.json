@@ -1,0 +1,99 @@
+{
+    "sample_number": 4,
+    "round_number": 3,
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in English.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "TASK:\n            How do prepositions like “in,” “on,” and “at” work in basic English sentences?\n\n            PREVIOUS BEST DRAFT (score: 3.6/5.0):\n            ---\n            Prepositions like \"in,\" \"on,\" and \"at\" indicate location or time. \"In\" is used for larger areas like rooms or seasons, \"on\" for specific days or times, and \"at\" for precise locations or times.\n            ---\n\n            REVISION INSTRUCTIONS:\n            Rewrite the draft above to address the following issues.\n            Preserve what was already working well. Do not simply patch — rewrite\n            sections where issues are deep.\n\n\nThe following issues MUST be fixed in this revision:\n  ✗ [FC-001] Factual Correctness: Misleading claim about the usage of 'on' for specific days or times, conflating it with 'at.' (flagged 2 times)\n  ✗ [CC-001] Clarity & Communication: Structure could be improved for better clarity; suggestions for bullet points or tables. (flagged 2 times)\n  ✗ [DC-001] Depth & Completeness: Lacks sufficient illustrative example sentences for each preposition. (flagged 2 times)\n\n            Produce the improved version now. Output only the revised text, no preamble.",
+    "generated_text": "Prepositions like \"in,\" \"on,\" and \"at\" indicate location or time. Here is a clearer and more detailed explanation:\n\n- **In** is used for larger areas such as rooms, seasons, or general locations. Example: She is in the kitchen.\n- **On** is used for specific days or times, but not for general locations. Example: It's on Tuesday.\n- **At** is used for precise locations or times. Example: She is at the park.",
+    "generator_name": "Custom_vLLM",
+    "language": "en",
+    "perplexity": 1.6537108651090937,
+    "vocab_size": 2000,
+    "review": {
+        "overall_score": 3.08,
+        "letter_grade": "C",
+        "model": "gpt-4o-mini",
+        "family": "openai",
+        "summary": "This round shows persistent issues in factual correctness, particularly regarding the usage of the preposition 'on,' which continues to be conflated with 'at.' Clarity has seen some improvement with the introduction of bullet points, but further organization and examples are needed for better understanding. Overall, the response remains inadequate in addressing the depth of explanation required for each preposition. The aggregate score reflects these ongoing challenges.",
+        "critic_scores": [
+            {
+                "model": "claude-sonnet-4-6",
+                "family": "anthropic",
+                "dimension": "Factual Correctness",
+                "profile": "sceptic",
+                "score": 2,
+                "rationale": "The persistent error from FC-001 remains unresolved: the response still claims 'on' is used for 'specific days or times,' which conflates it with 'at.' In standard English grammar, 'on' is used for days and dates (e.g., 'on Monday,' 'on July 4th'), while 'at' is used for specific clock times (e.g., 'at 3 p.m.') and precise points in time. Describing 'on' as covering 'specific times' is factually misleading. Additionally, the claim that 'on' is 'not for general locations' is an odd and incomplete framing, since 'on' is also used for surfaces and streets (e.g., 'on the table,' 'on Main Street'), which are omitted entirely.",
+                "improvement_tip": "Clearly distinguish the three prepositions by their correct grammatical rules: use 'in' for enclosed spaces, longer periods, and larger areas (in a room, in January, in 2024); use 'on' for surfaces, streets, and specific days/dates (on the table, on Monday, on July 4th); use 'at' for precise clock times and specific points or addresses (at 5 p.m., at the corner, at 10 Downing Street)."
+            },
+            {
+                "model": "gpt-4o-mini",
+                "family": "openai",
+                "dimension": "Clarity & Communication",
+                "profile": "teacher",
+                "score": 3,
+                "rationale": "The response is generally understandable but lacks clarity in the explanation of prepositions, particularly the usage of 'on' which still conflates it with 'at.' The structure is improved with bullet points, but it could benefit from better organization and additional examples for each preposition to enhance understanding.",
+                "improvement_tip": "Provide a brief introductory sentence for each preposition that clearly distinguishes its usage, and include more illustrative examples to reinforce the explanations."
+            },
+            {
+                "model": "claude-haiku-4-5-20251001",
+                "family": "anthropic",
+                "dimension": "Grammar & Naturalness",
+                "profile": "editor",
+                "score": 4,
+                "rationale": "The response is grammatically sound with clear, natural sentence construction. The bullet-point structure enhances readability and flow. However, the claim that 'on' is used for 'specific days or times, but not for general locations' remains factually problematic (a grammar/naturalness issue when the underlying logic is flawed), and the example 'It's on Tuesday' uses awkward phrasing—'It's on Tuesday' is acceptable but 'The meeting is on Tuesday' would be more natural and idiomatic.",
+                "improvement_tip": "Revise the 'on' example to use more natural phrasing: 'The meeting is on Tuesday' instead of 'It's on Tuesday,' and clarify that 'on' applies to days/dates specifically, not 'times' (which use 'at')—e.g., 'at 3 PM' not 'on 3 PM.'"
+            },
+            {
+                "model": "gemini-2.5-flash-lite",
+                "family": "google",
+                "dimension": "Task Match & Adequacy",
+                "profile": "analyst",
+                "score": 3,
+                "rationale": "The response attempts to address the previous issues by using bullet points and providing examples. However, it retains the factual inaccuracy regarding 'on' being used for specific times (it's used for days and dates, not times in general) and still lacks sufficient examples for each preposition to be fully adequate.",
+                "improvement_tip": "Correct the factual inaccuracy about 'on' and provide at least two distinct example sentences for each preposition, covering both time and location uses where applicable."
+            }
+        ],
+        "top_improvements": [
+            "Clearly distinguish the three prepositions by their correct grammatical rules.",
+            "Provide a brief introductory sentence for each preposition with illustrative examples.",
+            "Revise examples to use more natural phrasing and clarify the distinctions between 'on' and 'at.'"
+        ],
+        "confidence": "medium",
+        "score_variance": 0.5
+    },
+    "ledger_snapshot": {
+        "issues": [
+            {
+                "issue_id": "FC-001",
+                "dimension": "Factual Correctness",
+                "description": "Misleading claim about the usage of 'on' for specific days or times, conflating it with 'at.'",
+                "first_seen_round": 1,
+                "last_seen_round": 3,
+                "status": "open",
+                "recurrence_count": 3
+            },
+            {
+                "issue_id": "CC-001",
+                "dimension": "Clarity & Communication",
+                "description": "Structure could be improved for better clarity; suggestions for bullet points or tables.",
+                "first_seen_round": 1,
+                "last_seen_round": 3,
+                "status": "improved",
+                "recurrence_count": 3
+            },
+            {
+                "issue_id": "DC-001",
+                "dimension": "Depth & Completeness",
+                "description": "Lacks sufficient illustrative example sentences for each preposition.",
+                "first_seen_round": 1,
+                "last_seen_round": 3,
+                "status": "open",
+                "recurrence_count": 3
+            }
+        ],
+        "round_summaries": [
+            "The response demonstrates a good grasp of prepositional usage but requires clarification and additional examples to fully meet expectations.",
+            "No significant improvements were made this round; all issues remain unresolved.",
+            "Factual correctness issues remain unresolved, while clarity has slightly improved but still lacks depth."
+        ]
+    }
+}

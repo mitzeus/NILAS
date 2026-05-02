@@ -1,0 +1,90 @@
+{
+    "sample_number": 9,
+    "round_number": 3,
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in English.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "TASK:\n            Explain the difference between the present simple and present continuous tense in English, with easy examples.\n\n            PREVIOUS BEST DRAFT (score: 2.8/5.0):\n            ---\n            The present simple tense is used for actions that happen regularly or are habitual, in a non-specific time frame. Examples: \"I eat breakfast at 7 every morning.\" \"She goes to the gym five times a week.\"\n\nThe present continuous tense is used for actions that are happening now or at a specific time in the past. Examples: \"I am reading a book right now.\" \"She was studying for her exam last night.\"\n            ---\n\n            REVISION INSTRUCTIONS:\n            Rewrite the draft above to address the following issues.\n            Preserve what was already working well. Do not simply patch — rewrite\n            sections where issues are deep.\n\n\nThe following issues MUST be fixed in this revision:\n  ✗ [FC-001] Factual Correctness: Incorrect definition of the present continuous tense includes past actions. (flagged 2 times)\n  ✗ [CC-001] Clarity & Communication: Misleading mention of past actions in relation to the present continuous affects clarity. (flagged 2 times)\n\n            Produce the improved version now. Output only the revised text, no preamble.",
+    "generated_text": "The present simple tense is used for actions that happen regularly or are habitual, in a non-specific time frame. Examples: \"I eat breakfast at 7 every morning.\" \"She goes to the gym five times a week.\"\n\nThe present continuous tense is used for actions that are happening now or at a specific time in the present. Examples: \"I am reading a book right now.\" \"She is studying for her exam right now.\"",
+    "generator_name": "Custom_vLLM",
+    "language": "en",
+    "perplexity": 2.0731690396335347,
+    "vocab_size": 500,
+    "review": {
+        "overall_score": 4.42,
+        "letter_grade": "B",
+        "model": "gpt-4o-mini",
+        "family": "openai",
+        "summary": "This round shows significant improvement in factual correctness, with the previously flagged issue regarding the present continuous tense now resolved. Clarity has also improved, although there are still opportunities for enhancement in the variety of examples provided. Overall, the response maintains a high standard of grammar and task adequacy. The weighted aggregate score reflects a strong performance, indicating a positive trend across rounds.",
+        "critic_scores": [
+            {
+                "model": "claude-sonnet-4-6",
+                "family": "anthropic",
+                "dimension": "Factual Correctness",
+                "profile": "sceptic",
+                "score": 4,
+                "rationale": "The previously flagged issue [FC-001] has been resolved: the definition of the present continuous tense no longer incorrectly references past actions, and now correctly states it is used for actions happening 'now or at a specific time in the present.' Both example sentences are accurate and appropriate. The present simple definition is also factually correct, though it could optionally mention permanent states or general truths as additional uses.",
+                "improvement_tip": "Consider expanding the present continuous definition to also mention actions happening around the current period (e.g., 'She is learning Spanish this year') and the present simple to include general truths (e.g., 'Water boils at 100°C') for a more complete and accurate explanation."
+            },
+            {
+                "model": "gpt-4o-mini",
+                "family": "openai",
+                "dimension": "Clarity & Communication",
+                "profile": "teacher",
+                "score": 4,
+                "rationale": "The response clearly distinguishes between the present simple and present continuous tenses, providing relevant examples for each. The revision successfully removes the mention of past actions in the definition of the present continuous, improving clarity. However, the examples could be slightly more varied to enhance understanding further.",
+                "improvement_tip": "Incorporate a broader range of examples for the present continuous tense to illustrate its use in different contexts."
+            },
+            {
+                "model": "claude-haiku-4-5-20251001",
+                "family": "anthropic",
+                "dimension": "Grammar & Naturalness",
+                "profile": "editor",
+                "score": 5,
+                "rationale": "The revised text is grammatically flawless with excellent natural flow. Sentence structure is clear and consistent throughout, with proper use of tenses in both explanations and examples. The language is accessible and reads smoothly without any awkward phrasing or errors.",
+                "improvement_tip": "No grammatical improvements needed. Consider adding a brief transitional phrase between the two paragraphs (e.g., 'In contrast,') to enhance readability, though this is optional and the current version is already natural."
+            },
+            {
+                "model": "gemini-2.5-flash-lite",
+                "family": "google",
+                "dimension": "Task Match & Adequacy",
+                "profile": "analyst",
+                "score": 5,
+                "rationale": "The response directly addresses the prompt by clearly defining the present simple and present continuous tenses with appropriate examples. It successfully corrects the previous factual errors regarding the present continuous tense, making the explanation accurate and easy to understand.",
+                "improvement_tip": "No improvement needed; the response perfectly fulfills the task requirements."
+            }
+        ],
+        "top_improvements": [
+            "Expand the present continuous definition to include actions happening around the current period.",
+            "Include general truths in the present simple definition for a more complete explanation.",
+            "Incorporate a broader range of examples for the present continuous tense."
+        ],
+        "confidence": "high",
+        "score_variance": 0.25
+    },
+    "ledger_snapshot": {
+        "issues": [
+            {
+                "issue_id": "FC-001",
+                "dimension": "Factual Correctness",
+                "description": "Incorrect definition of the present continuous tense includes past actions.",
+                "first_seen_round": 1,
+                "last_seen_round": 3,
+                "status": "resolved",
+                "recurrence_count": 2
+            },
+            {
+                "issue_id": "CC-001",
+                "dimension": "Clarity & Communication",
+                "description": "Misleading mention of past actions in relation to the present continuous affects clarity.",
+                "first_seen_round": 1,
+                "last_seen_round": 3,
+                "status": "improved",
+                "recurrence_count": 2
+            }
+        ],
+        "round_summaries": [
+            "Factual correctness issues dominated this round, particularly regarding the present continuous tense.",
+            "Factual inaccuracies persist, significantly impacting clarity and overall effectiveness.",
+            "Factual correctness has been fully resolved, while clarity has seen improvement but still requires attention."
+        ]
+    }
+}

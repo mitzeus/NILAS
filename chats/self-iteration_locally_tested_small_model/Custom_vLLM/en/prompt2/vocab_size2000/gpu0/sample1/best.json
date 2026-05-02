@@ -1,0 +1,97 @@
+{
+    "sample_number": 1,
+    "round_number": 1,
+    "system_prompt": "\nYou are a senior language professor who only answers users' questions in English.\n\nRespond concisely. Provide only the essential information needed to answer the question clearly. \nAvoid filler, repetition, and over-explanation.\n\n\n",
+    "prompt": "When should I use “a” and “an” in English? Give clear rules and examples.",
+    "generated_text": "You use \"a\" before words starting with a sound other than a vowel, and \"an\" before words starting with a vowel sound. Examples:\n- \"a\" for \"hour\" (sounds like \"oh\")\n- \"an\" for \"umbrella\" (sounds like the \"u\" in \"unit\")\n- \"a\" for \"university\" (starts with a vowel sound)",
+    "generator_name": "Custom_vLLM",
+    "language": "en",
+    "perplexity": 1.746067812349711,
+    "vocab_size": 2000,
+    "review": {
+        "overall_score": 2.98,
+        "letter_grade": "C",
+        "model": "gpt-4o-mini",
+        "family": "openai",
+        "summary": "This round revealed significant issues in factual correctness, particularly with the examples provided for using 'a' and 'an'. Critics noted multiple factual inaccuracies, leading to confusion about the rules. Clarity and communication were also impacted by these inaccuracies, although the overall grammar and structure were rated positively. There is a clear need for improved examples that accurately reflect the rules of usage.",
+        "critic_scores": [
+            {
+                "model": "claude-sonnet-4-6",
+                "family": "anthropic",
+                "dimension": "Factual Correctness",
+                "profile": "sceptic",
+                "score": 2,
+                "rationale": "The response contains multiple factual errors. 'Hour' begins with a vowel sound (silent 'h', pronounced 'our'), so it correctly takes 'an hour' — not 'a hour' as implied. The claim that 'hour' sounds like 'oh' is also inaccurate. Additionally, 'unit' begins with a consonant sound ('yoo'), so 'a unit' is correct, but the example groups 'umbrella' and 'unit' together misleadingly; 'umbrella' does take 'an' while 'university' (like 'unit') takes 'a' — but the explanation conflates these incorrectly. The core rule about sound (not spelling) is stated correctly, but the examples directly contradict or misapply it.",
+                "improvement_tip": "Replace the flawed examples with accurate ones: use 'an hour' (silent h = vowel sound), 'a university' (starts with 'yoo' consonant sound), 'an umbrella' (starts with short 'u' vowel sound), and 'a dog' (consonant sound) to clearly illustrate the rule."
+            },
+            {
+                "model": "gpt-4o-mini",
+                "family": "openai",
+                "dimension": "Clarity & Communication",
+                "profile": "teacher",
+                "score": 3,
+                "rationale": "The explanation of when to use 'a' and 'an' is generally understandable but lacks clarity in the examples provided. For instance, 'a' for 'hour' is incorrect as it should be 'an hour' because 'hour' starts with a vowel sound. Additionally, the example for 'a university' is misleading since 'university' starts with a 'yoo' sound, which is a consonant sound.",
+                "improvement_tip": "Revise the examples to accurately reflect the rules, ensuring that each example correctly demonstrates the use of 'a' and 'an' based on the initial sounds of the words."
+            },
+            {
+                "model": "claude-haiku-4-5-20251001",
+                "family": "anthropic",
+                "dimension": "Grammar & Naturalness",
+                "profile": "editor",
+                "score": 4,
+                "rationale": "The response is grammatically sound and flows naturally with clear, accessible language. The rule is stated concisely and the examples are well-structured. However, there is a minor logical inconsistency: the first bullet says 'a' for 'hour' because it 'sounds like oh,' but this explanation is slightly awkward—it would be clearer to say 'hour' starts with a consonant sound. The third example also contradicts the opening rule by stating 'a' for 'university,' which does start with a vowel letter, though the explanation (consonant sound) is correct.",
+                "improvement_tip": "Revise the first example to say: 'a' for 'hour' (starts with a consonant sound /h/), and reorder the third example to appear second for better pedagogical flow, emphasizing that the *sound* matters, not the letter."
+            },
+            {
+                "model": "gemini-2.5-flash-lite",
+                "family": "google",
+                "dimension": "Task Match & Adequacy",
+                "profile": "analyst",
+                "score": 2,
+                "rationale": "The response correctly identifies the core rule for using 'a' and 'an' based on vowel sounds. However, it fails to provide clear, distinct rules and instead offers a single rule with examples that are contradictory or confusing. The examples for 'hour' and 'university' are incorrect based on the stated rule.",
+                "improvement_tip": "Clearly separate the rules for 'a' and 'an' and provide accurate examples for each, ensuring the examples directly illustrate the rule they are intended to support."
+            }
+        ],
+        "top_improvements": [
+            "Replace flawed examples with accurate ones to illustrate the rule clearly.",
+            "Revise the explanation to ensure clarity in the use of 'a' and 'an'.",
+            "Separate the rules for 'a' and 'an' with distinct, correct examples."
+        ],
+        "confidence": "medium",
+        "score_variance": 0.688
+    },
+    "ledger_snapshot": {
+        "issues": [
+            {
+                "issue_id": "FC-001",
+                "dimension": "Factual Correctness",
+                "description": "Multiple factual errors in examples for using 'a' and 'an'.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "open",
+                "recurrence_count": 1
+            },
+            {
+                "issue_id": "CC-001",
+                "dimension": "Clarity & Communication",
+                "description": "Examples provided lack clarity and misrepresent the rules.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "open",
+                "recurrence_count": 1
+            },
+            {
+                "issue_id": "DC-001",
+                "dimension": "Depth & Completeness",
+                "description": "Insufficient separation of rules for 'a' and 'an' with contradictory examples.",
+                "first_seen_round": 1,
+                "last_seen_round": 1,
+                "status": "open",
+                "recurrence_count": 1
+            }
+        ],
+        "round_summaries": [
+            "Factual correctness and clarity issues dominated this round's evaluations, highlighting the need for better examples."
+        ]
+    }
+}
