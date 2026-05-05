@@ -47,7 +47,7 @@ def class_prior(data: pd.DataFrame, pos_col: str, freq_col: str):
     return percentages, (fig, ax)
 
 
-def hamilton(percentages: pd.DataFrame, limit: int):
+def hamilton(percentages: pd.DataFrame, limit: int, lang: str | None = None):
     """
     Calculates discrete amounts based on percentages (where each category gets at least 1 entry).
 
@@ -107,14 +107,15 @@ def hamilton(percentages: pd.DataFrame, limit: int):
                 {
                     "Word Classes": discrete_amounts.index,
                     "Frequency (%)": (discrete_amounts / limit) * 100,
-                    "Type": ["Discrete Amounts (%)"] * len(discrete_amounts),
+                    "Type": ["Discrete Amounts (Scaled for reference (%))"]
+                    * len(discrete_amounts),
                 }
             ),
         ],
         ignore_index=True,
     )
 
-    fig, ax = plt.subplots(figsize=(10, 6))
+    fig, ax = plt.subplots(figsize=(18, 6))
     ax.grid(axis="y", linestyle="--", alpha=0.7)
     sns.barplot(
         x="Word Classes",
@@ -126,7 +127,7 @@ def hamilton(percentages: pd.DataFrame, limit: int):
     )
     ax.set_xlabel("Word Classes")
     ax.set_ylabel("Frequency (%)")
-    ax.set_title("Comparison of Percentages and Discrete Amounts")
+    ax.set_title(f"Comparison of Percentages and Discrete Amounts for {lang}")
     ax.tick_params(axis="x", rotation=45)
     ax.legend()
     plt.close(fig)

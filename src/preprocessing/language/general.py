@@ -116,7 +116,9 @@ def create_sorted_flashcard_set(
     )
 
     # # Pick top words
-    discrete_amounts, hamilton_fig = hamilton(percentages=percentages, limit=limit)
+    discrete_amounts, hamilton_fig = hamilton(
+        percentages=percentages, limit=limit, lang=lang
+    )
     discrete_amounts = _redistribute_hamilton_shortfall(discrete_amounts, data, pos_str)
 
     # Put together df
