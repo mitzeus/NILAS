@@ -1,0 +1,19 @@
+Model,Vocab Size,LTE mean,LTE std,LTE.ad.rat,Perplexity mean,Perplexity std,LLMaaJ S. Mean,LLMaaJ S. std
+vanilla_chatgpt_prompted,100,0.16,0.13,0.22,1.21,0.13,,
+custom qwen,100,0.23,0.17,0.2,2.74,0.95,2.16,0.78
+custom_qwen_w_llmaaj,100,0.23,0.17,0.2,2.74,0.95,2.17,0.78
+vanilla_vllm_prompted,100,0.39,0.2,0.11,1.41,0.11,,
+vanilla_chatgpt_unconstrained,100,0.59,0.06,0.0,1.12,0.03,,
+vanilla_vllm_unconstrained,100,0.61,0.15,0.0,1.31,0.01,,
+vanilla_chatgpt_prompted,500,0.1,0.12,0.34,1.21,0.13,,
+vanilla_vllm_prompted,500,0.12,0.11,0.26,1.41,0.12,,
+custom qwen,500,0.13,0.11,0.2,1.91,0.26,2.55,0.78
+custom_qwen_w_llmaaj,500,0.13,0.11,0.2,1.91,0.26,2.55,0.78
+vanilla_chatgpt_unconstrained,500,0.26,0.06,0.0,1.12,0.03,,
+vanilla_vllm_unconstrained,500,0.33,0.25,0.02,1.29,0.01,,
+vanilla_vllm_prompted,2000,0.05,0.09,0.52,1.44,0.11,,
+custom qwen,2000,0.06,0.08,0.6,1.72,0.28,2.39,0.48
+custom_qwen_w_llmaaj,2000,0.06,0.08,0.6,1.72,0.28,2.43,0.45
+vanilla_chatgpt_prompted,2000,0.09,0.11,0.31,1.13,0.06,,
+vanilla_chatgpt_unconstrained,2000,0.15,0.07,0.0,1.12,0.03,,
+vanilla_vllm_unconstrained,2000,0.24,0.29,0.14,1.37,0.01,,

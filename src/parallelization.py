@@ -25,11 +25,10 @@ async def process_work_items(
     word_constraint_type: WordConstraintType,
     prompt_allowed_words: bool,
 ):
+
     from src.corrector.multiagentic_judge.run import run_self_iteration
 
-    for lang, prompt, prompt_i, sample_id, batch_size in tqdm(
-        work_items, position=gpu_id, desc=f"[GPU {gpu_id}]", leave=True
-    ):
+    for lang, prompt, prompt_i, sample_id, batch_size in work_items:
         # Each iteration:
         # 1. blocks on vLLM generate()
         # 2. fans out async API calls in parallel
@@ -126,6 +125,8 @@ def gpu_worker(
     }
 
     print(f"[GPU {gpu_id}] Online ー {len(work_items)} items to process")
+
+    print("here")
 
     asyncio.run(
         process_work_items(

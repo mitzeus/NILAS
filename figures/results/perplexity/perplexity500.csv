@@ -1,0 +1,7 @@
+Model,English,Swedish,Spanish,Korean
+Beam Qwen,2.87$\pm$0.47,1.91$\pm$0.26,2.21$\pm$0.29,3.35$\pm$0.57
+Beam/LLMaaJ Qwen,2.87$\pm$0.47,1.91$\pm$0.26,2.09$\pm$0.27,3.22$\pm$0.61
+vLLM Prompted,1.21$\pm$0.0,1.41$\pm$0.12,1.19$\pm$0.03,1.43$\pm$0.03
+vLLM No Const,1.2$\pm$0.0,1.29$\pm$0.01,1.21$\pm$0.02,1.41$\pm$0.01
+GPT Prompted,1.12$\pm$0.04,1.21$\pm$0.13,1.21$\pm$0.13,1.12$\pm$0.09
+GPT No Const,1.1$\pm$0.04,1.12$\pm$0.03,1.1$\pm$0.04,nan$\pm$nan

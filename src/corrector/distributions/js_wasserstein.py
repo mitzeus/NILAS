@@ -1,13 +1,15 @@
 from collections import Counter
-import nltk
-from nltk.util import ngrams
 import numpy as np
 from scipy.spatial.distance import jensenshannon
 from scipy.stats import wasserstein_distance
 
-nltk.download("punkt")
-
 # TODO do strong typing and descriptions
+
+
+def ngrams(tokens, n):
+    if n <= 0:
+        return []
+    return zip(*(tokens[i:] for i in range(n)))
 
 
 def extract_features(
@@ -24,9 +26,7 @@ def extract_features(
     tree_depths = []
     all_ngrams = Counter()
 
-    for text in texts:
-        doc = word_processor(text)
-
+    for doc in word_processor.pipe(texts):
         for sent in doc.sents:
             tokens = [t.text.lower() for t in sent if not t.is_punct]
 
@@ -69,21 +69,40 @@ def extract_features(
 # Convert to probability distribution
 def normalize(counter):
     total = sum(counter.values())
+    if total == 0:
+        return {}
     return {k: v / total for k, v in counter.items()}
 
 
 def jsd(p, q):  # Jensen-Shannon Divergence
 
     keys = list(set(p.keys()).union(set(q.keys())))
+    if not keys:
+        return 0.0
 
     p_vec = np.array([p.get(k, 0) for k in keys])
     q_vec = np.array([q.get(k, 0) for k in keys])
 
     # normalize again (safety)
-    p_vec /= p_vec.sum()
-    q_vec /= q_vec.sum()
+    p_sum = p_vec.sum()
+    q_sum = q_vec.sum()
+    if p_sum == 0 and q_sum == 0:
+        return 0.0
+    if p_sum == 0 or q_sum == 0:
+        return 1.0
+
+    p_vec /= p_sum
+    q_vec /= q_sum
 
     return jensenshannon(p_vec, q_vec)
+
+
+def safe_wasserstein(values_A, values_B):
+    if len(values_A) == 0 and len(values_B) == 0:
+        return 0.0
+    if len(values_A) == 0 or len(values_B) == 0:
+        return np.nan
+    return wasserstein_distance(values_A, values_B)
 
 
 def calculate_JS_wasserstein(
@@ -115,12 +134,13 @@ def calculate_JS_wasserstein(
         "dep_jsd": jsd(dep_A, dep_B),
         "discourse_jsd": jsd(disc_A, disc_B),
         "ngram_jsd": jsd(ng_A, ng_B),
-        "sent_len_wasserstein": wasserstein_distance(
+        "sent_len_wasserstein": safe_wasserstein(
             features_A["sent_len"], features_B["sent_len"]
         ),
-        "tree_depth_wasserstein": wasserstein_distance(
+        "tree_depth_wasserstein": safe_wasserstein(
             features_A["tree_depth"], features_B["tree_depth"]
         ),
     }
 
-    print(results)
+    # print(results)
+    return results
