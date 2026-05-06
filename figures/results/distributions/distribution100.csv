@@ -2,7 +2,7 @@ Features,English,Swedish,Spanish,Korean
 POS (JSD),0.18,0.31,0.25,0.23
 Dep. (JSD),0.25,0.35,0.23,0.3
 Discourse (JSD),0.34,1.0,0.65,1.0
-Sent. Len. (W.stein),0.76,0.82,0.8,0.81
-N-Gram (JSD),8.53,16.33,9.13,3.27
+N-Gram (JSD),0.76,0.82,0.8,0.81
+Sent. Len. (W.stein),8.53,16.33,9.13,3.27
 Tree Depth (W.stein),1.85,0.72,1.03,1.74
-MMD,0.21,0.21,0.21,0.21
+MMD,0.84,0.73,1.06,0.64

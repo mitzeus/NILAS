@@ -1,8 +1,26 @@
-from sklearn.metrics.pairwise import rbf_kernel
-from collections import Counter, defaultdict
+from collections import Counter
 import numpy as np
 
-# TODO do strong typing and descriptions
+STRUCTURAL_FEATURES = {
+    "sent_len_mean",
+    "sent_len_std",
+    "tree_depth_mean",
+    "tree_depth_std",
+    "avg_token_length",
+}
+
+RATIO_FEATURES = {
+    "discourse_ratio",
+    "type_token_ratio",
+    "stopword_ratio",
+    "punct_ratio",
+}
+
+LEXICAL_RATIO_FEATURES = {
+    "type_token_ratio",
+    "stopword_ratio",
+    "punct_ratio",
+}
 
 
 def get_pos_distribution(doc):
@@ -95,29 +113,103 @@ def extract_features(text, feature_nlp):
     return features
 
 
-def build_feature_matrix(texts, feature_nlp):
+def build_feature_matrix(texts, feature_nlp, keys=None):
     feature_dicts = [extract_features(t, feature_nlp) for t in texts]
+    return build_feature_matrix_from_dicts(feature_dicts, keys)
 
-    # Collect all feature keys
-    all_keys = sorted(set().union(*feature_dicts))
 
-    matrix = np.zeros((len(texts), len(all_keys)))
+def build_feature_matrix_from_dicts(feature_dicts, keys=None):
+    all_keys = sorted(set().union(*feature_dicts)) if keys is None and feature_dicts else keys
+    all_keys = [] if all_keys is None else all_keys
 
-    for i, fdict in enumerate(feature_dicts):
-        for j, key in enumerate(all_keys):
-            matrix[i, j] = fdict.get(key, 0.0)
+    matrix = np.zeros((len(feature_dicts), len(all_keys)))
+
+    key_index = {key: i for i, key in enumerate(all_keys)}
+    for row, fdict in enumerate(feature_dicts):
+        for key, value in fdict.items():
+            col = key_index.get(key)
+            if col is not None:
+                matrix[row, col] = value
 
     return matrix, all_keys
 
 
-def rbf_kernel(X, Y, gamma=1.0):
-    XX = np.sum(X**2, axis=1).reshape(-1, 1)
-    YY = np.sum(Y**2, axis=1).reshape(1, -1)
-    distances = XX + YY - 2 * np.dot(X, Y.T)
+def _l1_normalize_columns(matrix, columns):
+    if not columns:
+        return
+
+    block = matrix[:, columns]
+    totals = block.sum(axis=1, keepdims=True)
+    np.divide(block, totals, out=block, where=totals > 0)
+    matrix[:, columns] = block
+
+
+def get_feature_groups(keys):
+    return {
+        "pos": [i for i, key in enumerate(keys) if key.startswith("pos_")],
+        "dep": [i for i, key in enumerate(keys) if key.startswith("dep_")],
+        "discourse": [i for i, key in enumerate(keys) if key == "discourse_ratio"],
+        "lexical": [i for i, key in enumerate(keys) if key in LEXICAL_RATIO_FEATURES],
+        "structural": [i for i, key in enumerate(keys) if key in STRUCTURAL_FEATURES],
+    }
+
+
+def scale_feature_matrix(matrix, keys):
+    scaled = matrix.astype(float, copy=True)
+    feature_groups = get_feature_groups(keys)
+
+    structural_columns = feature_groups["structural"]
+    scalar_columns = [
+        i
+        for i, key in enumerate(keys)
+        if key in STRUCTURAL_FEATURES or key in RATIO_FEATURES
+    ]
+
+    _l1_normalize_columns(scaled, feature_groups["pos"])
+    _l1_normalize_columns(scaled, feature_groups["dep"])
+
+    if structural_columns:
+        scaled[:, structural_columns] = np.log1p(scaled[:, structural_columns])
+
+    if scalar_columns:
+        means = scaled[:, scalar_columns].mean(axis=0)
+        stds = scaled[:, scalar_columns].std(axis=0)
+        stds[stds == 0.0] = 1.0
+        scaled[:, scalar_columns] = (scaled[:, scalar_columns] - means) / stds
+
+    for columns in feature_groups.values():
+        if columns:
+            scaled[:, columns] /= np.sqrt(len(columns))
+
+    return scaled
+
+
+def _squared_distances(X, Y):
+    XX = np.einsum("ij,ij->i", X, X)[:, None]
+    YY = np.einsum("ij,ij->i", Y, Y)[None, :]
+    return np.maximum(XX + YY - 2.0 * X @ Y.T, 0.0)
+
+
+def _median_gamma(X, Y):
+    distances = _squared_distances(np.vstack((X, Y)), np.vstack((X, Y)))
+    distances = distances[distances > 0.0]
+    if distances.size == 0:
+        return 1.0
+    return 1.0 / (2.0 * np.median(distances))
+
+
+def rbf_kernel(X, Y, gamma):
+    distances = _squared_distances(X, Y)
     return np.exp(-gamma * distances)
 
 
-def compute_mmd(X, Y, gamma=1.0):
+def compute_mmd(X, Y, gamma=None):
+    if X.shape[0] == 0 or Y.shape[0] == 0:
+        raise ValueError("MMD requires at least one sample in each distribution.")
+
+    if gamma is None:
+        gamma = _median_gamma(X, Y)
+
     Kxx = rbf_kernel(X, X, gamma)
     Kyy = rbf_kernel(Y, Y, gamma)
     Kxy = rbf_kernel(X, Y, gamma)
@@ -125,27 +217,37 @@ def compute_mmd(X, Y, gamma=1.0):
     m = X.shape[0]
     n = Y.shape[0]
 
-    mmd = np.sum(Kxx) / (m * m) + np.sum(Kyy) / (n * n) - 2 * np.sum(Kxy) / (m * n)
-
-    return mmd
+    return np.sum(Kxx) / (m * m) + np.sum(Kyy) / (n * n) - 2 * np.sum(Kxy) / (m * n)
 
 
-def compute_mmd_between_distributions(texts_A, texts_B, feature_nlp, gamma=1.0):
-    X, keys_X = build_feature_matrix(texts_A, feature_nlp)
-    Y, keys_Y = build_feature_matrix(texts_B, feature_nlp)
+def compute_mmd_between_distributions(
+    texts_A,
+    texts_B,
+    feature_nlp,
+    gamma=None,
+    return_components=False,
+):
+    features_A = [extract_features(text, feature_nlp) for text in texts_A]
+    features_B = [extract_features(text, feature_nlp) for text in texts_B]
+    all_keys = sorted(set().union(*features_A, *features_B))
 
-    # Align feature spaces
-    all_keys = sorted(set(keys_X).union(keys_Y))
+    X, _ = build_feature_matrix_from_dicts(features_A, all_keys)
+    Y, _ = build_feature_matrix_from_dicts(features_B, all_keys)
+    combined = scale_feature_matrix(np.vstack((X, Y)), all_keys)
+    X_scaled = combined[: len(X)]
+    Y_scaled = combined[len(X) :]
+    overall = compute_mmd(X_scaled, Y_scaled, gamma=gamma)
 
-    def align_matrix(matrix, old_keys, new_keys):
-        key_index = {k: i for i, k in enumerate(old_keys)}
-        aligned = np.zeros((matrix.shape[0], len(new_keys)))
-        for j, k in enumerate(new_keys):
-            if k in key_index:
-                aligned[:, j] = matrix[:, key_index[k]]
-        return aligned
+    if not return_components:
+        return overall
 
-    X_aligned = align_matrix(X, keys_X, all_keys)
-    Y_aligned = align_matrix(Y, keys_Y, all_keys)
+    components = {"overall": overall}
+    for name, columns in get_feature_groups(all_keys).items():
+        if columns:
+            components[name] = compute_mmd(
+                X_scaled[:, columns],
+                Y_scaled[:, columns],
+                gamma=gamma,
+            )
 
-    return compute_mmd(X_aligned, Y_aligned, gamma=gamma)
+    return components
