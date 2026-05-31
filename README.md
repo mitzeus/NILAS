@@ -14,6 +14,10 @@
 
 ---
 
+## Note
+
+This published version of NILAS is in no shape, way, or form complete and do not represent the final product of NILAS. The current project version in this repository is left unfinished and is merely a proof of concept presented in the thesis.
+
 ## About
 
 NILAS (Nuimio Intelligent Language Acquisition System) is a subsystem developed for the award-winning language platform [Nuimio](https://nuimio.com). The project aims to enable seamless integration of AI & Machine Learning into the current algorithmic nature of Nuimio. It uses a flexible architecture built on iterative improvements using a varied set of closed-source models for increased performance.
